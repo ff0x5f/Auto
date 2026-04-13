@@ -22,10 +22,15 @@ jobs:
       - name: Build Arm64 Only
         run: |
           chmod +x gradlew
-          # 移除了引起报错的废弃参数，并使用 -P 指定目标架构以加速构建
+          # 1. 强制清理缓存以避免上一次失败的影响
+          # 2. 禁用增量编译以绕过 D8 的 Kotlin 元数据重写错误
+          # 3. 限制只构建 arm64
           ./gradlew :app:assembleAppRelease \
             -Pandroid.injected.abi.list=arm64-v8a \
-            -Pandroid.kotlin.compiler.incremental=true
+            -Pkotlin.incremental=false \
+            -Pandroid.kotlin.compiler.incremental=false \
+            --no-daemon \
+            --stacktrace
 
       - name: Upload arm64 APK
         uses: actions/upload-artifact@v4
