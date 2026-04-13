@@ -26,7 +26,7 @@ idea {
     }
 }
 
-val globalApplicationId = "org.autojs.autojs6"
+val globalApplicationId = "org.autojs.autojs6.alt"
 
 val flavorDimension = "channel"
 val flavorNameApp = "app"
