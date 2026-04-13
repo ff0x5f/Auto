@@ -20,10 +20,12 @@ jobs:
           cache: gradle
 
       - name: Build Arm64 Only
-        # 仅构建 arm64-v8a 版本的 APK，节省大量链接和压缩时间
         run: |
           chmod +x gradlew
-          ./gradlew assembleInrtRelease assembleAppRelease -Pandroid.bundle.enableUncompressedNativeLibs=false
+          # 移除了引起报错的废弃参数，并使用 -P 指定目标架构以加速构建
+          ./gradlew :app:assembleAppRelease \
+            -Pandroid.injected.abi.list=arm64-v8a \
+            -Pandroid.kotlin.compiler.incremental=true
 
       - name: Upload arm64 APK
         uses: actions/upload-artifact@v4
