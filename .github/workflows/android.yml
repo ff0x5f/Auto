@@ -1,4 +1,4 @@
-name: Android CI
+name: Android CI (Fast Build)
 
 on:
   push:
@@ -9,7 +9,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v4
 
@@ -20,46 +19,15 @@ jobs:
           distribution: 'temurin'
           cache: gradle
 
-      - name: Install CMake 3.10.2 manually
+      - name: Build Arm64 Only
+        # 仅构建 arm64-v8a 版本的 APK，节省大量链接和压缩时间
         run: |
-          wget https://cmake.org/files/v3.10/cmake-3.10.2-Linux-x86_64.sh
-          chmod +x cmake-3.10.2-Linux-x86_64.sh
-          sudo ./cmake-3.10.2-Linux-x86_64.sh --skip-license --prefix=/usr/local
-          
-      - name: Install Ninja
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y ninja-build
+          chmod +x gradlew
+          ./gradlew assembleInrtRelease assembleAppRelease -Pandroid.bundle.enableUncompressedNativeLibs=false
 
-      - name: Grant execute permission for gradlew
-        run: chmod +x gradlew
-
-      - name: Build with Gradle (assembleInrtRelease)
-        run: ./gradlew assembleInrtRelease
-
-      - name: Build with Gradle (assembleAppRelease)
-        run: ./gradlew assembleAppRelease
-
-      - name: Upload arm64 artifacts
-        id: upload-arm64-apk
+      - name: Upload arm64 APK
         uses: actions/upload-artifact@v4
         with:
-          name: release-arm64-apk
+          name: AutoJs6-arm64-v8a
+          # 仅上传 arm64 架构，确保 2021 年后的手机流畅运行
           path: app/build/outputs/apk/app/release/*-arm64-v8a.apk
-        continue-on-error: true
-
-      - name: Upload armv7 artifacts
-        id: upload-armv7-apk
-        uses: actions/upload-artifact@v4
-        with:
-          name: release-armv7-apk
-          path: app/build/outputs/apk/app/release/*-v7a.apk
-        continue-on-error: true
-
-      - name: Upload universal artifacts
-        id: upload-universal-apk
-        uses: actions/upload-artifact@v4
-        with:
-          name: release-universal-apk
-          path: app/build/outputs/apk/app/release/*-universal.apk
-        continue-on-error: true
