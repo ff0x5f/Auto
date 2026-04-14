@@ -456,7 +456,7 @@ dependencies /* Reserved for auto append by IDE */ {
 
 android {
 
-    namespace = globalApplicationId
+    namespace = "org.autojs.autojs6" // 保持原包名，R 类和 BuildConfig 路径不变
     compileSdk = versions.sdkVersionCompile
 
     defaultConfig {
@@ -502,7 +502,7 @@ android {
                     "appName" to "@string/app_name",
                     "intentCategory" to "android.intent.category.LAUNCHER",
                     "intentCategoryInrt" to "android.intent.category.DEFAULT",
-                    "authorities" to "org.autojs.autojs6.fileprovider",
+                    "authorities" to "org.autojs.autojs6.alt.fileprovider",
                     "icon" to "@mipmap/ic_app_launcher_adaptive",
                 )
             )
