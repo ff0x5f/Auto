@@ -1724,4 +1724,5 @@
     <string name="text_clipboard_detected">Clipboard Detected</string>
     <string name="text_clipboard_prompt_content">Clipboard content: \"%s\"\n\nPaste into which session?</string>
     <string name="text_snipe_available_hint">Available 3 min before session</string>
+    <string name="text_snipe_initiated">Snipe initiated</string>
 </resources>

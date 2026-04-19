@@ -52,11 +52,12 @@
 
 ### 启动流程
 
-用户打开 App → SplashActivity（1秒启动页） → 自动跳转 MainActivity
+用户打开 App → SplashActivity（1秒启动页） → 自动跳转 SnipeActivity（抢购页） → 用户点击"Go to Main" → MainActivity
 
 | 阶段 | 代码文件 | 布局文件 |
 |------|---------|---------|
 | 启动页 | `app/src/main/java/org/autojs/autojs/ui/splash/SplashActivity.kt` | `app/src/main/res/layout/activity_splash.xml` |
+| 抢购页 | `app/src/main/java/org/autojs/autojs/ui/snipe/SnipeActivity.kt` | `app/src/main/res/layout/activity_snipe.xml` |
 | 主界面 | `app/src/main/java/org/autojs/autojs/ui/main/MainActivity.kt` | `app/src/main/res/layout/activity_main.xml` |
 
 ### 主界面布局
