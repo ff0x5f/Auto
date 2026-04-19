@@ -268,7 +268,7 @@
         </activity-alias>
 
         <activity
-            android:name="org.autojs.autojs.ui.main.MainActivity"
+            android:name="org.autojs.autojs.ui.snipe.SnipeActivity"
             android:exported="true"
             android:launchMode="singleTask"
             android:theme="@style/AppTheme.FullScreen" />

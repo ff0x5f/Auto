@@ -1706,4 +1706,22 @@
     <string name="text_xiaomi_background_popup_permission">Display pop-up windows while running in the background</string>
     <string name="warn_continue_operation_without_saving_settings">The settings has not been saved, are you sure to continue the operation?</string>
     <string name="warn_exit_without_saving_settings">The settings has not been saved, are you sure to exit?</string>
+
+    <!-- Snipe Activity -->
+    <string name="text_snipe">Flash Sale</string>
+    <string name="text_snipe_session_1">Session 1: %s</string>
+    <string name="text_snipe_session_2">Session 2: %s</string>
+    <string name="text_snipe_countdown_label">Next session in</string>
+    <string name="text_snipe_status_ready">Ready</string>
+    <string name="text_snipe_status_not_ready">Not ready</string>
+    <string name="text_snipe_input_hint">Input text or URL</string>
+    <string name="text_check_ready">Check Ready</string>
+    <string name="text_start_snipe">Start Snipe</string>
+    <string name="text_snipe_started">Started</string>
+    <string name="text_go_to_main">Go to Main ></string>
+    <string name="text_both_sessions_ready">Both sessions are ready!</string>
+    <string name="text_session_not_ready">Sessions not ready: %s</string>
+    <string name="text_clipboard_detected">Clipboard Detected</string>
+    <string name="text_clipboard_prompt_content">Clipboard content: \"%s\"\n\nPaste into which session?</string>
+    <string name="text_snipe_available_hint">Available 3 min before session</string>
 </resources>

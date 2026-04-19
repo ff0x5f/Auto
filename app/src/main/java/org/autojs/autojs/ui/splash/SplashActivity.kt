@@ -6,7 +6,7 @@ import android.os.Handler
 import android.os.Looper
 import org.autojs.autojs.ui.BaseActivity
 import org.autojs.autojs.ui.floating.FloatyWindowManger
-import org.autojs.autojs.ui.main.MainActivity
+import org.autojs.autojs.ui.snipe.SnipeActivity
 import org.autojs.autojs6.databinding.ActivitySplashBinding
 
 /**
@@ -55,7 +55,7 @@ class SplashActivity : BaseActivity() {
     private fun enterNextActivity() {
         if (!mAlreadyEnterNextActivity && !mPaused) {
             mAlreadyEnterNextActivity = true
-            MainActivity.launch(this)
+            SnipeActivity.launch(this)
             finish()
         }
     }
