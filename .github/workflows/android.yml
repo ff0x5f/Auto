@@ -22,10 +22,8 @@ jobs:
       - name: Build Arm64 Only
         run: |
           chmod +x gradlew
-          # 1. 强制清理缓存以避免上一次失败的影响
-          # 2. 禁用增量编译以绕过 D8 的 Kotlin 元数据重写错误
-          # 3. 限制只构建 arm64
-          ./gradlew :app:assembleAppRelease \
+          # 使用 Debug 构建以获得自动签名，可直接安装
+          ./gradlew :app:assembleAppDebug \
             -Pandroid.injected.abi.list=arm64-v8a \
             -Pkotlin.incremental=false \
             -Pandroid.kotlin.compiler.incremental=false \
@@ -36,5 +34,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: AutoJs6-arm64-v8a
-          # 仅上传 arm64 架构，确保 2021 年后的手机流畅运行
-          path: app/build/outputs/apk/app/release/*-arm64-v8a.apk
+          path: app/build/outputs/apk/app/debug/*-arm64-v8a.apk
