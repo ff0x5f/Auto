@@ -211,18 +211,18 @@
         android:orientation="horizontal"
         android:padding="16dp">
 
-        <com.google.android.material.button.MaterialButton
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_check_ready"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:layout_weight="1"
             android:text="@string/text_check_ready" />
 
-        <com.google.android.material.button.MaterialButton
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_start_snipe"
-            style="@style/Widget.MaterialComponents.Button"
+            
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"

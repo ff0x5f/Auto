@@ -24,9 +24,8 @@ jobs:
           chmod +x gradlew
           # 使用 Debug 构建以获得自动签名，可直接安装
           ./gradlew :app:assembleAppDebug \
+            -q \
             -Pandroid.injected.abi.list=arm64-v8a \
-            -Pkotlin.incremental=false \
-            -Pandroid.kotlin.compiler.incremental=false \
             --no-daemon \
             --warning-mode=none \
             2>&1 | grep -v "^WARNING:" | grep -v "D8:" | grep -v "Unexpected error during rewriting of Kotlin metadata"
