@@ -1,28 +1,29 @@
 package org.autojs.autojs.ui.snipe
 
+import android.content.ClipboardManager
 import android.content.Context
-import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.MenuItem
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import com.afollestad.materialdialogs.MaterialDialog
-import org.autojs.autojs.ui.BaseActivity
-import org.autojs.autojs.ui.main.MainActivity
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import org.autojs.autojs.ui.fragment.BindingDelegates.viewBinding
+import org.autojs.autojs.ui.main.ViewPagerFragment
 import org.autojs.autojs.util.ClipboardUtils
-import org.autojs.autojs.util.IntentUtils.startSafely
 import org.autojs.autojs.util.ViewUtils.showToast
 import org.autojs.autojs6.R
-import org.autojs.autojs6.databinding.ActivitySnipeBinding
+import org.autojs.autojs6.databinding.FragmentSnipeBinding
 import java.util.Calendar
 
-class SnipeActivity : BaseActivity() {
+class SnipeFragment : ViewPagerFragment(ROTATION_GONE) {
 
-    private lateinit var binding: ActivitySnipeBinding
+    private val binding by viewBinding(FragmentSnipeBinding::bind)
 
-    // Time slots in minutes from midnight: 00:00, 10:00, 15:00, 20:00
     private val timeSlotsMinutes = listOf(0, 600, 900, 1200)
 
     private var session1SlotMinutes: Int = 0
@@ -37,39 +38,26 @@ class SnipeActivity : BaseActivity() {
 
     private var clipboardPromptShown: Boolean = false
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivitySnipeBinding.inflate(layoutInflater).also {
-            setContentView(it.root)
-            setToolbarAsBack(R.string.text_snipe)
-        }
-        setupToolbarNavigation()
-        updateUpcomingSessions()
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        return inflater.inflate(R.layout.fragment_snipe, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         setupInputListeners()
         setupButtonListeners()
+        updateUpcomingSessions()
         startCountdown()
         checkClipboard()
     }
 
-    override fun onDestroy() {
+    override fun onDestroyView() {
         countDownTimer?.cancel()
-        super.onDestroy()
+        super.onDestroyView()
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            android.R.id.home -> {
-                navigateToMain()
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
-        }
-    }
-
-    private fun setupToolbarNavigation() {
-        binding.toolbar.setNavigationOnClickListener {
-            navigateToMain()
-        }
+    override fun onFabClick(fab: FloatingActionButton) {
+        // No FAB for this fragment
     }
 
     private fun setupInputListeners() {
@@ -88,7 +76,6 @@ class SnipeActivity : BaseActivity() {
     private fun setupButtonListeners() {
         binding.btnCheckReady.setOnClickListener { checkBothReady() }
         binding.btnStartSnipe.setOnClickListener { startSnipe() }
-        binding.textGoToMain.setOnClickListener { navigateToMain() }
     }
 
     private fun updateUpcomingSessions() {
@@ -112,7 +99,6 @@ class SnipeActivity : BaseActivity() {
             }
         }
 
-        // Reset snipe button state when sessions change
         snipeButtonClicked = false
         binding.etSession1.isEnabled = true
         binding.etSession2.isEnabled = true
@@ -160,7 +146,7 @@ class SnipeActivity : BaseActivity() {
 
         countDownTimer = object : CountDownTimer(deltaMillis, 1000L) {
             override fun onTick(millisUntilFinished: Long) {
-                runOnUiThread {
+                activity?.runOnUiThread {
                     val minutes = (millisUntilFinished / 1000L) / 60
                     val seconds = (millisUntilFinished / 1000L) % 60
                     binding.textCountdown.text = String.format("%02d:%02d", minutes, seconds)
@@ -169,7 +155,7 @@ class SnipeActivity : BaseActivity() {
             }
 
             override fun onFinish() {
-                runOnUiThread {
+                activity?.runOnUiThread {
                     updateUpcomingSessions()
                     startCountdown()
                 }
@@ -212,13 +198,13 @@ class SnipeActivity : BaseActivity() {
 
         if (text.isEmpty()) {
             statusText.setText(R.string.text_snipe_status_not_ready)
-            statusText.setTextColor(getColor(android.R.color.darker_gray))
+            statusText.setTextColor(requireContext().getColor(android.R.color.darker_gray))
         } else if (isReady) {
             statusText.setText(R.string.text_snipe_status_ready)
-            statusText.setTextColor(getColor(android.R.color.holo_green_dark))
+            statusText.setTextColor(requireContext().getColor(android.R.color.holo_green_dark))
         } else {
             statusText.setText(R.string.text_snipe_status_not_ready)
-            statusText.setTextColor(getColor(android.R.color.darker_gray))
+            statusText.setTextColor(requireContext().getColor(android.R.color.darker_gray))
         }
 
         return isReady
@@ -228,13 +214,14 @@ class SnipeActivity : BaseActivity() {
         val session1Valid = validateSession(1)
         val session2Valid = validateSession(2)
 
+        val activity = activity ?: return
         if (session1Valid && session2Valid) {
-            showToast(this, R.string.text_both_sessions_ready)
+            showToast(activity, R.string.text_both_sessions_ready)
         } else {
             val missing = mutableListOf<String>()
             if (!session1Valid) missing.add(getString(R.string.text_snipe_session_1, formatTime(session1SlotMinutes)))
             if (!session2Valid) missing.add(getString(R.string.text_snipe_session_2, formatTime(session2SlotMinutes)))
-            showToast(this, getString(R.string.text_session_not_ready, missing.joinToString(", ")))
+            showToast(activity, getString(R.string.text_session_not_ready, missing.joinToString(", ")))
         }
     }
 
@@ -248,14 +235,16 @@ class SnipeActivity : BaseActivity() {
         binding.etSession1.isEnabled = false
         binding.etSession2.isEnabled = false
 
-        showToast(this, R.string.text_snipe_initiated)
+        val activity = activity ?: return
+        showToast(activity, R.string.text_snipe_initiated)
     }
 
     private fun checkClipboard() {
         if (clipboardPromptShown) return
         clipboardPromptShown = true
 
-        val clipText = ClipboardUtils.getClip(this)?.toString()
+        val activity = activity ?: return
+        val clipText = ClipboardUtils.getClip(activity)?.toString()
 
         if (clipText.isNullOrBlank()) return
 
@@ -266,7 +255,7 @@ class SnipeActivity : BaseActivity() {
 
         val preview = if (clipText.length > 50) clipText.take(50) + "..." else clipText
 
-        MaterialDialog.Builder(this)
+        MaterialDialog.Builder(activity)
             .title(R.string.text_clipboard_detected)
             .content(getString(R.string.text_clipboard_prompt_content, preview))
             .items(sessions)
@@ -276,17 +265,5 @@ class SnipeActivity : BaseActivity() {
             }
             .negativeText(R.string.dialog_button_dismiss)
             .show()
-    }
-
-    private fun navigateToMain() {
-        MainActivity.launch(this)
-        finish()
-    }
-
-    companion object {
-        @JvmStatic
-        fun launch(context: Context) {
-            Intent(context, SnipeActivity::class.java).startSafely(context)
-        }
     }
 }

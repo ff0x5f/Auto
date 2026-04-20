@@ -50,6 +50,7 @@ import org.autojs.autojs.ui.main.drawer.DrawerFragment.Companion.Event.OnDrawerO
 import org.autojs.autojs.ui.main.plugin.PluginFragment
 import org.autojs.autojs.ui.main.scripts.ExplorerFragment
 import org.autojs.autojs.ui.main.task.TaskManagerFragment
+import org.autojs.autojs.ui.snipe.SnipeFragment
 import org.autojs.autojs.ui.settings.PreferencesActivity
 import org.autojs.autojs.ui.widget.DrawerAutoClose
 import org.autojs.autojs.ui.widget.SearchViewItem
@@ -272,6 +273,7 @@ class MainActivity : BaseActivity(), DelegateHost, HostActivity {
 
     private fun setUpTabViewPager(binding: ActivityMainBinding) {
         mPagerAdapter = FragmentPagerAdapterBuilder(this)
+            .add(SnipeFragment(), R.string.text_snipe)
             .add(ExplorerFragment(), R.string.text_file)
             .add(DocumentationFragment(), R.string.text_documentation)
             .add(PluginFragment(), R.string.text_plugins)
