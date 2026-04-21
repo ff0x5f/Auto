@@ -1,7 +1,6 @@
 package org.autojs.autojs.ui.snipe
 
-import android.content.ClipboardManager
-import android.content.Context
+import android.app.Activity
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.text.Editable
@@ -9,7 +8,6 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
 import com.afollestad.materialdialogs.MaterialDialog
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import org.autojs.autojs.ui.fragment.BindingDelegates.viewBinding
@@ -58,6 +56,10 @@ class SnipeFragment : ViewPagerFragment(ROTATION_GONE) {
 
     override fun onFabClick(fab: FloatingActionButton) {
         // No FAB for this fragment
+    }
+
+    override fun onBackPressed(activity: Activity): Boolean {
+        return false
     }
 
     private fun setupInputListeners() {
