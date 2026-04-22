@@ -10,7 +10,6 @@ import android.view.View
 import android.view.ViewGroup
 import com.afollestad.materialdialogs.MaterialDialog
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import org.autojs.autojs.ui.fragment.BindingDelegates.viewBinding
 import org.autojs.autojs.ui.main.ViewPagerFragment
 import org.autojs.autojs.util.ClipboardUtils
 import org.autojs.autojs.util.ViewUtils.showToast
@@ -20,7 +19,9 @@ import java.util.Calendar
 
 class SnipeFragment : ViewPagerFragment(ROTATION_GONE) {
 
-    private val binding by viewBinding(FragmentSnipeBinding::bind)
+    private var _binding: FragmentSnipeBinding? = null
+    private val binding: FragmentSnipeBinding
+        get() = _binding!!
 
     private val timeSlotsMinutes = listOf(0, 600, 900, 1200)
 
@@ -37,7 +38,8 @@ class SnipeFragment : ViewPagerFragment(ROTATION_GONE) {
     private var clipboardPromptShown: Boolean = false
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        return inflater.inflate(R.layout.fragment_snipe, container, false)
+        _binding = FragmentSnipeBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -51,6 +53,7 @@ class SnipeFragment : ViewPagerFragment(ROTATION_GONE) {
 
     override fun onDestroyView() {
         countDownTimer?.cancel()
+        _binding = null
         super.onDestroyView()
     }
 
@@ -81,6 +84,7 @@ class SnipeFragment : ViewPagerFragment(ROTATION_GONE) {
     }
 
     private fun updateUpcomingSessions() {
+        val ctx = context ?: return
         val now = Calendar.getInstance()
         val currentMinutes = now.get(Calendar.HOUR_OF_DAY) * 60 + now.get(Calendar.MINUTE)
 
