@@ -1,0 +1,37 @@
+name: Android CI (Fast Build)
+
+on:
+  push:
+    branches: [ "master", "dev" ]
+  pull_request:
+    branches: [ "master", "dev" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+          cache: gradle
+
+      - name: Build Arm64 Only
+        run: |
+          chmod +x gradlew
+          # 使用 Debug 构建以获得自动签名，可直接安装
+          ./gradlew :app:assembleAppDebug \
+            -q \
+            -Pandroid.injected.abi.list=arm64-v8a \
+            --no-daemon \
+            --warning-mode=none \
+            2>&1 | grep -v "^WARNING:" | grep -v "D8:" | grep -v "Unexpected error during rewriting of Kotlin metadata"
+
+      - name: Upload arm64 APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: AutoJs6-arm64-v8a
+          path: app/build/outputs/apk/app/debug/*-arm64-v8a.apk
