@@ -23,9 +23,8 @@ jobs:
         run: |
           chmod +x gradlew
           # 使用 Debug 构建以获得自动签名，可直接安装
-          ./gradlew :app:assembleAppDebug \
+          ./gradlew :app:assembleDebug \
             -q \
-            -Pandroid.injected.abi.list=arm64-v8a \
             --no-daemon \
             --warning-mode=none \
             2>&1 | grep -v "^WARNING:" | grep -v "D8:" | grep -v "Unexpected error during rewriting of Kotlin metadata"
@@ -34,4 +33,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: AutoJs6-arm64-v8a
-          path: app/build/outputs/apk/app/debug/*-arm64-v8a.apk
+          path: app/build/outputs/apk/debug/*-arm64-v8a.apk
