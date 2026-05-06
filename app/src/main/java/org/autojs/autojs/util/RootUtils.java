@@ -6,8 +6,6 @@ import static org.autojs.autojs.util.StringUtils.str;
 
 import androidx.annotation.NonNull;
 
-import com.stericson.RootShell.RootShell;
-
 import org.autojs.autojs.pref.Pref;
 import org.autojs.autojs.runtime.api.ProcessShell;
 import org.autojs.autojs6.R;
@@ -85,19 +83,8 @@ public class RootUtils {
     }
 
     public static boolean isRootAvailable() {
-        RootMode rootMode = getRootMode();
-        return rootMode == RootMode.AUTO_DETECT
-                ? getRootStateWithRootShell()
-                : rootMode == RootMode.FORCE_ROOT;
-    }
-
-    private static boolean getRootStateWithRootShell() {
-        try {
-            return RootShell.isRootAvailable();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
+        // Root functionality is no longer supported
+        return false;
     }
 
     public static boolean togglePointerLocation() {

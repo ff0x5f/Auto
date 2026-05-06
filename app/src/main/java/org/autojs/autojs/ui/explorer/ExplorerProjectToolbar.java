@@ -19,7 +19,6 @@ import org.autojs.autojs.model.explorer.Explorers;
 import org.autojs.autojs.pio.PFile;
 import org.autojs.autojs.project.ProjectConfig;
 import org.autojs.autojs.project.ProjectLauncher;
-import org.autojs.autojs.ui.project.BuildActivity;
 import org.autojs.autojs.ui.project.ProjectConfigActivity;
 import org.autojs.autojs.ui.project.ProjectConfigActivity_;
 import org.autojs.autojs6.R;
@@ -91,13 +90,6 @@ public class ExplorerProjectToolbar extends CardView {
         if (mOnOperateListener != null) {
             mOnOperateListener.onOperated(findViewById(R.id.commands));
         }
-    }
-
-    @OnClick(R.id.project_build)
-    void build() {
-        new BuildActivity.IntentBuilder(getContext())
-                .extra(mDirectory.getPath())
-                .start();
     }
 
     @Override

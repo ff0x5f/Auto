@@ -19,7 +19,6 @@ import org.autojs.autojs.pref.Pref;
 import org.autojs.autojs.script.JavaScriptSource;
 import org.autojs.autojs.ui.common.NotAskAgainDialog;
 import org.autojs.autojs.ui.edit.editor.CodeEditor;
-import org.autojs.autojs.ui.project.BuildActivity;
 import org.autojs.autojs.util.ClipboardUtils;
 import org.autojs.autojs.util.ConsoleUtils;
 import org.autojs.autojs.util.IntentUtils;
@@ -142,10 +141,6 @@ public class EditorMenu {
             showInfo();
             return true;
         }
-        if (itemId == R.id.action_build_apk) {
-            startBuildApkActivity();
-            return true;
-        }
         return false;
     }
 
@@ -193,12 +188,6 @@ public class EditorMenu {
                 .onNeutral((ignored, which) -> IntentUtils.browse(mContext, item.getUrl()))
                 .onAny((ignored, which) -> dialog.dismiss())
                 .show();
-    }
-
-    private void startBuildApkActivity() {
-        new BuildActivity.IntentBuilder(mContext)
-                .extra(mEditorView.getUri().getPath())
-                .start();
     }
 
     private void setPinchToZoomStrategy() {
