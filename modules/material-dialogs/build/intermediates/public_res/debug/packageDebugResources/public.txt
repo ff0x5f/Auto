@@ -1,0 +1,2 @@
+drawable dummy1
+drawable dummy2

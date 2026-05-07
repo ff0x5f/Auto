@@ -177,6 +177,10 @@
                 android:name="org.autojs.autojs.external.tasker.TaskerScriptEditActivity_"
                 android:configChanges="orientation|keyboardHidden|screenSize|locale" />
 
+        <activity
+                android:name="org.autojs.autojs.ui.project.BuildActivity_"
+                android:configChanges="orientation|keyboardHidden|screenSize|locale" />
+
         <activity android:name="org.autojs.autojs.ui.project.ProjectConfigActivity_" />
 
         <activity android:name="org.autojs.autojs.ui.log.LogActivity_" />

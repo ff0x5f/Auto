@@ -1,0 +1,22 @@
+R_DEF: Internal format may change without notice
+local
+attr? ael_defaultChildIndex
+attr? ael_defaultPosition
+attr? ael_duration
+attr? ael_expanded
+attr? ael_interpolator
+attr? ael_orientation
+id accelerate
+id accelerateDecelerate
+id anticipate
+id anticipateOvershoot
+id bounce
+id decelerate
+id fastOutLinearIn
+id fastOutSlowIn
+id horizontal
+id linear
+id linearOutSlowIn
+id overshoot
+id vertical
+styleable expandableLayout ael_duration ael_expanded ael_defaultChildIndex ael_defaultPosition ael_orientation ael_interpolator

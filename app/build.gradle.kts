@@ -77,6 +77,8 @@ dependencies /* Unclassified */ {
     // Preference
     implementation("androidx.preference:preference-ktx:1.2.0")
 
+    // RootShell
+    implementation("com.github.Stericson:RootShell:1.6")
 
     // JDeferred
     implementation("org.jdeferred:jdeferred-android-aar:1.2.6")
@@ -97,7 +99,7 @@ dependencies /* Unclassified */ {
     implementation(project(":libs:jackpal.androidterm-1.0.70"))
 
     // Dex
-    implementation(files("$rootDir/libs/com-legacy-android-dx-1_7_0.jar"))
+    implementation(files("$rootDir/libs/com.android.dx-1.7.0.jar"))
 
     // LocaleHelper
     implementation(project(":libs:com.zeugmasolutions.localehelper-1.5.1"))
@@ -109,10 +111,10 @@ dependencies /* Unclassified */ {
     implementation(project(":libs:android-job-simplified-1.4.3"))
 
     // Rhino
-    implementation(files("$rootDir/libs/org-mozilla-rhino-2_0_0-SNAPSHOT.jar"))
+    implementation(files("$rootDir/libs/org.mozilla.rhino-1.7.15-snapshot.jar"))
 
     // Tasker Plugin
-    implementation(files("$rootDir/libs/android-plugin-client-sdk-for-locale-9_0_0/android-plugin-client-sdk-for-locale-9.0.0.aar"))
+    implementation(files("$rootDir/libs/android-plugin-client-sdk-for-locale-9.0.0.jar"))
 }
 
 dependencies /* Test */ {
@@ -191,7 +193,7 @@ dependencies /* View */ {
 }
 
 dependencies /* GitHub API */ {
-    implementation(files("$rootDir/libs/github-api-1_306.jar"))
+    implementation(files("$rootDir/libs/github-api-1.306.jar"))
 
     implementation("commons-io:commons-io") {
         version {
@@ -225,6 +227,8 @@ dependencies /* Auto.js Extensions */ {
     implementation("androidx.recyclerview:recyclerview:1.2.1")
     implementation("com.github.ozodrukh:CircularReveal:2.0.1")
 
+    // Auto.js APK Builder
+    implementation("com.github.hyb1996:Auto.js-ApkBuilder:1.0.3")
 }
 
 dependencies /* Archived */ {

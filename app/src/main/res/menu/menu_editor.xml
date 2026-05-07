@@ -111,6 +111,11 @@
     </item>
 
     <item
+            android:id="@+id/action_build_apk"
+            android:title="@string/text_build_apk"
+            app:showAsAction="never" />
+
+    <item
             android:id="@+id/action_log"
             android:title="@string/text_log"
             app:showAsAction="never" />

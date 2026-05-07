@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merger version="3" xmlns:ns1="http://schemas.android.com/tools"><dataSet aapt-namespace="http://schemas.android.com/apk/res-auto" config="main$Generated" generated="true" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="/home/code/Auto/modules/material-dialogs/src/main/res"/></dataSet><dataSet aapt-namespace="http://schemas.android.com/apk/res-auto" config="main" generated-set="main$Generated" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~:!&lt;dir>navigation"><source path="/home/code/Auto/modules/material-dialogs/src/main/res"><file name="md_listitem_singlechoice" path="/home/code/Auto/modules/material-dialogs/src/main/res/layout-ldrtl/md_listitem_singlechoice.xml" qualifiers="ldrtl-v17" type="layout"/><file name="md_listitem_multichoice" path="/home/code/Auto/modules/material-dialogs/src/main/res/layout-ldrtl/md_listitem_multichoice.xml" qualifiers="ldrtl-v17" type="layout"/><file name="popup_enter" path="/home/code/Auto/modules/material-dialogs/src/main/res/anim/popup_enter.xml" qualifiers="" type="anim"/><file name="popup_exit" path="/home/code/Auto/modules/material-dialogs/src/main/res/anim/popup_exit.xml" qualifiers="" type="anim"/><file name="decelerate_cubic" path="/home/code/Auto/modules/material-dialogs/src/main/res/anim/decelerate_cubic.xml" qualifiers="" type="anim"/><file path="/home/code/Auto/modules/material-dialogs/src/main/res/values-v11/styles.xml" qualifiers="v11"><style name="MD_Light" parent="Theme.AppCompat.Light.Dialog.Alert">
+    <item name="android:windowMinWidthMajor">@dimen/abc_dialog_min_width_major</item>
+    <item name="android:windowMinWidthMinor">@dimen/abc_dialog_min_width_minor</item>
+
+    <item name="md_divider">@color/md_divider_black</item>
+    <item name="md_list_selector">@drawable/md_selector</item>
+    <item name="md_btn_stacked_selector">@drawable/md_selector</item>
+    <item name="md_btn_positive_selector">@drawable/md_btn_selector</item>
+    <item name="md_btn_neutral_selector">@drawable/md_btn_selector</item>
+    <item name="md_btn_negative_selector">@drawable/md_btn_selector</item>
+
+    <item name="android:actionModeBackground">@color/primary_material_dark</item>
+    <item name="android:actionModeCloseDrawable">@drawable/md_nav_back</item>
+
+    <item name="android:windowAnimationStyle">@style/MD_WindowAnimation</item>
+    <item name="android:backgroundDimEnabled">true</item>
+  </style><style name="MD_Dark" parent="Theme.AppCompat.Dialog.Alert">
+    <item name="android:windowMinWidthMajor">@dimen/abc_dialog_min_width_major</item>
+    <item name="android:windowMinWidthMinor">@dimen/abc_dialog_min_width_minor</item>
+
+    <item name="md_divider">@color/md_divider_white</item>
+    <item name="md_list_selector">@drawable/md_selector_dark</item>
+    <item name="md_btn_stacked_selector">@drawable/md_selector_dark</item>
+    <item name="md_btn_positive_selector">@drawable/md_btn_selector_dark</item>
+    <item name="md_btn_neutral_selector">@drawable/md_btn_selector_dark</item>
+    <item name="md_btn_negative_selector">@drawable/md_btn_selector_dark</item>
+
+    <item name="android:actionModeBackground">@color/primary_material_dark</item>
+    <item name="android:actionModeCloseDrawable">@drawable/md_nav_back</item>
+
+    <item name="android:windowAnimationStyle">@style/MD_WindowAnimation</item>
+    <item name="android:backgroundDimEnabled">true</item>
+  </style></file><file path="/home/code/Auto/modules/material-dialogs/src/main/res/values/ids.xml" qualifiers=""><item name="menu_options_item_index_0" type="id"/><item name="menu_options_item_index_1" type="id"/><item name="menu_options_item_index_2" type="id"/><item name="menu_options_item_index_3" type="id"/><item name="menu_options_item_index_4" type="id"/><item name="menu_options_item_index_5" type="id"/><item name="menu_options_item_index_6" type="id"/><item name="menu_options_item_index_7" type="id"/><item name="menu_options_item_index_8" type="id"/><item name="menu_options_item_index_9" type="id"/></file><file path="/home/code/Auto/modules/material-dialogs/src/main/res/values/public.xml" qualifiers=""><public name="dummy1" type="drawable"/><public name="dummy2" type="drawable"/></file><file path="/home/code/Auto/modules/material-dialogs/src/main/res/values/styles.xml" qualifiers=""><style name="MD_Light" parent="Theme.AppCompat.Light.Dialog.Alert">
+    <item name="md_divider">@color/md_divider_black</item>
+    <item name="md_list_selector">@drawable/md_selector</item>
+    <item name="md_btn_stacked_selector">@drawable/md_selector</item>
+    <item name="md_btn_positive_selector">@drawable/md_btn_selector</item>
+    <item name="md_btn_neutral_selector">@drawable/md_btn_selector</item>
+    <item name="md_btn_negative_selector">@drawable/md_btn_selector</item>
+
+    <item name="android:windowAnimationStyle">@style/MD_WindowAnimation</item>
+    <item name="android:backgroundDimEnabled">true</item>
+  </style><style name="MD_Dark" parent="Theme.AppCompat.Dialog.Alert">
+    <item name="md_divider">@color/md_divider_white</item>
+    <item name="md_list_selector">@drawable/md_selector_dark</item>
+    <item name="md_btn_stacked_selector">@drawable/md_selector_dark</item>
+    <item name="md_btn_positive_selector">@drawable/md_btn_selector_dark</item>
+    <item name="md_btn_neutral_selector">@drawable/md_btn_selector_dark</item>
+    <item name="md_btn_negative_selector">@drawable/md_btn_selector_dark</item>
+
+    <item name="android:windowAnimationStyle">@style/MD_WindowAnimation</item>
+    <item name="android:backgroundDimEnabled">true</item>
+  </style><style name="MD_ActionButtonStacked" ns1:ignore="NewApi" parent="@style/MD_ActionButton">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:paddingLeft">@dimen/md_button_padding_horizontal_internalexternal</item>
+    <item name="android:paddingStart">@dimen/md_button_padding_horizontal_internalexternal
+    </item>
+    <item name="android:paddingRight">@dimen/md_button_padding_horizontal_internalexternal
+    </item>
+    <item name="android:paddingEnd">@dimen/md_button_padding_horizontal_internalexternal</item>
+  </style><style name="MD_ActionButton">
+    <item name="android:layout_width">wrap_content</item>
+    <item name="android:layout_height">@dimen/md_button_height</item>
+    <item name="android:layout_gravity">center_vertical</item>
+  </style><style name="MD_ActionButton.Text" ns1:ignore="NewApi">
+    <item name="android:textSize">@dimen/md_button_textsize</item>
+    <item name="android:singleLine">true</item>
+    <item name="android:layout_gravity">center_vertical</item>
+    <item name="android:gravity">center</item>
+    <item name="android:stateListAnimator">@null</item>
+    <item name="android:background">@null</item>
+    <item name="android:minWidth">@dimen/md_button_min_width</item>
+    <item name="android:paddingLeft">@dimen/md_button_textpadding_horizontal</item>
+    <item name="android:paddingRight">@dimen/md_button_textpadding_horizontal</item>
+  </style><style name="MD_WindowAnimation">
+    <item name="android:windowEnterAnimation">@anim/popup_enter</item>
+    <item name="android:windowExitAnimation">@anim/popup_exit</item>
+  </style></file><file path="/home/code/Auto/modules/material-dialogs/src/main/res/values/dimens.xml" qualifiers=""><dimen name="md_dialog_frame_margin">24dp</dimen><dimen name="md_title_frame_margin_bottom">12dp</dimen><dimen name="md_title_frame_margin_bottom_less">6dp</dimen><dimen name="md_notitle_vertical_padding">16dp</dimen><dimen name="md_notitle_vertical_padding_more">20dp</dimen><dimen name="md_content_padding_top">8dp</dimen><dimen name="md_simplelistitem_padding_top">8dp</dimen><dimen name="md_button_min_width">72dp</dimen><dimen name="md_button_inset_vertical">6dp</dimen><dimen name="md_button_inset_horizontal">4dp</dimen><dimen name="md_button_textpadding_horizontal">1dp</dimen><dimen name="md_button_padding_horizontal">8dp</dimen><dimen name="md_button_padding_vertical">4dp</dimen><dimen name="md_button_padding_horizontal_internalexternal">32dp</dimen><dimen name="md_button_padding_frame_side">12dp</dimen><dimen name="md_neutral_button_margin">12dp</dimen><dimen name="md_content_padding_bottom">8dp</dimen><dimen name="md_button_frame_vertical_padding">8dp</dimen><dimen name="md_button_height">48dp</dimen><dimen name="md_title_textsize">20sp</dimen><dimen name="md_content_textsize">16sp</dimen><dimen name="md_button_textsize">14sp</dimen><dimen name="md_listitem_textsize">16sp</dimen><dimen name="md_listitem_height">48dp</dimen><dimen name="md_listitem_control_margin">6dp</dimen><dimen name="md_icon_margin">16dp</dimen><dimen name="md_icon_max_size">48dp</dimen><dimen name="md_listitem_margin_left">24dp</dimen><dimen name="md_action_corner_radius">2dp</dimen><dimen name="md_divider_height">1dp</dimen><dimen name="md_bg_corner_radius">2dp</dimen><dimen name="circular_progress_border">4dp</dimen><dimen name="md_listitem_vertical_margin">12dp</dimen><dimen name="md_listitem_vertical_margin_choice">8dp</dimen><dimen name="md_dialog_max_width">356dp</dimen><dimen name="md_dialog_vertical_margin">52dp</dimen><dimen name="md_dialog_horizontal_margin">28dp</dimen><dimen name="md_simpleitem_height">62dp</dimen><dimen name="md_simplelist_icon">40dp</dimen><dimen name="md_simplelist_icon_margin">16dp</dimen><dimen name="md_simplelist_textsize">18sp</dimen><dimen name="md_preference_content_inset">16dp</dimen><dimen name="md_colorchooser_circlesize">56dp</dimen></file><file path="/home/code/Auto/modules/material-dialogs/src/main/res/values/colors.xml" qualifiers=""><color name="md_btn_selected">#33969696</color><color name="md_btn_selected_dark">#40CBCBCB</color><color name="md_divider_black">#10000000</color><color name="md_divider_white">#10FFFFFF</color><color name="md_material_blue_600">#2196F3</color><color name="md_material_blue_800">#1565C0</color><color name="md_edittext_error">#DD2C00</color></file><file path="/home/code/Auto/modules/material-dialogs/src/main/res/values/attrs.xml" qualifiers=""><attr format="color" name="md_divider"/><attr format="boolean" name="md_dark_theme"/><attr format="color" name="md_background_color"/><attr format="reference" name="md_icon"/><attr format="dimension" name="md_icon_max_size"/><attr format="boolean" name="md_icon_limit_icon_to_default_size"/><attr format="color" name="md_title_color"/><attr format="color" name="md_content_color"/><attr format="color" name="md_link_color"/><attr format="color" name="md_positive_color"/><attr format="color" name="md_neutral_color"/><attr format="color" name="md_negative_color"/><attr format="color" name="md_widget_color"/><attr format="color" name="md_item_color"/><attr format="color" name="md_divider_color"/><attr format="reference" name="md_list_selector"/><attr format="reference" name="md_btn_stacked_selector"/><attr format="reference" name="md_btn_positive_selector"/><attr format="reference" name="md_btn_neutral_selector"/><attr format="reference" name="md_btn_negative_selector"/><attr format="color" name="md_btn_ripple_color"/><attr format="enum" name="md_title_gravity">
+        <enum name="start" value="0"/>
+        <enum name="center" value="1"/>
+        <enum name="end" value="2"/>
+    </attr><attr format="enum" name="md_content_gravity">
+        <enum name="start" value="0"/>
+        <enum name="center" value="1"/>
+        <enum name="end" value="2"/>
+    </attr><attr format="enum" name="md_btnstacked_gravity">
+        <enum name="start" value="0"/>
+        <enum name="center" value="1"/>
+        <enum name="end" value="2"/>
+    </attr><attr format="enum" name="md_items_gravity">
+        <enum name="start" value="0"/>
+        <enum name="center" value="1"/>
+        <enum name="end" value="2"/>
+    </attr><attr format="enum" name="md_buttons_gravity">
+        <enum name="start" value="0"/>
+        <enum name="center" value="1"/>
+        <enum name="end" value="2"/>
+    </attr><declare-styleable name="MDRootLayout">
+        <attr format="boolean" name="md_reduce_padding_no_title_no_buttons"/>
+    </declare-styleable><attr format="string" name="md_medium_font"/><attr format="string" name="md_regular_font"/><declare-styleable name="Preference">
+        <attr format="boolean" name="useStockLayout"/>
+    </declare-styleable></file><file path="/home/code/Auto/modules/material-dialogs/src/main/res/values/strings.xml" qualifiers=""><string name="md_back_label">Back</string><string name="md_done_label">Done</string><string name="md_cancel_label">Cancel</string><string name="md_choose_label">Choose</string><string name="md_error_label">Error</string><string name="md_storage_perm_error">Your app has not been granted the READ_EXTERNAL_STORAGE permission.</string><string name="md_custom_label">Custom</string><string name="md_presets_label">Presets</string><string name="new_folder">New Folder</string></file><file name="md_btn_selected_dark" path="/home/code/Auto/modules/material-dialogs/src/main/res/drawable/md_btn_selected_dark.xml" qualifiers="" type="drawable"/><file name="md_item_selected" path="/home/code/Auto/modules/material-dialogs/src/main/res/drawable/md_item_selected.xml" qualifiers="" type="drawable"/><file name="md_nav_back" path="/home/code/Auto/modules/material-dialogs/src/main/res/drawable/md_nav_back.xml" qualifiers="" type="drawable"/><file name="md_btn_selector_dark" path="/home/code/Auto/modules/material-dialogs/src/main/res/drawable/md_btn_selector_dark.xml" qualifiers="" type="drawable"/><file name="gray_circle" path="/home/code/Auto/modules/material-dialogs/src/main/res/drawable/gray_circle.xml" qualifiers="" type="drawable"/><file name="md_btn_selector" path="/home/code/Auto/modules/material-dialogs/src/main/res/drawable/md_btn_selector.xml" qualifiers="" type="drawable"/><file name="md_ic_more" path="/home/code/Auto/modules/material-dialogs/src/main/res/drawable/md_ic_more.png" qualifiers="" type="drawable"/><file name="md_selector" path="/home/code/Auto/modules/material-dialogs/src/main/res/drawable/md_selector.xml" qualifiers="" type="drawable"/><file name="md_selector_dark" path="/home/code/Auto/modules/material-dialogs/src/main/res/drawable/md_selector_dark.xml" qualifiers="" type="drawable"/><file name="md_btn_selected" path="/home/code/Auto/modules/material-dialogs/src/main/res/drawable/md_btn_selected.xml" qualifiers="" type="drawable"/><file name="md_item_selected_dark" path="/home/code/Auto/modules/material-dialogs/src/main/res/drawable/md_item_selected_dark.xml" qualifiers="" type="drawable"/><file name="md_transparent" path="/home/code/Auto/modules/material-dialogs/src/main/res/drawable/md_transparent.xml" qualifiers="" type="drawable"/><file path="/home/code/Auto/modules/material-dialogs/src/main/res/values-sw720dp/dimens.xml" qualifiers="sw720dp-v13"><dimen name="md_dialog_max_width">496dp</dimen></file><file name="md_btn_shape" path="/home/code/Auto/modules/material-dialogs/src/main/res/drawable-v21/md_btn_shape.xml" qualifiers="v21" type="drawable"/><file name="md_btn_selector_ripple_dark" path="/home/code/Auto/modules/material-dialogs/src/main/res/drawable-v21/md_btn_selector_ripple_dark.xml" qualifiers="v21" type="drawable"/><file name="md_btn_selector_ripple" path="/home/code/Auto/modules/material-dialogs/src/main/res/drawable-v21/md_btn_selector_ripple.xml" qualifiers="v21" type="drawable"/><file path="/home/code/Auto/modules/material-dialogs/src/main/res/values-large/dimens.xml" qualifiers="large-v4"><dimen name="md_preference_content_inset">28dp</dimen></file><file name="md_stub_titleframe" path="/home/code/Auto/modules/material-dialogs/src/main/res/layout/md_stub_titleframe.xml" qualifiers="" type="layout"/><file name="md_dialog_list_check" path="/home/code/Auto/modules/material-dialogs/src/main/res/layout/md_dialog_list_check.xml" qualifiers="" type="layout"/><file name="md_dialog_basic_check" path="/home/code/Auto/modules/material-dialogs/src/main/res/layout/md_dialog_basic_check.xml" qualifiers="" type="layout"/><file name="md_listitem_singlechoice" path="/home/code/Auto/modules/material-dialogs/src/main/res/layout/md_listitem_singlechoice.xml" qualifiers="" type="layout"/><file name="md_listitem_multichoice" path="/home/code/Auto/modules/material-dialogs/src/main/res/layout/md_listitem_multichoice.xml" qualifiers="" type="layout"/><file name="md_stub_inputpref" path="/home/code/Auto/modules/material-dialogs/src/main/res/layout/md_stub_inputpref.xml" qualifiers="" type="layout"/><file name="md_stub_titleframe_lesspadding" path="/home/code/Auto/modules/material-dialogs/src/main/res/layout/md_stub_titleframe_lesspadding.xml" qualifiers="" type="layout"/><file name="md_stub_progress_indeterminate_horizontal" path="/home/code/Auto/modules/material-dialogs/src/main/res/layout/md_stub_progress_indeterminate_horizontal.xml" qualifiers="" type="layout"/><file name="md_stub_actionbuttons" path="/home/code/Auto/modules/material-dialogs/src/main/res/layout/md_stub_actionbuttons.xml" qualifiers="" type="layout"/><file name="md_dialog_progress" path="/home/code/Auto/modules/material-dialogs/src/main/res/layout/md_dialog_progress.xml" qualifiers="" type="layout"/><file name="md_stub_colorchooser_grid" path="/home/code/Auto/modules/material-dialogs/src/main/res/layout/md_stub_colorchooser_grid.xml" qualifiers="" type="layout"/><file name="md_dialog_input" path="/home/code/Auto/modules/material-dialogs/src/main/res/layout/md_dialog_input.xml" qualifiers="" type="layout"/><file name="md_stub_progress" path="/home/code/Auto/modules/material-dialogs/src/main/res/layout/md_stub_progress.xml" qualifiers="" type="layout"/><file name="md_dialog_basic" path="/home/code/Auto/modules/material-dialogs/src/main/res/layout/md_dialog_basic.xml" qualifiers="" type="layout"/><file name="md_dialog_progress_indeterminate_horizontal" path="/home/code/Auto/modules/material-dialogs/src/main/res/layout/md_dialog_progress_indeterminate_horizontal.xml" qualifiers="" type="layout"/><file name="md_dialog_list" path="/home/code/Auto/modules/material-dialogs/src/main/res/layout/md_dialog_list.xml" qualifiers="" type="layout"/><file name="md_preference_custom" path="/home/code/Auto/modules/material-dialogs/src/main/res/layout/md_preference_custom.xml" qualifiers="" type="layout"/><file name="md_listitem" path="/home/code/Auto/modules/material-dialogs/src/main/res/layout/md_listitem.xml" qualifiers="" type="layout"/><file name="md_dialog_colorchooser" path="/home/code/Auto/modules/material-dialogs/src/main/res/layout/md_dialog_colorchooser.xml" qualifiers="" type="layout"/><file name="md_dialog_progress_indeterminate" path="/home/code/Auto/modules/material-dialogs/src/main/res/layout/md_dialog_progress_indeterminate.xml" qualifiers="" type="layout"/><file name="md_simplelist_item" path="/home/code/Auto/modules/material-dialogs/src/main/res/layout/md_simplelist_item.xml" qualifiers="" type="layout"/><file name="md_stub_colorchooser_custom" path="/home/code/Auto/modules/material-dialogs/src/main/res/layout/md_stub_colorchooser_custom.xml" qualifiers="" type="layout"/><file name="md_dialog_custom" path="/home/code/Auto/modules/material-dialogs/src/main/res/layout/md_dialog_custom.xml" qualifiers="" type="layout"/><file name="md_stub_progress_indeterminate" path="/home/code/Auto/modules/material-dialogs/src/main/res/layout/md_stub_progress_indeterminate.xml" qualifiers="" type="layout"/><file name="md_dialog_input_check" path="/home/code/Auto/modules/material-dialogs/src/main/res/layout/md_dialog_input_check.xml" qualifiers="" type="layout"/><file name="md_stub_progress_indeterminate_horizontal" path="/home/code/Auto/modules/material-dialogs/src/main/res/layout-v14/md_stub_progress_indeterminate_horizontal.xml" qualifiers="v14" type="layout"/><file name="md_stub_progress" path="/home/code/Auto/modules/material-dialogs/src/main/res/layout-v14/md_stub_progress.xml" qualifiers="v14" type="layout"/><file name="md_stub_progress_indeterminate" path="/home/code/Auto/modules/material-dialogs/src/main/res/layout-v14/md_stub_progress_indeterminate.xml" qualifiers="v14" type="layout"/><file path="/home/code/Auto/modules/material-dialogs/src/main/res/values-sw720dp-land/dimens.xml" qualifiers="sw720dp-land-v13"><dimen name="md_dialog_max_width">564dp</dimen></file><file path="/home/code/Auto/modules/material-dialogs/src/main/res/values-sw600dp/dimens.xml" qualifiers="sw600dp-v13"><dimen name="md_dialog_max_width">446dp</dimen></file><file path="/home/code/Auto/modules/material-dialogs/src/main/res/values-v21/styles.xml" qualifiers="v21"><style name="MD_Light" parent="Theme.AppCompat.Light.Dialog.Alert">
+    <item name="android:windowMinWidthMajor">@dimen/abc_dialog_min_width_major</item>
+    <item name="android:windowMinWidthMinor">@dimen/abc_dialog_min_width_minor</item>
+
+    <item name="md_divider">@color/md_divider_black</item>
+    <item name="md_list_selector">?android:selectableItemBackground</item>
+    <item name="md_btn_stacked_selector">?android:selectableItemBackground</item>
+    <item name="md_btn_positive_selector">@drawable/md_btn_selector_ripple</item>
+    <item name="md_btn_neutral_selector">@drawable/md_btn_selector_ripple</item>
+    <item name="md_btn_negative_selector">@drawable/md_btn_selector_ripple</item>
+  </style><style name="MD_Dark" parent="Theme.AppCompat.Dialog.Alert">
+    <item name="android:windowMinWidthMajor">@dimen/abc_dialog_min_width_major</item>
+    <item name="android:windowMinWidthMinor">@dimen/abc_dialog_min_width_minor</item>
+
+    <item name="md_divider">@color/md_divider_white</item>
+    <item name="md_list_selector">?android:selectableItemBackground</item>
+    <item name="md_btn_stacked_selector">?android:selectableItemBackground</item>
+    <item name="md_btn_positive_selector">@drawable/md_btn_selector_ripple_dark</item>
+    <item name="md_btn_neutral_selector">@drawable/md_btn_selector_ripple_dark</item>
+    <item name="md_btn_negative_selector">@drawable/md_btn_selector_ripple_dark</item>
+  </style></file><file name="md_more_options" path="/home/code/Auto/modules/material-dialogs/src/main/res/menu/md_more_options.xml" qualifiers="" type="menu"/></source></dataSet><dataSet aapt-namespace="http://schemas.android.com/apk/res-auto" config="debug$Generated" generated="true" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="/home/code/Auto/modules/material-dialogs/src/debug/res"/></dataSet><dataSet aapt-namespace="http://schemas.android.com/apk/res-auto" config="debug" generated-set="debug$Generated" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~:!&lt;dir>navigation"><source path="/home/code/Auto/modules/material-dialogs/src/debug/res"/></dataSet><dataSet aapt-namespace="http://schemas.android.com/apk/res-auto" config="generated$Generated" generated="true" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"/><dataSet aapt-namespace="http://schemas.android.com/apk/res-auto" config="generated" generated-set="generated$Generated" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~:!&lt;dir>navigation"/><mergedItems><configuration qualifiers=""><declare-styleable name="Preference">
+        <attr format="boolean" name="useStockLayout"/>
+    </declare-styleable><declare-styleable name="MDRootLayout">
+        <attr format="boolean" name="md_reduce_padding_no_title_no_buttons"/>
+    </declare-styleable></configuration></mergedItems></merger>
