@@ -77,9 +77,6 @@ dependencies /* Unclassified */ {
     // Preference
     implementation("androidx.preference:preference-ktx:1.2.0")
 
-    // RootShell
-    implementation("com.github.Stericson:RootShell:1.6")
-
     // JDeferred
     implementation("org.jdeferred:jdeferred-android-aar:1.2.6")
 
@@ -227,8 +224,6 @@ dependencies /* Auto.js Extensions */ {
     implementation("androidx.recyclerview:recyclerview:1.2.1")
     implementation("com.github.ozodrukh:CircularReveal:2.0.1")
 
-    // Auto.js APK Builder
-    implementation("com.github.hyb1996:Auto.js-ApkBuilder:1.0.3")
 }
 
 dependencies /* Archived */ {

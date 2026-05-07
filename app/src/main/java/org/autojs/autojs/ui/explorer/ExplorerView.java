@@ -39,7 +39,6 @@ import org.autojs.autojs.project.ProjectConfig;
 import org.autojs.autojs.theme.widget.ThemeColorSwipeRefreshLayout;
 import org.autojs.autojs.ui.common.ScriptLoopDialog;
 import org.autojs.autojs.ui.common.ScriptOperations;
-import org.autojs.autojs.ui.project.BuildActivity;
 import org.autojs.autojs.ui.viewmodel.ExplorerItemList;
 import org.autojs.autojs.ui.widget.BindableViewHolder;
 import org.autojs.autojs.ui.widget.FirstCharView;
@@ -379,12 +378,6 @@ public class ExplorerView extends ThemeColorSwipeRefreshLayout implements SwipeR
             case R.id.timed_task:
                 new ScriptOperations(getContext(), this, getCurrentPage())
                         .timedTask(mSelectedItem.toScriptFile());
-                notifyItemOperated();
-                break;
-            case R.id.action_build_apk:
-                new BuildActivity.IntentBuilder(getContext())
-                        .extra(mSelectedItem.getPath())
-                        .start();
                 notifyItemOperated();
                 break;
             case R.id.action_sort_by_date:
