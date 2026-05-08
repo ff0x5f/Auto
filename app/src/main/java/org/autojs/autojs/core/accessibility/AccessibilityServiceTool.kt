@@ -72,7 +72,7 @@ class AccessibilityServiceTool(val context: Context) {
         ) ?: return false
         TextUtils.SimpleStringSplitter(':').also { colonSplitter ->
             colonSplitter.setString(enabledServicesSetting)
-            val expectedComponentName = ComponentName(context, ApplicationAccessibilityService::class.java)
+            val expectedComponentName = ComponentName(context, AccessibilityService::class.java)
             while (colonSplitter.hasNext()) {
                 val componentNameString = colonSplitter.next()
                 val enabledService = ComponentName.unflattenFromString(componentNameString)
@@ -111,7 +111,7 @@ class AccessibilityServiceTool(val context: Context) {
         }
     }
 
-    private fun getServiceName() = "${context.packageName}/${ApplicationAccessibilityService::class.java.name}"
+    private fun getServiceName() = "${context.packageName}/${AccessibilityService::class.java.name}"
 
     private fun enableAccessibilityServiceBySecureSettings(): Boolean {
         return try {

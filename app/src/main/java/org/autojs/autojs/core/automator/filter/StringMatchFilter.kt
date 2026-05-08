@@ -7,14 +7,13 @@ import org.mozilla.javascript.regexp.NativeRegExp
  * Created by Stardust on Mar 9, 2017.
  * Modified by SuperMonster003 as of Dec 27, 2025.
  */
-class StringEqualsFilter : RegexFilter {
+class StringMatchFilter : RegexFilter {
+
+    override val actionName = "match"
 
     constructor(s: String, keyGetter: KeyGetter) : super(s, keyGetter)
     constructor(regex: NativeRegExp, keyGetter: KeyGetter) : super(regex, keyGetter)
 
-    override fun filter(node: UiObject) = when {
-        isRegexSource -> keyGetter.getKey(node)?.matches(compiledRegex) == true
-        else -> keyGetter.getKey(node)?.contentEquals(input) == true
-    }
+    override fun filter(node: UiObject) = keyGetter.getKey(node)?.contains(compiledRegex) == true
 
 }
