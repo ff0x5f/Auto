@@ -10,7 +10,6 @@ import org.autojs.autojs.engine.RhinoJavaScriptEngine;
 import org.autojs.autojs.engine.ScriptEngine;
 import org.autojs.autojs.engine.ScriptEngineManager;
 import org.autojs.autojs.engine.ScriptEngineService;
-import org.autojs.autojs.script.ScriptSource;
 import org.mozilla.javascript.Callable;
 import org.mozilla.javascript.Context;
 import org.mozilla.javascript.ContextAction;
@@ -18,6 +17,7 @@ import org.mozilla.javascript.ContextFactory;
 import org.mozilla.javascript.ImporterTopLevel;
 import org.mozilla.javascript.Kit;
 import org.mozilla.javascript.NativeCall;
+import org.mozilla.javascript.ObjArray;
 import org.mozilla.javascript.ScriptRuntime;
 import org.mozilla.javascript.Scriptable;
 import org.mozilla.javascript.ScriptableObject;
@@ -36,18 +36,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
-import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
  * Dim or Debugger Implementation for Rhino.
  */
-@SuppressWarnings({"unchecked", "deprecation"})
 public class Dim {
 
     // Constants for instructing the debugger what action to perform
@@ -244,6 +240,10 @@ public class Dim {
     /**
      * Attaches the debugger to the given ContextFactory.
      */
+    public void attachTo(ContextFactory factory) {
+        // No-op when there's no ScriptEngineService
+    }
+
     public void attachTo(ScriptEngineService scriptEngineService, ContextFactory factory) {
         detach();
         this.contextFactory = factory;
@@ -334,7 +334,6 @@ public class Dim {
                             break openStream;
                         }
                     } catch (SecurityException ignored) {
-                        /* Ignored. */
                     }
                     // No existing file, assume missed http://
                     if (sourceUrl.startsWith("//")) {
@@ -346,16 +345,17 @@ public class Dim {
                     }
                 }
 
-                is = new URL(sourceUrl).openStream();
+                is = (new URL(sourceUrl)).openStream();
             }
 
             try {
-                source = Kit.readReader(new InputStreamReader(is, StandardCharsets.UTF_8));
+                source = Kit.readReader(new InputStreamReader(is));
             } finally {
                 is.close();
             }
         } catch (IOException ex) {
-            System.err.println("Failed to load source from " + sourceUrl + ": " + ex);
+            System.err.println
+                    ("Failed to load source from " + sourceUrl + ": " + ex);
         }
         return source;
     }
@@ -387,7 +387,7 @@ public class Dim {
             for (int i = 0; i != sourceInfo.functionSourcesTop(); ++i) {
                 FunctionSource fsource = sourceInfo.functionSource(i);
                 String name = fsource.name();
-                if (!name.isEmpty()) {
+                if (name.length() != 0) {
                     functionNames.put(name, fsource);
                 }
             }
@@ -492,8 +492,9 @@ public class Dim {
     /**
      * Returns an array of all functions in the given script.
      */
-    private static DebuggableScript[] getAllFunctions(DebuggableScript function) {
-        ArrayList<DebuggableScript> functions = new ArrayList<>();
+    private static DebuggableScript[] getAllFunctions
+    (DebuggableScript function) {
+        ObjArray functions = new ObjArray();
         collectFunctions_r(function, functions);
         DebuggableScript[] result = new DebuggableScript[functions.size()];
         functions.toArray(result);
@@ -503,7 +504,8 @@ public class Dim {
     /**
      * Helper function for {@link #getAllFunctions(DebuggableScript)}.
      */
-    private static void collectFunctions_r(DebuggableScript function, List<DebuggableScript> array) {
+    private static void collectFunctions_r(DebuggableScript function,
+                                           ObjArray array) {
         array.add(function);
         for (int i = 0; i != function.getFunctionCount(); ++i) {
             collectFunctions_r(function.getFunction(i), array);
@@ -742,7 +744,8 @@ public class Dim {
     /**
      * Interrupts script execution.
      */
-    private void interrupted(Context cx, final StackFrame frame, Throwable scriptException) {
+    private void interrupted(Context cx, final StackFrame frame,
+                             Throwable scriptException) {
         ContextData contextData = frame.contextData();
         boolean eventThreadFlag = callback.isGuiEventThread();
         contextData.eventThreadFlag = eventThreadFlag;
@@ -780,7 +783,6 @@ public class Dim {
                     try {
                         callback.dispatchNextGuiEvent();
                     } catch (InterruptedException ignored) {
-                        /* Ignored. */
                     }
                 }
             }
@@ -847,7 +849,6 @@ public class Dim {
                         try {
                             callback.dispatchNextGuiEvent();
                         } catch (InterruptedException ignored) {
-                            /* Ignored. */
                         }
                     }
                     returnValue = this.returnValue;
@@ -1035,11 +1036,13 @@ public class Dim {
         }
 
         @Override
-        public void onEngineCreate(ScriptEngine<? extends ScriptSource> engine) {
+        @SuppressWarnings("unchecked")
+        public void onEngineCreate(ScriptEngine engine) {
             if (type != IPROXY_LISTEN) Kit.codeBug();
-
-            if (!(engine instanceof RhinoJavaScriptEngine)) return;
-            if (!callback.shouldAttachDebugger((RhinoJavaScriptEngine) engine)) return;
+            if (!(engine instanceof RhinoJavaScriptEngine) ||
+                    !callback.shouldAttachDebugger((RhinoJavaScriptEngine) engine)) {
+                return;
+            }
 
             Context cx = ((RhinoJavaScriptEngine) engine).getContext();
             ContextData contextData = new ContextData();
@@ -1051,7 +1054,7 @@ public class Dim {
         }
 
         @Override
-        public void onEngineRemove(ScriptEngine<? extends ScriptSource> engine) {
+        public void onEngineRemove(ScriptEngine engine) {
             if (type != IPROXY_LISTEN) Kit.codeBug();
         }
 
@@ -1094,7 +1097,7 @@ public class Dim {
         /**
          * The stack frames.
          */
-        private ArrayList<StackFrame> frameStack = new ArrayList<>();
+        private final ObjArray frameStack = new ObjArray();
 
         /**
          * Whether the debugger should break at the next line in this context.
@@ -1143,14 +1146,14 @@ public class Dim {
          * Pushes a stack frame on to the stack.
          */
         private void pushFrame(StackFrame frame) {
-            frameStack.add(frame);
+            frameStack.push(frame);
         }
 
         /**
          * Pops a stack frame from the stack.
          */
         private void popFrame() {
-            frameStack.remove(frameStack.size() - 1);
+            frameStack.pop();
         }
     }
 
@@ -1228,7 +1231,7 @@ public class Dim {
                 boolean lineBreak = contextData.breakNextLine;
                 if (lineBreak && contextData.stopAtFrameDepth >= 0) {
                     lineBreak = (contextData.frameCount()
-                                 <= contextData.stopAtFrameDepth);
+                            <= contextData.stopAtFrameDepth);
                 }
                 if (!lineBreak) {
                     return;
@@ -1373,9 +1376,6 @@ public class Dim {
      * Class to store information about a script source.
      */
     public static class SourceInfo {
-
-        /** Lock for same */
-        private final Object breakpointsLock = new Object();
 
         /**
          * An empty array of booleans.
@@ -1536,7 +1536,7 @@ public class Dim {
          */
         public boolean breakableLine(int line) {
             return (line < this.breakableLines.length)
-                   && this.breakableLines[line];
+                    && this.breakableLines[line];
         }
 
         /**
@@ -1557,7 +1557,7 @@ public class Dim {
                 return false;
             }
             boolean changed;
-            synchronized (breakpointsLock) {
+            synchronized (breakpoints) {
                 if (breakpoints[line] != value) {
                     breakpoints[line] = value;
                     changed = true;
@@ -1572,7 +1572,7 @@ public class Dim {
          * Removes all breakpoints from the script.
          */
         public void removeAllBreakpoints() {
-            synchronized (breakpointsLock) {
+            synchronized (breakpoints) {
                 Arrays.fill(breakpoints, false);
             }
         }
