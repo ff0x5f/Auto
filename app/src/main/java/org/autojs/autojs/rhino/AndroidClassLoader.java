@@ -4,7 +4,7 @@ import static org.autojs.autojs.util.StringUtils.str;
 
 import android.util.Log;
 
-import com.android.dx.command.dexer.Main;
+import com.legacy.android.dx.command.dexer.Main;
 
 import net.lingala.zip4j.ZipFile;
 import net.lingala.zip4j.exception.ZipException;

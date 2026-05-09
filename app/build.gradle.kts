@@ -96,6 +96,7 @@ dependencies /* Unclassified */ {
     implementation(project(":libs:jackpal.androidterm-1.0.70"))
 
     // Dex
+    implementation(files("$rootDir/libs/com-android-dx-1_14.jar"))
     implementation(files("$rootDir/libs/com-legacy-android-dx-1_7_0.jar"))
 
     // LocaleHelper
