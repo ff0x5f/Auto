@@ -39,8 +39,8 @@ jobs:
       - name: Start Android Emulator
         uses: reactivecircus/android-emulator-runner@v2
         with:
-          api-level: 30
-          target: google
+          api-level: 34
+          target: default
           arch: x86_64
           profile: Nexus 6
           disk-size: 2000M
