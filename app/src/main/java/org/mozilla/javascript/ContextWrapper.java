@@ -199,7 +199,7 @@ public class ContextWrapper extends Context {
     }
 
     public static DebuggableScript getDebuggableView(Script script) {
-        return Context.getDebuggableView(script);
+        return Context.getDebuggableView((ScriptOrFn<?>) script);
     }
 
     @Override
