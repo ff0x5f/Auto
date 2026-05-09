@@ -47,13 +47,11 @@ jobs:
           disk-size: 2000M
           emulator-boot-timeout: 900
           script: |
-            # 列出所有 APK 文件
+            # 列出所有 APK 文件并安装 x86_64 版本
             echo "Available APK files:"
-            ls -la app/build/outputs/apk/debug/*.apk 2>/dev/null || echo "No APK files found"
-            # 选择第一个 APK 文件
-            APK=$(ls app/build/outputs/apk/debug/*.apk 2>/dev/null | head -1)
-            echo "Installing APK: $APK"
-            adb install "$APK"
+            ls app/build/outputs/apk/debug/*.apk
+            echo "Installing x86_64 APK for emulator test..."
+            adb install app/build/outputs/apk/debug/auto6-v6.2.0-x86_64.apk
             # 启动应用并监控 15 秒
             adb shell am start -n org.autojs.auto6/.MainActivity
             # 等待 15 秒并检查进程是否存活
