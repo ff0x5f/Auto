@@ -310,7 +310,9 @@ android {
             getByName("debug") {
                 isMinifyEnabled = getByName("release").isMinifyEnabled
                 proguardFiles(*proguardFiles)
-                signingConfig = getByName("release").signingConfig
+                if (sign.isValid) {
+                    signingConfig = signingConfigs.getByName("release")
+                }
             }
         }
     }
