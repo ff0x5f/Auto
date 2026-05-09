@@ -9,7 +9,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    timeout-minutes: 25
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
 
@@ -20,33 +20,35 @@ jobs:
           distribution: 'temurin'
           cache: gradle
 
-      - name: Build Arm64 Only
+      - name: Build x86_64 Only
         run: |
           chmod +x gradlew
-          # 使用 Debug 构建以获得自动签名，可直接安装
+          # 构建 x86_64 版本用于模拟器测试
           ./gradlew :app:assembleDebug \
             -q \
             --no-daemon \
             --warning-mode=none \
+            -Pandroid.split.perAbi=false \
             2>&1 | grep -v "^WARNING:" | grep -v "D8:" | grep -v "Unexpected error during rewriting of Kotlin metadata"
 
-      - name: Upload arm64 APK
+      - name: Upload x86_64 APK
         uses: actions/upload-artifact@v4
         with:
-          name: AutoJs6-arm64-v8a
-          path: app/build/outputs/apk/debug/*-arm64-v8a.apk
+          name: AutoJs6-x86_64
+          path: app/build/outputs/apk/debug/*.apk
 
       - name: Start Android Emulator
         uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: 34
           target: default
-          arch: arm64-v8a
+          arch: x86_64
           profile: Nexus 6
           disk-size: 2000M
+          emulator-boot-timeout: 900
           script: |
             # 安装 APK
-            adb install app/build/outputs/apk/debug/*-arm64-v8a.apk
+            adb install app/build/outputs/apk/debug/auto6-*-x86_64.apk
             # 启动应用并监控 15 秒
             adb shell am start -n org.autojs.auto6/.MainActivity
             # 等待 15 秒并检查进程是否存活
