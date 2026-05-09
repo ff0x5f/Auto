@@ -1146,7 +1146,7 @@ public class Dim {
          * Pushes a stack frame on to the stack.
          */
         private void pushFrame(StackFrame frame) {
-            frameStack.push(frame);
+            frameStack.add(frame);
         }
 
         /**
