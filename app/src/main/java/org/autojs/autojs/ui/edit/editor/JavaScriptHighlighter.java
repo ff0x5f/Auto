@@ -8,10 +8,10 @@ import android.util.TimingLogger;
 import androidx.annotation.NonNull;
 
 import org.autojs.autojs.pio.UncheckedIOException;
+import org.autojs.autojs.rhino.TokenStream;
 import org.autojs.autojs.ui.edit.theme.Theme;
 import org.autojs.autojs.ui.widget.SimpleTextWatcher;
 import org.mozilla.javascript.Token;
-import org.mozilla.javascript.TokenStream;
 
 import java.io.IOException;
 import java.util.concurrent.LinkedBlockingQueue;

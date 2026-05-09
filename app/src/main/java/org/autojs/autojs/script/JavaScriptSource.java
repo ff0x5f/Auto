@@ -5,9 +5,9 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import org.autojs.autojs.rhino.TokenStream;
 import org.autojs.autojs.tool.MapBuilder;
 import org.mozilla.javascript.Token;
-import org.mozilla.javascript.TokenStream;
 
 import java.io.Reader;
 import java.io.StringReader;

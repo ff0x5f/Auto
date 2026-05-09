@@ -1,7 +1,5 @@
 package org.autojs.autojs.rhino.debug;
 
-import org.mozilla.javascript.tools.debugger.Dim;
-
 public interface DebugCallback {
 
     /**

@@ -16,7 +16,6 @@ import org.autojs.autojs.execution.ScriptExecution;
 import org.autojs.autojs.pio.PFiles;
 import org.autojs.autojs.rhino.debug.DebugCallback;
 import org.autojs.autojs.rhino.debug.Debugger;
-import org.mozilla.javascript.tools.debugger.Dim;
 import org.autojs.autojs.runtime.exception.ScriptInterruptedException;
 import org.autojs.autojs.ui.edit.EditorView;
 import org.autojs.autojs.ui.edit.debug.CodeEvaluator;

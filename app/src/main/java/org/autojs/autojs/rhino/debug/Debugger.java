@@ -10,7 +10,6 @@ import org.autojs.autojs.engine.RhinoJavaScriptEngine;
 import org.autojs.autojs.engine.ScriptEngineService;
 import org.autojs.autojs.execution.ScriptExecution;
 import org.mozilla.javascript.ContextFactory;
-import org.mozilla.javascript.tools.debugger.Dim;
 
 import java.lang.ref.WeakReference;
 
