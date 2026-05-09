@@ -31,10 +31,10 @@ jobs:
             -Pandroid.split.perAbi=false \
             2>&1 | grep -v "^WARNING:" | grep -v "D8:" | grep -v "Unexpected error during rewriting of Kotlin metadata"
 
-      - name: Upload x86_64 APK
+      - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: AutoJs6-x86_64
+          name: AutoJs6
           path: app/build/outputs/apk/debug/*.apk
 
       - name: Start Android Emulator
@@ -47,8 +47,10 @@ jobs:
           disk-size: 2000M
           emulator-boot-timeout: 900
           script: |
-            # 安装 APK
-            adb install app/build/outputs/apk/debug/auto6-*-x86_64.apk
+            # 查找 APK 文件 (universal 或 x86_64)
+            APK=$(ls app/build/outputs/apk/debug/auto6-*-universal.apk 2>/dev/null || ls app/build/outputs/apk/debug/auto6-*-x86_64.apk 2>/dev/null || ls app/build/outputs/apk/debug/auto6-*.apk 2>/dev/null | head -1)
+            echo "Installing APK: $APK"
+            adb install "$APK"
             # 启动应用并监控 15 秒
             adb shell am start -n org.autojs.auto6/.MainActivity
             # 等待 15 秒并检查进程是否存活
