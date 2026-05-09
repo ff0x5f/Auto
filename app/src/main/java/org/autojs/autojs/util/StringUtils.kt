@@ -19,7 +19,7 @@ object StringUtils {
     private val globalAppContext by lazy { GlobalAppContext.get() }
 
     @JvmStatic
-    fun uppercaseFirstChar(s: String) = s.replaceFirstChar { it.uppercaseChar() }.let { if (it.length > 1) it else it }
+    fun String.uppercaseFirstChar(): String = replaceFirstChar { it.uppercaseChar() }.let { if (it.length > 1) it else it }
 
     // @Hint by SuperMonster003 on Oct 1, 2022.
     //  ! Ensure that `resId` is not locale-related
