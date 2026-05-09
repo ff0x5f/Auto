@@ -5,8 +5,8 @@ import static org.autojs.autojs.util.StringUtils.str;
 import androidx.annotation.NonNull;
 
 import org.autojs.autojs.util.UpdateUtils;
-import org.autojs.autojs6.BuildConfig;
-import org.autojs.autojs6.R;
+import org.autojs.auto6.BuildConfig;
+import org.autojs.auto6.R;
 
 import java.text.MessageFormat;
 

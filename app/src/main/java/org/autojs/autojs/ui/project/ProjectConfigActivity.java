@@ -31,7 +31,7 @@ import org.autojs.autojs.ui.shortcut.AppsIconSelectActivity;
 import org.autojs.autojs.ui.shortcut.AppsIconSelectActivity_;
 import org.autojs.autojs.ui.widget.SimpleTextWatcher;
 import org.autojs.autojs.util.ViewUtils;
-import org.autojs.autojs6.R;
+import org.autojs.auto6.R;
 
 import java.io.File;
 import java.io.FileOutputStream;

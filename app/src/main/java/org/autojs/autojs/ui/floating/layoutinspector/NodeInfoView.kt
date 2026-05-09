@@ -12,7 +12,7 @@ import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration
 import org.autojs.autojs.core.accessibility.NodeInfo
 import org.autojs.autojs.util.ClipboardUtils
 import org.autojs.autojs.util.ViewUtils
-import org.autojs.autojs6.R
+import org.autojs.auto6.R
 import java.lang.reflect.Field
 
 /**

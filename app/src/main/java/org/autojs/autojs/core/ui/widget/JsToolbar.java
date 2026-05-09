@@ -10,7 +10,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import org.autojs.autojs6.R;
+import org.autojs.auto6.R;
 
 public class JsToolbar extends Toolbar {
 

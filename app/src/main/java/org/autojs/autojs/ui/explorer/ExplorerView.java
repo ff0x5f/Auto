@@ -46,7 +46,7 @@ import org.autojs.autojs.util.EnvironmentUtils;
 import org.autojs.autojs.util.Observers;
 import org.autojs.autojs.util.ViewUtils;
 import org.autojs.autojs.workground.WrapContentGridLayoutManger;
-import org.autojs.autojs6.R;
+import org.autojs.auto6.R;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.io.File;

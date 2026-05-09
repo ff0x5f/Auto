@@ -20,8 +20,8 @@ import com.google.gson.stream.JsonReader;
 
 import org.autojs.autojs.runtime.api.Device;
 import org.autojs.autojs.tool.MapBuilder;
-import org.autojs.autojs6.BuildConfig;
-import org.autojs.autojs6.R;
+import org.autojs.auto6.BuildConfig;
+import org.autojs.auto6.R;
 
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;

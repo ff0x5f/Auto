@@ -49,7 +49,7 @@ import org.autojs.autojs.timing.TimedTaskManager;
 import org.autojs.autojs.tool.MapBuilder;
 import org.autojs.autojs.ui.BaseActivity;
 import org.autojs.autojs.util.ViewUtils;
-import org.autojs.autojs6.R;
+import org.autojs.auto6.R;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
 import org.joda.time.LocalTime;

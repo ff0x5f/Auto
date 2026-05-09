@@ -9,7 +9,7 @@ import androidx.annotation.Nullable;
 import org.autojs.autojs.tool.ForegroundServiceCreator;
 import org.autojs.autojs.ui.main.MainActivity_;
 import org.autojs.autojs.util.ForegroundServiceUtils;
-import org.autojs.autojs6.R;
+import org.autojs.auto6.R;
 
 /**
  * Modified by SuperMonster003 as of Apr 10, 2022.

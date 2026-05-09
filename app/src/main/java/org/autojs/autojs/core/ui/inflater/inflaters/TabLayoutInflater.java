@@ -15,7 +15,7 @@ import org.autojs.autojs.core.ui.inflater.util.Colors;
 import org.autojs.autojs.core.ui.inflater.util.Dimensions;
 import org.autojs.autojs.core.ui.inflater.util.Gravities;
 import org.autojs.autojs.core.ui.inflater.util.ValueMapper;
-import org.autojs.autojs6.R;
+import org.autojs.auto6.R;
 
 import java.util.Map;
 

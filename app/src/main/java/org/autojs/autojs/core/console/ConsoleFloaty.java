@@ -17,7 +17,7 @@ import com.stardust.enhancedfloaty.ResizableExpandableFloatyWindow;
 import org.autojs.autojs.runtime.api.ScreenMetrics;
 import org.autojs.autojs.util.DisplayUtils;
 import org.autojs.autojs.util.ViewUtils;
-import org.autojs.autojs6.R;
+import org.autojs.auto6.R;
 
 /**
  * Created by Stardust on 2017/4/20.

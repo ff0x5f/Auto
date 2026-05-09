@@ -3,7 +3,7 @@ package org.autojs.autojs.util
 import androidx.annotation.ColorInt
 import androidx.annotation.ColorRes
 import org.autojs.autojs.app.GlobalAppContext
-import org.autojs.autojs6.R
+import org.autojs.auto6.R
 
 class ColorUtils {
 

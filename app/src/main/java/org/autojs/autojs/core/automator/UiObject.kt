@@ -17,7 +17,7 @@ import org.autojs.autojs.runtime.api.ScreenMetrics.Companion.toRoundIntY
 import org.autojs.autojs.util.KotlinUtils
 import org.autojs.autojs.util.RhinoUtils
 import org.autojs.autojs.util.StringUtils.str
-import org.autojs.autojs6.R
+import org.autojs.auto6.R
 import org.mozilla.javascript.BaseFunction
 import org.mozilla.javascript.Context
 import org.mozilla.javascript.Scriptable

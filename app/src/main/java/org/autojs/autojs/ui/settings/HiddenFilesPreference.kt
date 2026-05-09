@@ -5,7 +5,7 @@ import android.util.AttributeSet
 import com.afollestad.materialdialogs.MaterialDialog
 import org.autojs.autojs.theme.preference.MaterialListPreference
 import org.autojs.autojs.util.ViewUtils
-import org.autojs.autojs6.R
+import org.autojs.auto6.R
 
 class HiddenFilesPreference : MaterialListPreference {
 

@@ -21,7 +21,7 @@ import org.autojs.autojs.model.explorer.ExplorerDirPage;
 import org.autojs.autojs.model.explorer.Explorers;
 import org.autojs.autojs.ui.explorer.ExplorerView;
 import org.autojs.autojs.util.ViewUtils;
-import org.autojs.autojs6.R;
+import org.autojs.auto6.R;
 import org.json.JSONException;
 import org.json.JSONObject;
 

@@ -4,7 +4,7 @@ import android.content.Context
 import org.autojs.autojs.core.accessibility.AccessibilityServiceTool
 import org.autojs.autojs.ui.main.drawer.ServiceItemHelper
 import org.autojs.autojs.util.ViewUtils
-import org.autojs.autojs6.R
+import org.autojs.auto6.R
 
 class AccessibilityService(override val context: Context) : ServiceItemHelper {
 

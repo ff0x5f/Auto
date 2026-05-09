@@ -21,7 +21,7 @@ import org.autojs.autojs.util.ClipboardUtils;
 import org.autojs.autojs.util.DisplayUtils;
 import org.autojs.autojs.util.StringUtils;
 import org.autojs.autojs.util.ViewUtils;
-import org.autojs.autojs6.R;
+import org.autojs.auto6.R;
 
 import java.util.LinkedHashMap;
 import java.util.Objects;

@@ -2,7 +2,7 @@ package org.autojs.autojs.core.internal;
 
 import static org.autojs.autojs.util.StringUtils.str;
 
-import org.autojs.autojs6.R;
+import org.autojs.auto6.R;
 
 /**
  * Created by Stardust on 2017/7/19.

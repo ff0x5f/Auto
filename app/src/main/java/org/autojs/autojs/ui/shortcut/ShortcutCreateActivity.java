@@ -28,7 +28,7 @@ import org.autojs.autojs.external.shortcut.ShortcutActivity;
 import org.autojs.autojs.external.shortcut.ShortcutManager;
 import org.autojs.autojs.model.script.ScriptFile;
 import org.autojs.autojs.util.BitmapUtils;
-import org.autojs.autojs6.R;
+import org.autojs.auto6.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

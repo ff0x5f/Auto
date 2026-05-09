@@ -143,7 +143,7 @@
 
         <provider
                 android:name="androidx.core.content.FileProvider"
-                android:authorities="org.autojs.autojs6.fileprovider"
+                android:authorities="org.autojs.auto6.fileprovider"
                 android:exported="false"
                 android:grantUriPermissions="true">
             <meta-data

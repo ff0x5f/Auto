@@ -49,7 +49,7 @@ import org.autojs.autojs.tool.UiHandler;
 import org.autojs.autojs.util.ClipboardUtils;
 import org.autojs.autojs.util.RootUtils;
 import org.autojs.autojs.util.SdkVersionUtils;
-import org.autojs.autojs6.R;
+import org.autojs.auto6.R;
 import org.mozilla.javascript.ContextFactory;
 import org.mozilla.javascript.RhinoException;
 import org.mozilla.javascript.ScriptStackElement;

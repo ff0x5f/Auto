@@ -54,8 +54,8 @@ import org.autojs.autojs.util.ForegroundServiceUtils;
 import org.autojs.autojs.util.UpdateUtils;
 import org.autojs.autojs.util.ViewUtils;
 import org.autojs.autojs.util.WorkingDirectoryUtils;
-import org.autojs.autojs6.BuildConfig;
-import org.autojs.autojs6.R;
+import org.autojs.auto6.BuildConfig;
+import org.autojs.auto6.R;
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.Arrays;

@@ -7,7 +7,7 @@ import android.view.WindowManager;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import org.autojs.autojs6.R;
+import org.autojs.auto6.R;
 import org.autojs.autojs.annotation.ScriptInterface;
 import org.autojs.autojs.runtime.ScriptRuntime;
 import org.autojs.autojs.runtime.api.AbstractConsole;

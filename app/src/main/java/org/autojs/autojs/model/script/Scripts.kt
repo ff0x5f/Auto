@@ -20,7 +20,7 @@ import org.autojs.autojs.util.FileUtils
 import org.autojs.autojs.util.IntentUtils
 import org.autojs.autojs.util.ViewUtils
 import org.autojs.autojs.util.WorkingDirectoryUtils
-import org.autojs.autojs6.R
+import org.autojs.auto6.R
 import org.mozilla.javascript.RhinoException
 import java.io.File
 import java.io.FileFilter

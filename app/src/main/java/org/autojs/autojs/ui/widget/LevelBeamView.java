@@ -7,7 +7,7 @@ import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.View;
 
-import org.autojs.autojs6.R;
+import org.autojs.auto6.R;
 
 /**
  * Created by Stardust on 2017/3/10.

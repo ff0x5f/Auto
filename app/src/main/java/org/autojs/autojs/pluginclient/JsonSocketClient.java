@@ -9,7 +9,7 @@ import androidx.annotation.WorkerThread;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
-import org.autojs.autojs6.R;
+import org.autojs.auto6.R;
 
 import java.io.IOException;
 import java.net.Socket;

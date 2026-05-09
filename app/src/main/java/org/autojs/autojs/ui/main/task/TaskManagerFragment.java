@@ -13,7 +13,7 @@ import org.androidannotations.annotations.ViewById;
 import org.autojs.autojs.AutoJs;
 import org.autojs.autojs.ui.main.ViewPagerFragment;
 import org.autojs.autojs.ui.widget.SimpleAdapterDataObserver;
-import org.autojs.autojs6.R;
+import org.autojs.auto6.R;
 
 import java.util.Objects;
 

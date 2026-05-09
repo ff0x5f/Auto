@@ -4,7 +4,7 @@ import androidx.appcompat.widget.Toolbar
 import org.androidannotations.annotations.AfterViews
 import org.androidannotations.annotations.EActivity
 import org.autojs.autojs.ui.BaseActivity
-import org.autojs.autojs6.R
+import org.autojs.auto6.R
 
 /**
  * Created by Stardust on 2017/2/2.

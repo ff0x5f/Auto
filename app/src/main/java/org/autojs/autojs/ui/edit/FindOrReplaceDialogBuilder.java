@@ -12,7 +12,7 @@ import androidx.preference.PreferenceManager;
 import com.afollestad.materialdialogs.MaterialDialog;
 
 import org.autojs.autojs.ui.edit.editor.CodeEditor;
-import org.autojs.autojs6.R;
+import org.autojs.auto6.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

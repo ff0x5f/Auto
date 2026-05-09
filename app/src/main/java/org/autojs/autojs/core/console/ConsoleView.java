@@ -21,7 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.stardust.enhancedfloaty.ResizableExpandableFloatyWindow;
 
 import org.autojs.autojs.tool.MapBuilder;
-import org.autojs.autojs6.R;
+import org.autojs.auto6.R;
 
 import java.util.ArrayList;
 import java.util.Map;

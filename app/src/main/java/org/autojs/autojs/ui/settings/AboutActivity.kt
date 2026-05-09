@@ -24,8 +24,8 @@ import org.autojs.autojs.util.ClipboardUtils
 import org.autojs.autojs.util.DeviceUtils
 import org.autojs.autojs.util.UpdateUtils
 import org.autojs.autojs.util.ViewUtils
-import org.autojs.autojs6.BuildConfig
-import org.autojs.autojs6.R
+import org.autojs.auto6.BuildConfig
+import org.autojs.auto6.R
 
 /**
  * Created by Stardust on 2017/2/2.

@@ -4,7 +4,7 @@ import android.content.Context
 import android.util.AttributeSet
 import androidx.core.content.res.TypedArrayUtils
 import com.afollestad.materialdialogs.MaterialDialog
-import org.autojs.autojs6.R
+import org.autojs.auto6.R
 
 open class MaterialDialogPreference : MaterialPreference {
 

@@ -9,7 +9,7 @@ import android.widget.EditText;
 import androidx.appcompat.widget.SearchView;
 import androidx.core.view.MenuItemCompat;
 
-import org.autojs.autojs6.R;
+import org.autojs.auto6.R;
 
 /**
  * Created by Stardust on 2017/10/25.

@@ -10,7 +10,7 @@ import org.autojs.autojs.AutoJs;
 import org.autojs.autojs.core.console.ConsoleImpl;
 import org.autojs.autojs.core.console.ConsoleView;
 import org.autojs.autojs.ui.BaseActivity;
-import org.autojs.autojs6.R;
+import org.autojs.auto6.R;
 
 @EActivity(R.layout.activity_log)
 public class LogActivity extends BaseActivity {

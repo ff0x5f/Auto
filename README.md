@@ -36,6 +36,8 @@
 ******
 
 * [项目文档](https://supermonster003.github.io/AutoJs6-Documentation/)
+* [CI 构建修复记录](./docs/CI_BUILD_FIXES.md)
+* [开发工作流程](./docs/WORKFLOW.md)
 
 ******
 
@@ -223,7 +225,7 @@
 
 ###### 2022/05/26 - 包名变更 谨慎升级
 
-* `提示` 修改应用包名为 org.autojs.autojs6 避免与开源 Auto.js 应用包名冲突
+* `提示` 修改应用包名为 org.autojs.auto6 避免与开源 Auto.js 应用包名冲突
 * `新增` 主页抽屉增加 "投影媒体权限" 开关 (Root / ADB 方式) (开关状态检测为实验性)
 * `新增` 文件浏览器支持显示隐藏文件和文件夹 (参阅 设置页面)
 * `新增` 强制 Root 检查功能 (参阅 设置页面 及 示例代码)

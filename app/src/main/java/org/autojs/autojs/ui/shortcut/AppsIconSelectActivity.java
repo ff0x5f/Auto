@@ -25,7 +25,7 @@ import org.androidannotations.annotations.ViewById;
 import org.autojs.autojs.ui.BaseActivity;
 import org.autojs.autojs.util.BitmapUtils;
 import org.autojs.autojs.workground.WrapContentGridLayoutManger;
-import org.autojs.autojs6.R;
+import org.autojs.auto6.R;
 
 import java.util.ArrayList;
 import java.util.List;

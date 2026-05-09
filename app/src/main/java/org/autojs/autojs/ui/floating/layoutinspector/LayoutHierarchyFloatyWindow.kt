@@ -7,7 +7,7 @@ import com.stardust.enhancedfloaty.FloatyService
 import org.autojs.autojs.core.accessibility.NodeInfo
 import org.autojs.autojs.ui.floating.LayoutFloatyWindow
 import org.autojs.autojs.util.EventUtils
-import org.autojs.autojs6.R
+import org.autojs.auto6.R
 
 /**
  * Created by Stardust on 2017/3/12.

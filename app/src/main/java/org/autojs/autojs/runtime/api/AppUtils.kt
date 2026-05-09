@@ -13,7 +13,7 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import org.autojs.autojs.annotation.ScriptInterface
 import org.autojs.autojs.util.App
 import org.autojs.autojs.util.IntentUtils
-import org.autojs.autojs6.R
+import org.autojs.auto6.R
 import java.lang.ref.WeakReference
 
 /**

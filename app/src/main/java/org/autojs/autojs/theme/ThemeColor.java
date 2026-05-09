@@ -6,7 +6,7 @@ import androidx.annotation.ColorRes;
 import androidx.core.content.ContextCompat;
 
 import org.autojs.autojs.pref.Pref;
-import org.autojs.autojs6.R;
+import org.autojs.auto6.R;
 
 /**
  * Created by Stardust on 2017/3/5.

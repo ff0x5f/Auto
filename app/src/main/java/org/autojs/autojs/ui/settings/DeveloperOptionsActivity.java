@@ -19,7 +19,7 @@ import org.autojs.autojs.pref.Pref;
 import org.autojs.autojs.tool.MapBuilder;
 import org.autojs.autojs.ui.BaseActivity;
 import org.autojs.autojs.util.ViewUtils;
-import org.autojs.autojs6.R;
+import org.autojs.auto6.R;
 
 import java.util.Map;
 

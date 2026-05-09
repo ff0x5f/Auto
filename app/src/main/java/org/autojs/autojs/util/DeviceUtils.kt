@@ -6,7 +6,7 @@ import android.content.pm.PackageManager
 import android.os.Build
 import android.telephony.TelephonyManager
 import androidx.annotation.IntRange
-import org.autojs.autojs6.R
+import org.autojs.auto6.R
 import java.util.Arrays
 
 object DeviceUtils {

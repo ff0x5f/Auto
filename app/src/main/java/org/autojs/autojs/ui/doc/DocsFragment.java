@@ -20,7 +20,7 @@ import org.autojs.autojs.ui.widget.EWebView;
 import org.autojs.autojs.ui.widget.NestedWebView;
 import org.autojs.autojs.util.DocsUtils;
 import org.autojs.autojs.util.WebViewUtils;
-import org.autojs.autojs6.R;
+import org.autojs.auto6.R;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 

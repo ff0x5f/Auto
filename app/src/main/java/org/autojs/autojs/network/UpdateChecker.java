@@ -30,7 +30,7 @@ import org.autojs.autojs.util.AndroidUtils;
 import org.autojs.autojs.util.IntentUtils;
 import org.autojs.autojs.util.UpdateUtils;
 import org.autojs.autojs.util.ViewUtils;
-import org.autojs.autojs6.R;
+import org.autojs.auto6.R;
 import org.jetbrains.annotations.Contract;
 import org.kohsuke.github.GHAsset;
 import org.kohsuke.github.GHRelease;

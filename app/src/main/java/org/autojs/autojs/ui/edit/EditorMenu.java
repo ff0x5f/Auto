@@ -23,7 +23,7 @@ import org.autojs.autojs.util.ClipboardUtils;
 import org.autojs.autojs.util.ConsoleUtils;
 import org.autojs.autojs.util.IntentUtils;
 import org.autojs.autojs.util.ViewUtils;
-import org.autojs.autojs6.R;
+import org.autojs.auto6.R;
 
 import java.util.Arrays;
 import java.util.List;

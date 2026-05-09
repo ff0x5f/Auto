@@ -74,7 +74,7 @@ import org.autojs.autojs.util.DisplayUtils;
 import org.autojs.autojs.util.DocsUtils;
 import org.autojs.autojs.util.Observers;
 import org.autojs.autojs.util.ViewUtils;
-import org.autojs.autojs6.R;
+import org.autojs.auto6.R;
 
 import java.io.File;
 import java.util.List;

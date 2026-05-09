@@ -11,7 +11,7 @@ import org.autojs.autojs.app.DialogUtils;
 import org.autojs.autojs.model.script.ScriptFile;
 import org.autojs.autojs.model.script.Scripts;
 import org.autojs.autojs.util.ViewUtils;
-import org.autojs.autojs6.R;
+import org.autojs.auto6.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

@@ -2,7 +2,7 @@ package org.autojs.autojs.util
 
 import org.autojs.autojs.pref.Pref
 import org.autojs.autojs.util.StringUtils.key
-import org.autojs.autojs6.R
+import org.autojs.auto6.R
 
 object DocsUtils {
 

@@ -30,7 +30,7 @@ import org.autojs.autojs.ui.timing.TimedTaskSettingActivity;
 import org.autojs.autojs.ui.timing.TimedTaskSettingActivity_;
 import org.autojs.autojs.ui.widget.FirstCharView;
 import org.autojs.autojs.workground.WrapContentLinearLayoutManager;
-import org.autojs.autojs6.R;
+import org.autojs.auto6.R;
 
 import java.util.ArrayList;
 import java.util.List;

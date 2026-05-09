@@ -8,7 +8,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 import java.util.zip.CRC32
 
-val applicationId = "org.autojs.autojs6"
+val applicationId = "org.autojs.auto6"
 val sign = Sign("$rootDir/sign.properties")
 val versions = Versions("$rootDir/version.properties")
 

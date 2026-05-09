@@ -5,7 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.google.android.material.appbar.AppBarLayout;
-import org.autojs.autojs6.R;
+import org.autojs.auto6.R;
 
 import org.autojs.autojs.core.ui.inflater.ResourceParser;
 import org.autojs.autojs.core.ui.inflater.ViewCreator;

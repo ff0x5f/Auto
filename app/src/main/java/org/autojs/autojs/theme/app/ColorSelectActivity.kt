@@ -30,7 +30,7 @@ import org.autojs.autojs.theme.ThemeColorManager
 import org.autojs.autojs.ui.BaseActivity
 import org.autojs.autojs.util.ColorUtils
 import org.autojs.autojs.util.ViewUtils.appendSystemUiVisibility
-import org.autojs.autojs6.R
+import org.autojs.auto6.R
 import kotlin.math.hypot
 
 /**

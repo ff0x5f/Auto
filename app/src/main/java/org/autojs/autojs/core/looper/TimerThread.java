@@ -13,7 +13,7 @@ import org.autojs.autojs.engine.RhinoJavaScriptEngine;
 import org.autojs.autojs.lang.ThreadCompat;
 import org.autojs.autojs.runtime.ScriptRuntime;
 import org.autojs.autojs.runtime.exception.ScriptInterruptedException;
-import org.autojs.autojs6.R;
+import org.autojs.auto6.R;
 
 import java.util.concurrent.ConcurrentHashMap;
 

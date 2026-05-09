@@ -26,7 +26,7 @@ import org.autojs.autojs.ui.main.MainActivity
 import org.autojs.autojs.util.EnvironmentUtils
 import org.autojs.autojs.util.ViewUtils
 import org.autojs.autojs.util.WorkingDirectoryUtils
-import org.autojs.autojs6.R
+import org.autojs.auto6.R
 import java.io.File
 
 // @RefactorNeeded by SuperMonster003 on Sep 25, 2022.

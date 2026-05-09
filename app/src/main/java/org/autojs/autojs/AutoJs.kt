@@ -25,7 +25,7 @@ import org.autojs.autojs.ui.floating.layoutinspector.LayoutBoundsFloatyWindow
 import org.autojs.autojs.ui.floating.layoutinspector.LayoutHierarchyFloatyWindow
 import org.autojs.autojs.ui.log.LogActivity_
 import org.autojs.autojs.ui.settings.SettingsActivity_
-import org.autojs.autojs6.R
+import org.autojs.auto6.R
 import java.util.concurrent.Executors
 
 /**

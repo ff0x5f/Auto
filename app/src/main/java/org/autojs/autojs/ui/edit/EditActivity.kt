@@ -29,7 +29,7 @@ import org.autojs.autojs.theme.ThemeColorManager
 import org.autojs.autojs.ui.BaseActivity
 import org.autojs.autojs.ui.main.MainActivity_
 import org.autojs.autojs.util.Observers
-import org.autojs.autojs6.R
+import org.autojs.auto6.R
 import java.io.File
 import java.io.IOException
 

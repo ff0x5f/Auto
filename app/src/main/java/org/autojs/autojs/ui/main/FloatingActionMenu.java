@@ -17,7 +17,7 @@ import androidx.interpolator.view.animation.FastOutSlowInInterpolator;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import org.autojs.autojs6.R;
+import org.autojs.auto6.R;
 
 import io.reactivex.subjects.PublishSubject;
 

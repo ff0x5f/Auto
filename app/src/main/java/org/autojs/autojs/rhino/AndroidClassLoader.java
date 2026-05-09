@@ -13,7 +13,7 @@ import net.lingala.zip4j.model.ZipParameters;
 
 import org.autojs.autojs.pio.PFiles;
 import org.autojs.autojs.util.MD5Utils;
-import org.autojs.autojs6.R;
+import org.autojs.auto6.R;
 import org.mozilla.javascript.GeneratedClassLoader;
 
 import java.io.ByteArrayInputStream;

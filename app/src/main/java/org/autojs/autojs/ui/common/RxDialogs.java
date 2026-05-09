@@ -4,7 +4,7 @@ import android.content.Context;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 
-import org.autojs.autojs6.R;
+import org.autojs.auto6.R;
 
 import io.reactivex.Observable;
 import io.reactivex.subjects.PublishSubject;

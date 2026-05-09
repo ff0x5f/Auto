@@ -26,7 +26,7 @@ import org.autojs.autojs.pio.PFiles;
 import org.autojs.autojs.pio.UncheckedIOException;
 import org.autojs.autojs.runtime.exception.ScriptException;
 import org.autojs.autojs.util.DeviceUtils;
-import org.autojs.autojs6.R;
+import org.autojs.auto6.R;
 
 import java.net.NetworkInterface;
 import java.net.SocketException;

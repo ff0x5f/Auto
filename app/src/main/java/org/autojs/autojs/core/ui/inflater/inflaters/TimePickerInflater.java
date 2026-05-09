@@ -7,7 +7,7 @@ import androidx.annotation.Nullable;
 
 import org.autojs.autojs.core.ui.inflater.ResourceParser;
 import org.autojs.autojs.core.ui.inflater.ViewCreator;
-import org.autojs.autojs6.R;
+import org.autojs.auto6.R;
 
 /**
  * Created by Stardust on 2017/11/29.

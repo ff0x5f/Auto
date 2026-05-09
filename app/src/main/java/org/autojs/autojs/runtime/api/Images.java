@@ -30,7 +30,7 @@ import org.autojs.autojs.core.opencv.OpenCVHelper;
 import org.autojs.autojs.core.ui.inflater.util.Drawables;
 import org.autojs.autojs.pio.UncheckedIOException;
 import org.autojs.autojs.runtime.ScriptRuntime;
-import org.autojs.autojs6.R;
+import org.autojs.auto6.R;
 import org.opencv.core.Point;
 import org.opencv.core.Rect;
 import org.opencv.imgproc.Imgproc;

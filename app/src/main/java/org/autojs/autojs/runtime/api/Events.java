@@ -27,7 +27,7 @@ import org.autojs.autojs.core.notification.NotificationListenerService;
 import org.autojs.autojs.runtime.ScriptRuntime;
 import org.autojs.autojs.runtime.exception.ScriptException;
 import org.autojs.autojs.tool.MapBuilder;
-import org.autojs.autojs6.R;
+import org.autojs.auto6.R;
 
 import java.util.HashSet;
 import java.util.Map;

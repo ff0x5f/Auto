@@ -8,7 +8,7 @@ import androidx.annotation.NonNull;
 
 import org.autojs.autojs.pref.Pref;
 import org.autojs.autojs.runtime.api.ProcessShell;
-import org.autojs.autojs6.R;
+import org.autojs.auto6.R;
 
 import java.text.MessageFormat;
 

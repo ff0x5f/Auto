@@ -8,7 +8,7 @@ import androidx.annotation.Nullable;
 import android.view.View;
 
 import org.androidannotations.annotations.EFragment;
-import org.autojs.autojs6.R;
+import org.autojs.auto6.R;
 
 import java.util.Arrays;
 import java.util.List;

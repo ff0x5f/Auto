@@ -7,7 +7,7 @@ import com.afollestad.materialdialogs.MaterialDialog
 import org.autojs.autojs.pref.Pref
 import org.autojs.autojs.util.IntentUtils
 import org.autojs.autojs.util.Observers
-import org.autojs.autojs6.R
+import org.autojs.auto6.R
 
 class JsonSocketClientTool(context: Context) : AbstractJsonSocketTool(context) {
 

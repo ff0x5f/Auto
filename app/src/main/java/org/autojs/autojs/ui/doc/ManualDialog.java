@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
-import org.autojs.autojs6.R;
+import org.autojs.auto6.R;
 import org.autojs.autojs.ui.widget.EWebView;
 
 import butterknife.BindView;

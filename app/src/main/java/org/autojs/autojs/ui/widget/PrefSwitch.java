@@ -10,7 +10,7 @@ import org.autojs.autojs.theme.ThemeColor;
 import org.autojs.autojs.theme.ThemeColorHelper;
 import org.autojs.autojs.theme.ThemeColorManager;
 import org.autojs.autojs.theme.ThemeColorMutable;
-import org.autojs.autojs6.R;
+import org.autojs.auto6.R;
 
 /**
  * Created by Stardust on 2017/8/6.

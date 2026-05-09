@@ -17,7 +17,7 @@ import org.autojs.autojs.ui.BaseActivity;
 import org.autojs.autojs.ui.edit.EditorView;
 import org.autojs.autojs.util.Observers;
 import org.autojs.autojs.util.ViewUtils;
-import org.autojs.autojs6.R;
+import org.autojs.auto6.R;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 

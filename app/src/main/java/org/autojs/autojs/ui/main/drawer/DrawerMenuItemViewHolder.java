@@ -10,7 +10,7 @@ import android.widget.TextView;
 import org.autojs.autojs.ui.widget.BindableViewHolder;
 import org.autojs.autojs.ui.widget.PrefSwitch;
 import org.autojs.autojs.ui.widget.SwitchCompat;
-import org.autojs.autojs6.R;
+import org.autojs.auto6.R;
 
 import java.io.IOException;
 

@@ -7,7 +7,7 @@ import android.view.InflateException;
 import android.view.View;
 import android.view.ViewGroup;
 
-import org.autojs.autojs6.R;
+import org.autojs.auto6.R;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

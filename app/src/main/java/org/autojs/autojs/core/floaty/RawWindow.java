@@ -6,7 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 
-import org.autojs.autojs6.R;
+import org.autojs.auto6.R;
 import org.autojs.autojs.core.ui.inflater.inflaters.Exceptions;
 import org.autojs.autojs.runtime.exception.ScriptInterruptedException;
 import org.autojs.autojs.concurrent.VolatileDispose;

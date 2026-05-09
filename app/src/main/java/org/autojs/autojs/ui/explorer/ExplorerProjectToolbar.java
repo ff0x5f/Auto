@@ -21,7 +21,7 @@ import org.autojs.autojs.project.ProjectConfig;
 import org.autojs.autojs.project.ProjectLauncher;
 import org.autojs.autojs.ui.project.ProjectConfigActivity;
 import org.autojs.autojs.ui.project.ProjectConfigActivity_;
-import org.autojs.autojs6.R;
+import org.autojs.auto6.R;
 import org.greenrobot.eventbus.Subscribe;
 
 import butterknife.BindView;
