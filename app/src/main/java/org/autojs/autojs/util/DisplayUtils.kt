@@ -1,5 +1,6 @@
 package org.autojs.autojs.util
 
+import android.content.Context
 import android.os.Build
 import android.util.DisplayMetrics
 import android.util.DisplayMetrics.DENSITY_DEFAULT
@@ -44,9 +45,30 @@ object DisplayUtils {
     }
 
     @JvmStatic
+    fun pxToDp(context: Context, px: Float): Float {
+        return px / (context.resources.displayMetrics.densityDpi.toFloat() / DENSITY_DEFAULT)
+    }
+
+    @JvmStatic
     fun pxToSp(px: Float): Float {
         @Suppress("DEPRECATION")
         return px / displayMetrics.scaledDensity
+    }
+
+    @JvmStatic
+    fun pxToSp(context: Context, px: Float): Float {
+        @Suppress("DEPRECATION")
+        return px / context.resources.displayMetrics.scaledDensity
+    }
+
+    @JvmStatic
+    fun dpToPx(context: Context, dp: Float): Float {
+        return TypedValue.applyDimension(COMPLEX_UNIT_DIP, dp, context.resources.displayMetrics)
+    }
+
+    @JvmStatic
+    fun spToPx(context: Context, sp: Float): Float {
+        return TypedValue.applyDimension(COMPLEX_UNIT_SP, sp, context.resources.displayMetrics)
     }
 
     @JvmOverloads
