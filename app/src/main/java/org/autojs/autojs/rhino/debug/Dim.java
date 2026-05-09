@@ -17,7 +17,6 @@ import org.mozilla.javascript.ContextFactory;
 import org.mozilla.javascript.ImporterTopLevel;
 import org.mozilla.javascript.Kit;
 import org.mozilla.javascript.NativeCall;
-import org.mozilla.javascript.ObjArray;
 import org.mozilla.javascript.ScriptRuntime;
 import org.mozilla.javascript.Scriptable;
 import org.mozilla.javascript.ScriptableObject;
@@ -36,6 +35,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
@@ -494,7 +494,7 @@ public class Dim {
      */
     private static DebuggableScript[] getAllFunctions
     (DebuggableScript function) {
-        ObjArray functions = new ObjArray();
+        ArrayList<DebuggableScript> functions = new ArrayList<>();
         collectFunctions_r(function, functions);
         DebuggableScript[] result = new DebuggableScript[functions.size()];
         functions.toArray(result);
@@ -505,7 +505,7 @@ public class Dim {
      * Helper function for {@link #getAllFunctions(DebuggableScript)}.
      */
     private static void collectFunctions_r(DebuggableScript function,
-                                           ObjArray array) {
+                                           ArrayList<DebuggableScript> array) {
         array.add(function);
         for (int i = 0; i != function.getFunctionCount(); ++i) {
             collectFunctions_r(function.getFunction(i), array);
@@ -1097,7 +1097,7 @@ public class Dim {
         /**
          * The stack frames.
          */
-        private final ObjArray frameStack = new ObjArray();
+        private final ArrayList<StackFrame> frameStack = new ArrayList<>();
 
         /**
          * Whether the debugger should break at the next line in this context.
@@ -1153,7 +1153,7 @@ public class Dim {
          * Pops a stack frame from the stack.
          */
         private void popFrame() {
-            frameStack.pop();
+            frameStack.remove(frameStack.size() - 1);
         }
     }
 
