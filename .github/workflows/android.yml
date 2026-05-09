@@ -9,6 +9,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
 
@@ -34,3 +35,37 @@ jobs:
         with:
           name: AutoJs6-arm64-v8a
           path: app/build/outputs/apk/debug/*-arm64-v8a.apk
+
+      - name: Start Android Emulator
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 30
+          target: google
+          arch: x86_64
+          profile: Nexus 6
+          disk-size: 2000M
+
+      - name: Install and Test APK
+        run: |
+          # 安装 APK
+          adb install app/build/outputs/apk/debug/*-arm64-v8a.apk
+
+          # 启动应用并监控 15 秒
+          adb shell am start -n org.autojs.auto6/.MainActivity
+
+          # 等待 15 秒并检查进程是否存活
+          for i in {1..15}; do
+            sleep 1
+            if adb shell pidof org.autojs.auto6 > /dev/null 2>&1; then
+              echo "App is running after $i seconds"
+              exit 0
+            fi
+          done
+
+          # 如果走到这里说明 app 已崩溃
+          echo "App crashed or closed within 15 seconds"
+          exit 1
+
+      - name: Stop Emulator
+        if: always()
+        run: adb emu kill
