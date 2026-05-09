@@ -20,15 +20,13 @@ jobs:
           distribution: 'temurin'
           cache: gradle
 
-      - name: Build x86_64 Only
+      - name: Build APK
         run: |
           chmod +x gradlew
-          # 构建 x86_64 版本用于模拟器测试
           ./gradlew :app:assembleDebug \
             -q \
             --no-daemon \
             --warning-mode=none \
-            -Pandroid.split.perAbi=false \
             2>&1 | grep -v "^WARNING:" | grep -v "D8:" | grep -v "Unexpected error during rewriting of Kotlin metadata"
 
       - name: Upload APK
@@ -37,7 +35,7 @@ jobs:
           name: AutoJs6
           path: app/build/outputs/apk/debug/*.apk
 
-      - name: Start Android Emulator
+      - name: Test APK on Emulator
         uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: 34
