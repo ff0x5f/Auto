@@ -7,6 +7,7 @@ package org.autojs.autojs.rhino.debug;
 
 
 import org.autojs.autojs.engine.RhinoJavaScriptEngine;
+import org.mozilla.javascript.tools.debugger.Dim;
 
 /**
  * Interface for communication between the debugger and its GUI.  This
