@@ -34,19 +34,19 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: AutoJs6-arm64-v8a
-          path: app/build/outputs/apk/debug/*-arm64-v8a.apk
+          path: app/build/outputs/apk/debug/auto6-*-arm64-v8a.apk
 
       - name: Start Android Emulator
         uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: 34
           target: default
-          arch: x86_64
+          arch: arm64
           profile: Nexus 6
           disk-size: 2000M
           script: |
             # 安装 APK
-            adb install app/build/outputs/apk/debug/*-arm64-v8a.apk
+            adb install app/build/outputs/apk/debug/auto6-*-arm64-v8a.apk
             # 启动应用并监控 15 秒
             adb shell am start -n org.autojs.auto6/.MainActivity
             # 等待 15 秒并检查进程是否存活
