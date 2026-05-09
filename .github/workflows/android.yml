@@ -9,7 +9,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 25
     steps:
       - uses: actions/checkout@v4
 
@@ -45,8 +45,6 @@ jobs:
           profile: Nexus 6
           disk-size: 2000M
           script: |
-            # 等待模拟器完全启动
-            sleep 30
             # 安装 APK
             adb install app/build/outputs/apk/debug/*-arm64-v8a.apk
             # 启动应用并监控 15 秒
