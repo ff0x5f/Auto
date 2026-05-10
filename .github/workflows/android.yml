@@ -31,6 +31,12 @@ jobs:
             --warning-mode=none \
             2>&1 | grep -v "^WARNING:" | grep -v "D8:" | grep -v "Unexpected error during rewriting of Kotlin metadata"
 
+      - name: Upload arm64 APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: AutoJs6-arm64-v8a
+          path: app/build/outputs/apk/app/debug/*-arm64-v8a.apk
+
       - name: Build x86_64 for Emulator Test
         run: |
           chmod +x gradlew
@@ -40,18 +46,13 @@ jobs:
             --no-daemon \
             --warning-mode=none \
             2>&1 | grep -v "^WARNING:" | grep -v "D8:" | grep -v "Unexpected error during rewriting of Kotlin metadata"
-
-      - name: Upload arm64 APK
-        uses: actions/upload-artifact@v4
-        with:
-          name: AutoJs6-arm64-v8a
-          path: app/build/outputs/apk/app/debug/*-arm64-v8a.apk
+          cp app/build/outputs/apk/app/debug/*-x86_64.apk app/build/outputs/apk/app/debug/autojs6-x86_64.apk
 
       - name: Upload x86_64 APK
         uses: actions/upload-artifact@v4
         with:
           name: AutoJs6-x86_64
-          path: app/build/outputs/apk/app/debug/*-x86_64.apk
+          path: app/build/outputs/apk/app/debug/autojs6-x86_64.apk
 
       - name: Test APK on Emulator
         uses: reactivecircus/android-emulator-runner@v2
@@ -63,7 +64,7 @@ jobs:
           disk-size: 2000M
           emulator-boot-timeout: 900
           script: |
-            adb install app/build/outputs/apk/app/debug/*-x86_64.apk
+            adb install app/build/outputs/apk/app/debug/autojs6-x86_64.apk
             PKG_NAME="org.autojs.autojs6.alt"
             adb shell monkey -p "$PKG_NAME" -c android.intent.category.LAUNCHER 1 2>/dev/null || adb shell monkey -p "$PKG_NAME" 1
             sleep 5
