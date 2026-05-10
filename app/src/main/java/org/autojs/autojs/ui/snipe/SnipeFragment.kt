@@ -343,7 +343,6 @@ class SnipeFragment : ViewPagerFragment(ROTATION_GONE) {
         MaterialDialog.Builder(act)
             .title(R.string.text_snipe_success_title)
             .content(R.string.text_snipe_success_message)
-            .positiveIcon(R.drawable.ic_check_mark)
             .positiveText(R.string.dialog_button_confirm)
             .onPositive { dialog, _ ->
                 dialog.dismiss()
@@ -358,7 +357,6 @@ class SnipeFragment : ViewPagerFragment(ROTATION_GONE) {
         MaterialDialog.Builder(act)
             .title(R.string.text_snipe_failure_title)
             .content(getString(R.string.text_snipe_failure_message, errorMessage))
-            .positiveIcon(R.drawable.ic_info)
             .positiveText(R.string.text_snipe_retry)
             .negativeText(R.string.text_snipe_dismiss)
             .onPositive { dialog, _ ->
@@ -408,7 +406,7 @@ class SnipeFragment : ViewPagerFragment(ROTATION_GONE) {
             }
             val source = JavaScriptFileSource(scriptName, scriptFile)
             val config = ExecutionConfig(workingDirectory = scriptFile.parent)
-            AutoJs.getInstance().scriptEngineService.execute(source, scriptExecutionListener, config)
+            AutoJs.instance.scriptEngineService.execute(source, scriptExecutionListener, config)
         } catch (e: Exception) {
             e.printStackTrace()
             if (!isCheckScript) {
