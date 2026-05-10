@@ -47,24 +47,5 @@ jobs:
           script: |
             adb install app/build/outputs/apk/debug/auto6-v6.2.0-x86_64.apk
             adb shell monkey -p org.autojs.auto6 -c android.intent.category.LAUNCHER 1
-            # 等待应用启动
             sleep 3
-            # 验证应用在 15 秒内保持前台运行
-            n=0; while [ $n -lt 15 ]; do
-              sleep 1
-              n=$((n+1))
-              # 检查进程是否存在
-              if adb shell pidof org.autojs.auto6 > /dev/null 2>&1; then
-                # 检查应用是否仍在前台
-                if adb shell dumpsys window windows | grep -E "mCurrentFocus" | grep -q "org.autojs.auto6"; then
-                  echo "App running at ${n}s (foreground)"
-                else
-                  echo "App in background at ${n}s"
-                fi
-              else
-                echo "App crashed (process not found)"
-                exit 1
-              fi
-            done
-            echo "App stable for 15s"
-            exit 0
+            n=0; while [ $n -lt 15 ]; do sleep 1; n=$(expr $n + 1); if adb shell pidof org.autojs.auto6 > /dev/null 2>&1; then if adb shell dumpsys window windows | grep -E "mCurrentFocus" | grep -q "org.autojs.auto6"; then echo "App running at ${n}s (foreground)"; else echo "App in background at ${n}s"; fi; else echo "App crashed (process not found)"; exit 1; fi; done; echo "App stable for 15s"; exit 0
