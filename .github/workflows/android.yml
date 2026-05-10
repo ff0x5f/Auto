@@ -63,11 +63,7 @@ jobs:
           disk-size: 2000M
           emulator-boot-timeout: 900
           script: |
-            APK_PATH="app/build/outputs/apk/app/debug/autojs6-v6.7.0-x86_64.apk"
-            if [ ! -f "$APK_PATH" ]; then APK_PATH=$(ls app/build/outputs/apk/app/debug/*-x86_64.apk 2>/dev/null | head -1); fi
-            if [ ! -f "$APK_PATH" ]; then APK_PATH=$(ls app/build/outputs/apk/app/debug/*.apk 2>/dev/null | head -1); fi
-            echo "Using APK: $APK_PATH"
-            adb install "$APK_PATH"
+            adb install app/build/outputs/apk/app/debug/*-x86_64.apk
             PKG_NAME="org.autojs.autojs6.alt"
             adb shell monkey -p "$PKG_NAME" -c android.intent.category.LAUNCHER 1 2>/dev/null || adb shell monkey -p "$PKG_NAME" 1
             sleep 5
