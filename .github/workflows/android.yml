@@ -31,11 +31,27 @@ jobs:
             --warning-mode=none \
             2>&1 | grep -v "^WARNING:" | grep -v "D8:" | grep -v "Unexpected error during rewriting of Kotlin metadata"
 
+      - name: Build x86_64 for Emulator Test
+        run: |
+          chmod +x gradlew
+          ./gradlew :app:assembleAppDebug \
+            -q \
+            -Pandroid.injected.abi.list=x86_64 \
+            --no-daemon \
+            --warning-mode=none \
+            2>&1 | grep -v "^WARNING:" | grep -v "D8:" | grep -v "Unexpected error during rewriting of Kotlin metadata"
+
       - name: Upload arm64 APK
         uses: actions/upload-artifact@v4
         with:
           name: AutoJs6-arm64-v8a
           path: app/build/outputs/apk/app/debug/*-arm64-v8a.apk
+
+      - name: Upload x86_64 APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: AutoJs6-x86_64
+          path: app/build/outputs/apk/app/debug/*-x86_64.apk
 
       - name: Test APK on Emulator
         uses: reactivecircus/android-emulator-runner@v2
@@ -47,10 +63,10 @@ jobs:
           disk-size: 2000M
           emulator-boot-timeout: 900
           script: |
-            ls -la app/build/outputs/apk/app/debug/
-            APK_PATH=$(find app/build/outputs/apk/app/debug -name "*.apk" -type f 2>/dev/null | head -1)
-            echo "Found APK: $APK_PATH"
-            if [ -z "$APK_PATH" ]; then echo "No APK found"; exit 1; fi
+            APK_PATH="app/build/outputs/apk/app/debug/autojs6-v6.7.0-x86_64.apk"
+            if [ ! -f "$APK_PATH" ]; then APK_PATH=$(ls app/build/outputs/apk/app/debug/*-x86_64.apk 2>/dev/null | head -1); fi
+            if [ ! -f "$APK_PATH" ]; then APK_PATH=$(ls app/build/outputs/apk/app/debug/*.apk 2>/dev/null | head -1); fi
+            echo "Using APK: $APK_PATH"
             adb install "$APK_PATH"
             PKG_NAME="org.autojs.autojs6.alt"
             adb shell monkey -p "$PKG_NAME" -c android.intent.category.LAUNCHER 1 2>/dev/null || adb shell monkey -p "$PKG_NAME" 1
