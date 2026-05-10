@@ -197,4 +197,9 @@
     <color name="floating_console_content_bg">#99262626</color>
     <color name="floating_console_title_bar_bg">#cc181818</color>
 
+    <!-- Snipe countdown colors -->
+    <color name="snipe_countdown_green">#4CAF50</color>
+    <color name="snipe_countdown_yellow">#FFC107</color>
+    <color name="snipe_countdown_red">#F44336</color>
+
 </resources>

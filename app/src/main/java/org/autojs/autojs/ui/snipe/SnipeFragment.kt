@@ -8,13 +8,21 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.Animation
+import android.view.animation.ScaleAnimation
 import com.afollestad.materialdialogs.MaterialDialog
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import org.autojs.autojs.AutoJs
+import org.autojs.autojs.execution.ExecutionConfig
+import org.autojs.autojs.execution.ScriptExecution
+import org.autojs.autojs.execution.ScriptExecutionListener
+import org.autojs.autojs.script.JavaScriptFileSource
 import org.autojs.autojs.ui.main.ViewPagerFragment
 import org.autojs.autojs.util.ClipboardUtils
 import org.autojs.autojs.util.ViewUtils.showToast
 import org.autojs.autojs6.R
 import org.autojs.autojs6.databinding.FragmentSnipeBinding
+import java.io.File
 import java.util.Calendar
 
 class SnipeFragment : ViewPagerFragment(ROTATION_GONE) {
@@ -37,6 +45,34 @@ class SnipeFragment : ViewPagerFragment(ROTATION_GONE) {
 
     private var clipboardPromptShown: Boolean = false
 
+    // Loading state
+    private var isLoading: Boolean = false
+    private var currentScriptName: String = ""
+
+    // Pulse animation for countdown
+    private var pulseAnimation: Animation? = null
+
+    // Script execution listener
+    private val scriptExecutionListener = object : ScriptExecutionListener {
+        override fun onStart(execution: ScriptExecution) {
+            // Script started
+        }
+
+        override fun onSuccess(execution: ScriptExecution, result: Any?) {
+            activity?.runOnUiThread {
+                hideLoading()
+                showSuccessDialog()
+            }
+        }
+
+        override fun onException(execution: ScriptExecution, e: Throwable) {
+            activity?.runOnUiThread {
+                hideLoading()
+                showFailureDialog(e.message ?: "Unknown error")
+            }
+        }
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentSnipeBinding.inflate(inflater, container, false)
         return binding.root
@@ -49,10 +85,12 @@ class SnipeFragment : ViewPagerFragment(ROTATION_GONE) {
         updateUpcomingSessions()
         startCountdown()
         checkClipboard()
+        setupPulseAnimation()
     }
 
     override fun onDestroyView() {
         countDownTimer?.cancel()
+        pulseAnimation?.cancel()
         _binding = null
         super.onDestroyView()
     }
@@ -83,6 +121,19 @@ class SnipeFragment : ViewPagerFragment(ROTATION_GONE) {
         binding.btnStartSnipe.setOnClickListener { startSnipe() }
     }
 
+    private fun setupPulseAnimation() {
+        pulseAnimation = ScaleAnimation(
+            1.0f, 1.1f,
+            1.0f, 1.1f,
+            Animation.RELATIVE_TO_SELF, 0.5f,
+            Animation.RELATIVE_TO_SELF, 0.5f
+        ).apply {
+            duration = 500
+            repeatCount = Animation.INFINITE
+            repeatMode = Animation.REVERSE
+        }
+    }
+
     private fun updateUpcomingSessions() {
         val ctx = context ?: return
         val now = Calendar.getInstance()
@@ -108,7 +159,7 @@ class SnipeFragment : ViewPagerFragment(ROTATION_GONE) {
         snipeButtonClicked = false
         binding.etSession1.isEnabled = true
         binding.etSession2.isEnabled = true
-        updateSnipeButtonState(Long.MAX_VALUE)
+        updateSnipeButtonState(binding, Long.MAX_VALUE)
 
         if (upcomingSlots.size >= 2) {
             session1SlotMinutes = upcomingSlots[0]
@@ -157,7 +208,8 @@ class SnipeFragment : ViewPagerFragment(ROTATION_GONE) {
                         val minutes = (millisUntilFinished / 1000L) / 60
                         val seconds = (millisUntilFinished / 1000L) % 60
                         b.textCountdown.text = String.format("%02d:%02d", minutes, seconds)
-                        updateSnipeButtonState(millisUntilFinished)
+                        updateSnipeButtonState(b, millisUntilFinished)
+                        updateCountdownColor(b, millisUntilFinished)
                     }
                 }
             }
@@ -173,8 +225,26 @@ class SnipeFragment : ViewPagerFragment(ROTATION_GONE) {
         }.start()
     }
 
-    private fun updateSnipeButtonState(millisUntilSession: Long) {
-        val b = _binding ?: return
+    private fun updateCountdownColor(b: FragmentSnipeBinding, millisUntilFinished: Long) {
+        val seconds = millisUntilFinished / 1000
+
+        val colorRes = when {
+            seconds > 60 -> R.color.snipe_countdown_green
+            seconds > 15 -> R.color.snipe_countdown_yellow
+            else -> R.color.snipe_countdown_red
+        }
+
+        b.textCountdown.setTextColor(requireContext().getColor(colorRes))
+
+        // Start or stop pulse animation based on countdown
+        if (seconds <= 15 && pulseAnimation != null && b.textCountdown.animation == null) {
+            b.textCountdown.startAnimation(pulseAnimation)
+        } else if (seconds > 15) {
+            b.textCountdown.clearAnimation()
+        }
+    }
+
+    private fun updateSnipeButtonState(b: FragmentSnipeBinding, millisUntilSession: Long) {
         val threeMinutesMillis = 3 * 60 * 1000L
         val isWithinWindow = millisUntilSession in 1..threeMinutesMillis
         val canClick = isWithinWindow && !snipeButtonClicked
@@ -225,14 +295,16 @@ class SnipeFragment : ViewPagerFragment(ROTATION_GONE) {
         val session1Valid = validateSession(1)
         val session2Valid = validateSession(2)
 
-        val activity = activity ?: return
+        val act = activity ?: return
         if (session1Valid && session2Valid) {
-            showToast(activity, R.string.text_both_sessions_ready)
+            showToast(act, R.string.text_both_sessions_ready)
+            // 执行检查脚本
+            runScript(act, "检查.js", isCheckScript = true)
         } else {
             val missing = mutableListOf<String>()
             if (!session1Valid) missing.add(getString(R.string.text_snipe_session_1, formatTime(session1SlotMinutes)))
             if (!session2Valid) missing.add(getString(R.string.text_snipe_session_2, formatTime(session2SlotMinutes)))
-            showToast(activity, getString(R.string.text_session_not_ready, missing.joinToString(", ")))
+            showToast(act, getString(R.string.text_session_not_ready, missing.joinToString(", ")))
         }
     }
 
@@ -246,8 +318,119 @@ class SnipeFragment : ViewPagerFragment(ROTATION_GONE) {
         binding.etSession1.isEnabled = false
         binding.etSession2.isEnabled = false
 
-        val activity = activity ?: return
-        showToast(activity, R.string.text_snipe_initiated)
+        val act = activity ?: return
+        showToast(act, R.string.text_snipe_initiated)
+
+        // 保存 Session 内容到文件，供脚本读取
+        saveSnipeData(act)
+        // 执行抢购脚本
+        runScript(act, "抢购.js", isCheckScript = false)
+    }
+
+    private fun showLoading(message: String = getString(R.string.text_snipe_executing)) {
+        binding.textLoadingMessage.text = message
+        binding.loadingOverlay.visibility = View.VISIBLE
+        isLoading = true
+    }
+
+    private fun hideLoading() {
+        binding.loadingOverlay.visibility = View.GONE
+        isLoading = false
+    }
+
+    private fun showSuccessDialog() {
+        val act = activity ?: return
+        MaterialDialog.Builder(act)
+            .title(R.string.text_snipe_success_title)
+            .content(R.string.text_snipe_success_message)
+            .positiveIcon(R.drawable.ic_check_mark)
+            .positiveText(R.string.dialog_button_confirm)
+            .onPositive { dialog, _ ->
+                dialog.dismiss()
+                resetSnipeState()
+            }
+            .cancelable(false)
+            .show()
+    }
+
+    private fun showFailureDialog(errorMessage: String) {
+        val act = activity ?: return
+        MaterialDialog.Builder(act)
+            .title(R.string.text_snipe_failure_title)
+            .content(getString(R.string.text_snipe_failure_message, errorMessage))
+            .positiveIcon(R.drawable.ic_info)
+            .positiveText(R.string.text_snipe_retry)
+            .negativeText(R.string.text_snipe_dismiss)
+            .onPositive { dialog, _ ->
+                dialog.dismiss()
+                // Retry
+                snipeButtonClicked = false
+                binding.btnStartSnipe.isEnabled = true
+                binding.btnStartSnipe.text = getString(R.string.text_start_snipe)
+            }
+            .onNegative { dialog, _ ->
+                dialog.dismiss()
+                resetSnipeState()
+            }
+            .cancelable(false)
+            .show()
+    }
+
+    private fun resetSnipeState() {
+        snipeButtonClicked = false
+        binding.btnStartSnipe.isEnabled = false
+        binding.btnStartSnipe.text = getString(R.string.text_start_snipe)
+        binding.etSession1.isEnabled = true
+        binding.etSession2.isEnabled = true
+    }
+
+    private fun saveSnipeData(context: android.content.Context) {
+        try {
+            val dir = File(context.filesDir, "snipe")
+            dir.mkdirs()
+            File(dir, "session1.txt").writeText(binding.etSession1.text.toString())
+            File(dir, "session2.txt").writeText(binding.etSession2.text.toString())
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
+
+    private fun runScript(context: android.content.Context, scriptName: String, isCheckScript: Boolean = false) {
+        try {
+            val scriptFile = File(context.filesDir, "sample/测试/$scriptName")
+            // 如果文件不存在，从 assets 复制
+            if (!scriptFile.exists()) {
+                copyAssetScript(context, scriptName, scriptFile)
+            }
+            currentScriptName = scriptName
+            if (!isCheckScript) {
+                showLoading()
+            }
+            val source = JavaScriptFileSource(scriptName, scriptFile)
+            val config = ExecutionConfig(workingDirectory = scriptFile.parent)
+            AutoJs.getInstance().scriptEngineService.execute(source, scriptExecutionListener, config)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            if (!isCheckScript) {
+                hideLoading()
+                showFailureDialog(e.message ?: "Unknown error")
+            } else {
+                showToast(context, "Script error: ${e.message}")
+            }
+        }
+    }
+
+    private fun copyAssetScript(context: android.content.Context, scriptName: String, targetFile: File) {
+        try {
+            targetFile.parentFile?.mkdirs()
+            context.assets.open("sample/测试/$scriptName").use { input ->
+                targetFile.outputStream().use { output ->
+                    input.copyTo(output)
+                }
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
 
     private fun checkClipboard() {

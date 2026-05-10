@@ -1725,4 +1725,12 @@
     <string name="text_clipboard_prompt_content">Clipboard content: \"%s\"\n\nPaste into which session?</string>
     <string name="text_snipe_available_hint">Available 3 min before session</string>
     <string name="text_snipe_initiated">Snipe initiated</string>
+    <string name="text_snipe_executing">Executing…</string>
+    <string name="text_snipe_success_title">Snipe Completed</string>
+    <string name="text_snipe_success_message">Script executed successfully.</string>
+    <string name="text_snipe_failure_title">Snipe Failed</string>
+    <string name="text_snipe_failure_message">Script execution failed: %s</string>
+    <string name="text_snipe_retry">Retry</string>
+    <string name="text_snipe_view_logs">View Logs</string>
+    <string name="text_snipe_dismiss">Dismiss</string>
 </resources>
