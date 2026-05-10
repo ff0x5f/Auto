@@ -254,9 +254,6 @@ android {
         minSdk = versions.sdkVersionMin
         targetSdk = versions.sdkVersionTarget
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        ndk {
-            abiFilters.add("arm64-v8a")
-        }
         resourceConfigurations.addAll(listOf("zh", "en"))
     }
 
