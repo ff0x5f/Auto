@@ -65,6 +65,6 @@ jobs:
           emulator-boot-timeout: 900
           script: |
             adb install app/build/outputs/apk/app/debug/autojs6-x86_64.apk
-            adb shell monkey -p org.autojs.autojs6.alt -c android.intent.category.LAUNCHER 1
+            adb shell am start -a android.intent.action.MAIN -c android.intent.category.LAUNCHER
             sleep 5
             n=0; while [ $n -lt 15 ]; do sleep 1; n=$(expr $n + 1); if adb shell pidof org.autojs.autojs6.alt > /dev/null 2>&1; then if adb shell dumpsys window windows | grep -E "mCurrentFocus" | grep -q org.autojs.autojs6.alt; then echo "App running at ${n}s (foreground)"; else echo "App in background at ${n}s"; fi; else echo "App crashed (process not found)"; exit 1; fi; done; echo "App stable for 15s"; exit 0
