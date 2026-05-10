@@ -153,30 +153,35 @@ class SnipeFragment : ViewPagerFragment(ROTATION_GONE) {
         countDownTimer = object : CountDownTimer(deltaMillis, 1000L) {
             override fun onTick(millisUntilFinished: Long) {
                 activity?.runOnUiThread {
-                    val minutes = (millisUntilFinished / 1000L) / 60
-                    val seconds = (millisUntilFinished / 1000L) % 60
-                    binding.textCountdown.text = String.format("%02d:%02d", minutes, seconds)
-                    updateSnipeButtonState(millisUntilFinished)
+                    _binding?.let { b ->
+                        val minutes = (millisUntilFinished / 1000L) / 60
+                        val seconds = (millisUntilFinished / 1000L) % 60
+                        b.textCountdown.text = String.format("%02d:%02d", minutes, seconds)
+                        updateSnipeButtonState(millisUntilFinished)
+                    }
                 }
             }
 
             override fun onFinish() {
                 activity?.runOnUiThread {
-                    updateUpcomingSessions()
-                    startCountdown()
+                    _binding?.let {
+                        updateUpcomingSessions()
+                        startCountdown()
+                    }
                 }
             }
         }.start()
     }
 
     private fun updateSnipeButtonState(millisUntilSession: Long) {
+        val b = _binding ?: return
         val threeMinutesMillis = 3 * 60 * 1000L
         val isWithinWindow = millisUntilSession in 1..threeMinutesMillis
         val canClick = isWithinWindow && !snipeButtonClicked
 
-        binding.btnStartSnipe.isEnabled = canClick
+        b.btnStartSnipe.isEnabled = canClick
 
-        binding.btnStartSnipe.text = when {
+        b.btnStartSnipe.text = when {
             snipeButtonClicked -> getString(R.string.text_snipe_started)
             else -> getString(R.string.text_start_snipe)
         }
