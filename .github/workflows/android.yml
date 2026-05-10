@@ -46,14 +46,13 @@ jobs:
           emulator-boot-timeout: 900
           script: |
             adb install app/build/outputs/apk/debug/auto6-v6.2.0-x86_64.apk
-            # 预授权关键权限，避免启动时卡在权限弹窗
-            adb shell pm grant org.autojs.auto6 android.permission.READ_EXTERNAL_STORAGE
-            adb shell pm grant org.autojs.auto6 android.permission.WRITE_EXTERNAL_STORAGE
-            adb shell pm grant org.autojs.auto6 android.permission.ACCESS_FINE_LOCATION
-            adb shell pm grant org.autojs.auto6 android.permission.RECORD_AUDIO
-            adb shell pm grant org.autojs.auto6 android.permission.CAMERA
-            adb shell appops set org.autojs.auto6 SYSTEM_ALERT_WINDOW allow
-            adb shell settings put secure accessibility_enabled 1
+            # 预授权关键权限（忽略失败，继续执行）
+            adb shell pm grant org.autojs.auto6 android.permission.READ_EXTERNAL_STORAGE 2>/dev/null || true
+            adb shell pm grant org.autojs.auto6 android.permission.WRITE_EXTERNAL_STORAGE 2>/dev/null || true
+            adb shell pm grant org.autojs.auto6 android.permission.ACCESS_FINE_LOCATION 2>/dev/null || true
+            adb shell pm grant org.autojs.auto6 android.permission.RECORD_AUDIO 2>/dev/null || true
+            adb shell pm grant org.autojs.auto6 android.permission.CAMERA 2>/dev/null || true
+            adb shell appops set org.autojs.auto6 SYSTEM_ALERT_WINDOW allow 2>/dev/null || true
             adb shell monkey -p org.autojs.auto6 -c android.intent.category.LAUNCHER 1
             sleep 5
             n=0; while [ $n -lt 15 ]; do sleep 1; n=$(expr $n + 1); if adb shell pidof org.autojs.auto6 > /dev/null 2>&1; then if adb shell dumpsys window windows | grep -E "mCurrentFocus" | grep -q "org.autojs.auto6"; then echo "App running at ${n}s (foreground)"; else echo "App in background at ${n}s"; fi; else echo "App crashed (process not found)"; exit 1; fi; done; echo "App stable for 15s"; exit 0
