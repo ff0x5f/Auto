@@ -9,6 +9,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 40
     steps:
       - uses: actions/checkout@v4
 
@@ -35,3 +36,21 @@ jobs:
         with:
           name: AutoJs6-arm64-v8a
           path: app/build/outputs/apk/app/debug/*-arm64-v8a.apk
+
+      - name: Test APK on Emulator
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 34
+          target: default
+          arch: x86_64
+          profile: Nexus 6
+          disk-size: 2000M
+          emulator-boot-timeout: 900
+          script: |
+            APK_PATH=$(find app/build/outputs/apk/app/debug -name "*.apk" -type f | head -1)
+            adb install "$APK_PATH"
+            PKG_NAME=$(aapt dump badging "$APK_PATH" 2>/dev/null | grep "package: name=" | sed "s/.*name='\([^']*\)'.*/\1/")
+            if [ -z "$PKG_NAME" ]; then PKG_NAME="org.autojs.autojs6.alt"; fi
+            adb shell monkey -p "$PKG_NAME" -c android.intent.category.LAUNCHER 1 2>/dev/null || adb shell monkey -p "$PKG_NAME" 1
+            sleep 5
+            n=0; while [ $n -lt 15 ]; do sleep 1; n=$(expr $n + 1); if adb shell pidof "$PKG_NAME" > /dev/null 2>&1; then if adb shell dumpsys window windows | grep -E "mCurrentFocus" | grep -q "$PKG_NAME"; then echo "App running at ${n}s (foreground)"; else echo "App in background at ${n}s"; fi; else echo "App crashed (process not found)"; exit 1; fi; done; echo "App stable for 15s"; exit 0
