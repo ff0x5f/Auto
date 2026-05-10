@@ -73,14 +73,24 @@ jobs:
           script: |
             echo "=== Installing APK ==="
             adb install app/build/outputs/apk/app/debug/autojs6-x86_64.apk
-            echo "=== APK installed, granting permissions ==="
+            echo "=== Granting permissions ==="
             adb shell pm grant org.autojs.autojs6 android.permission.READ_EXTERNAL_STORAGE 2>/dev/null || true
             adb shell pm grant org.autojs.autojs6 android.permission.WRITE_EXTERNAL_STORAGE 2>/dev/null || true
             adb shell pm grant org.autojs.autojs6 android.permission.ACCESS_FINE_LOCATION 2>/dev/null || true
             adb shell pm grant org.autojs.autojs6 android.permission.RECORD_AUDIO 2>/dev/null || true
             echo "=== Starting app ==="
             adb shell am start -a android.intent.action.MAIN -c android.intent.category.LAUNCHER 2>&1 || echo "am start failed"
-            echo "=== Waiting 8 seconds for app to initialize ==="
-            sleep 8
-            echo "=== Checking process status ==="
-            n=0; while [ $n -lt 15 ]; do sleep 1; n=$(expr $n + 1); if adb shell pidof org.autojs.autojs6 > /dev/null 2>&1; then if adb shell dumpsys window windows | grep -E "mCurrentFocus" | grep -q org.autojs.autojs6; then echo "App running at ${n}s (foreground)"; else echo "App in background at ${n}s"; fi; else echo "App crashed (process not found)"; exit 1; fi; done; echo "App stable for 15s"; exit 0
+            echo "=== Waiting 15 seconds for app to initialize ==="
+            sleep 15
+            echo "=== Checking if app is running ==="
+            if adb shell pidof org.autojs.autojs6 > /dev/null 2>&1; then
+              echo "App started successfully, checking stability for 15s"
+              n=0; while [ $n -lt 15 ]; do sleep 1; n=$(expr $n + 1); if adb shell pidof org.autojs.autojs6 > /dev/null 2>&1; then echo "App stable at ${n}s"; else echo "App crashed at ${n}s"; exit 1; fi; done
+              echo "App stable for 15s"
+              exit 0
+            else
+              echo "App did not start (process not found)"
+              echo "=== Checking app info ==="
+              adb shell pm dump org.autojs.autojs6 2>/dev/null | head -20 || true
+              exit 1
+            fi
