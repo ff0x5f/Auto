@@ -75,8 +75,20 @@ jobs:
             adb install app/build/outputs/apk/app/debug/autojs6-x86_64.apk
             echo "=== Starting app with monkey ==="
             adb shell monkey -p org.autojs.autojs6 -c android.intent.category.LAUNCHER 1 2>&1 || echo "monkey done"
-            echo "=== Immediately checking app stability for 30s ==="
-            # 立即开始检测，不等待
-            n=0; while [ $n -lt 30 ]; do sleep 1; n=$(expr $n + 1); if adb shell pidof org.autojs.autojs6 > /dev/null 2>&1; then echo "App running at ${n}s"; else echo "App crashed at ${n}s"; exit 1; fi; done
-            echo "App stable for 30s"
+            echo "=== Checking foreground for 30s ==="
+            # 如果 10 秒内应用没出现在前台，判定为闪退失败
+            n=0; found=0
+            while [ $n -lt 30 ]; do sleep 1; n=$(expr $n + 1)
+              if adb shell dumpsys window windows | grep -E "mCurrentFocus|mFocusedApp" | grep -q "org.autojs.autojs6"; then
+                echo "App in foreground at ${n}s"
+                found=1
+              else
+                echo "No foreground at ${n}s"
+              fi
+            done
+            if [ $found -eq 0 ]; then
+              echo "FAIL: App never appeared in foreground (crashed)"
+              exit 1
+            fi
+            echo "App appeared in foreground - test passed"
             exit 0
