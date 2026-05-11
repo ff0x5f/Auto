@@ -75,20 +75,36 @@ jobs:
             adb install app/build/outputs/apk/app/debug/autojs6-x86_64.apk
             echo "=== Starting app with monkey ==="
             adb shell monkey -p org.autojs.autojs6 -c android.intent.category.LAUNCHER 1 2>&1 || echo "monkey done"
-            echo "=== Checking foreground for 30s ==="
-            # 如果 10 秒内应用没出现在前台，判定为闪退失败
-            n=0; found=0
-            while [ $n -lt 30 ]; do sleep 1; n=$(expr $n + 1)
-              if adb shell dumpsys window windows | grep -E "mCurrentFocus|mFocusedApp" | grep -q "org.autojs.autojs6"; then
-                echo "App in foreground at ${n}s"
-                found=1
+            echo "=== Three-layer verification (30s) ==="
+            found=0
+            n=0
+            while [ $n -lt 30 ]; do
+              sleep 2
+              n=$(expr $n + 2)
+              echo "--- Check at ${n}s ---"
+              # 第一层：检查进程是否存在
+              if adb shell pidof org.autojs.autojs6 > /dev/null 2>&1; then
+                echo "Process exists"
               else
-                echo "No foreground at ${n}s"
+                echo "Process not found"
               fi
+              # 第二层：检查崩溃日志
+              if adb logcat -d | grep -i "FATAL\|crash\|NativeCrash" | grep -q "org.autojs.autojs6"; then
+                echo "CRASH DETECTED in logcat"
+                exit 1
+              fi
+              # 第三层：dump UI 检查
+              adb shell uiautomator dump /sdcard/view.xml 2>/dev/null
+              adb pull /sdcard/view.xml /tmp/view.xml 2>/dev/null
+              if grep -qi "autojs\|脚本\|Auto.js\|Snipe" /tmp/view.xml 2>/dev/null; then
+                echo "UI content detected - App is running"
+                found=1
+                break
+              fi
+              echo "No UI content yet"
             done
             if [ $found -eq 0 ]; then
-              echo "FAIL: App never appeared in foreground (crashed)"
+              echo "FAIL: No UI content detected in 30s"
               exit 1
             fi
-            echo "App appeared in foreground - test passed"
-            exit 0
+            echo "PASS: App UI verified"
