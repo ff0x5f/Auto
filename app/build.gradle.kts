@@ -460,7 +460,7 @@ android {
     compileSdk = versions.sdkVersionCompile
 
     defaultConfig {
-        applicationId = applicationId
+        applicationId = globalApplicationId
 
         minSdk = versions.sdkVersionMin
         targetSdk = versions.sdkVersionTarget
