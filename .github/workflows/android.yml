@@ -99,13 +99,19 @@ jobs:
                     exit 1
                 fi
 
-                # 3. UI Content Check
+                # 3. UI Content Check - Only app-specific keywords
                 adb shell uiautomator dump /sdcard/view.xml > /dev/null
                 adb pull /sdcard/view.xml /tmp/view.xml 2>/dev/null || true
 
                 if [ -s /tmp/view.xml ]; then
-                    if grep -qiE "main|launcher|button|text|android|autojs|脚本|files|test|sample|floating|floaty" /tmp/view.xml; then
-                        echo "SUCCESS: UI content detected. App is functional."
+                    # Keywords that only exist in the app's main UI (MainActivity)
+                    if grep -qiE "drawer_layout|viewpager|tab_layout|explorer|plugin|task_manager|snipe" /tmp/view.xml; then
+                        echo "SUCCESS: App main UI detected."
+                        exit 0
+                    fi
+                    # Also check for specific text content that indicates app is running
+                    if grep -qiE "文件|文档|插件|任务|sample|explorer" /tmp/view.xml; then
+                        echo "SUCCESS: App content detected."
                         exit 0
                     fi
                 fi
