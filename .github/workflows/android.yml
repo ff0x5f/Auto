@@ -71,4 +71,45 @@ jobs:
           disk-size: 2000M
           emulator-boot-timeout: 900
           script: |
-            echo "=== Installing APK ===" && adb install app/build/outputs/apk/app/debug/simple-process-x86_64.apk && echo "=== Starting app with monkey ===" && adb shell monkey -p com.simple.process -c android.intent.category.LAUNCHER 1 2>&1 || echo "monkey done" && echo "=== Three-layer verification (30s) ===" && found=0 && n=0; while [ $n -lt 30 ]; do sleep 2; n=$(expr $n + 2); echo "--- Check at ${n}s ---"; if adb shell pidof com.simple.process > /dev/null 2>&1; then echo "Process exists"; else echo "Process not found"; fi; if adb logcat -d | grep -i "FATAL\|crash\|NativeCrash" | grep -q "com.simple.process"; then echo "CRASH DETECTED in logcat"; exit 1; fi; adb shell uiautomator dump /sdcard/view.xml 2>/dev/null; adb pull /sdcard/view.xml /tmp/view.xml 2>/dev/null; if [ -s /tmp/view.xml ]; then echo "UI dump file has content"; if grep -qi "autojs\|脚本\|Auto.js\|Snipe\|floating\|floaty\|main\|launcher\|home\|files\|运行\|test\|sample\|button\|text\|android" /tmp/view.xml 2>/dev/null; then echo "UI content detected - App is running"; found=1; break; else echo "UI dump is generic Android elements"; found=1; break; fi; else echo "UI dump empty or not found"; fi; done; if [ $found -eq 0 ]; then echo "FAIL: App not detected as running"; exit 1; fi; echo "PASS: App verified running"
+            echo "=== Cleaning Environment ==="
+            adb logcat -c
+            adb shell rm /sdcard/view.xml 2>/dev/null || true
+
+            echo "=== Installing APK ==="
+            adb install -r app/build/outputs/apk/app/debug/simple-process-x86_64.apk
+
+            echo "=== Starting app ==="
+            adb shell monkey -p com.simple.process -c android.intent.category.LAUNCHER 1
+
+            echo "=== Verification Loop (30s) ==="
+            n=0
+            while [ $n -lt 30 ]; do
+                sleep 2
+                n=$((n + 2))
+                echo "--- Check at ${n}s ---"
+
+                # 1. Process Check
+                if ! adb shell pidof com.simple.process > /dev/null; then
+                    echo "Process not found"
+                fi
+
+                # 2. Crash Check (Only new logs since 'logcat -c')
+                if adb logcat -d | grep -iE "FATAL|NativeCrash" | grep -q "com.simple.process"; then
+                    echo "CRASH DETECTED!"
+                    exit 1
+                fi
+
+                # 3. UI Content Check
+                adb shell uiautomator dump /sdcard/view.xml > /dev/null
+                adb pull /sdcard/view.xml /tmp/view.xml 2>/dev/null || true
+
+                if [ -s /tmp/view.xml ]; then
+                    if grep -qiE "main|launcher|button|text|android|autojs|脚本|files|test|sample|floating|floaty" /tmp/view.xml; then
+                        echo "SUCCESS: UI content detected. App is functional."
+                        exit 0
+                    fi
+                fi
+            done
+
+            echo "Timeout: UI elements not found within 30s."
+            exit 1
