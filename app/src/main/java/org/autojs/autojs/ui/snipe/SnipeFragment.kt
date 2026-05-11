@@ -21,7 +21,7 @@ import org.autojs.autojs.ui.main.ViewPagerFragment
 import org.autojs.autojs.util.ClipboardUtils
 import org.autojs.autojs.util.ViewUtils.showToast
 import com.simple.process.R
-import org.autojs.autojs6.databinding.FragmentSnipeBinding
+import com.simple.process.databinding.FragmentSnipeBinding
 import java.io.File
 import java.util.Calendar
 

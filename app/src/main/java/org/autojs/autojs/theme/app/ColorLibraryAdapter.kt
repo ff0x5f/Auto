@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.afollestad.materialdialogs.MaterialDialog
 import org.autojs.autojs.theme.app.ColorLibrariesActivity.Companion.PresetColorLibrary
 import com.simple.process.R
-import org.autojs.autojs6.databinding.MtColorLibrariesRecyclerViewItemBinding
+import com.simple.process.databinding.MtColorLibrariesRecyclerViewItemBinding
 
 @SuppressLint("NotifyDataSetChanged")
 class ColorLibraryAdapter(

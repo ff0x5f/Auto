@@ -14,7 +14,7 @@ import org.autojs.autojs.util.IntentUtils.startSafelyWithOptions
 import org.autojs.autojs.util.ViewUtils.excludeFloatingActionButtonFromBottomNavigationBar
 import org.autojs.autojs.util.ViewUtils.showToast
 import com.simple.process.R
-import org.autojs.autojs6.databinding.ActivityLogBinding
+import com.simple.process.databinding.ActivityLogBinding
 
 class LogActivity : BaseActivity() {
 

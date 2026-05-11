@@ -9,7 +9,7 @@ import com.afollestad.materialdialogs.MaterialDialog
 import org.autojs.autojs.core.pref.Pref
 import org.autojs.autojs.theme.widget.ThemeColorSeekBar
 import com.simple.process.R
-import org.autojs.autojs6.databinding.DialogScreenCaptureRequestDelaySettingsBinding
+import com.simple.process.databinding.DialogScreenCaptureRequestDelaySettingsBinding
 import kotlin.properties.Delegates
 
 class ScreenCaptureRequestDelayDialogBuilder(context: Context, onChangeConfirmed: () -> Unit = {}) : MaterialDialog.Builder(context), OnSeekBarChangeListener {

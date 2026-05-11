@@ -66,7 +66,7 @@ import org.autojs.autojs.util.ViewUtils.setNavigationIconColorByThemeColorLumina
 import org.autojs.autojs.util.ViewUtils.setOnTitleViewLongClickListener
 import org.autojs.autojs.util.WorkingDirectoryUtils
 import com.simple.process.R
-import org.autojs.autojs6.databinding.ActivityMainBinding
+import com.simple.process.databinding.ActivityMainBinding
 import org.greenrobot.eventbus.EventBus
 
 /**

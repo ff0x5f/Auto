@@ -33,7 +33,7 @@ import org.autojs.autojs.util.ViewUtils
 import org.autojs.autojs.util.ViewUtils.excludeFloatingActionButtonFromBottomNavigationBar
 import org.autojs.autojs.util.ViewUtils.excludePaddingClippableViewFromBottomNavigationBar
 import com.simple.process.R
-import org.autojs.autojs6.databinding.ActivityProjectConfigBinding
+import com.simple.process.databinding.ActivityProjectConfigBinding
 import java.io.File
 import java.io.FileOutputStream
 import java.util.regex.Pattern

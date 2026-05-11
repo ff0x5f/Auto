@@ -11,7 +11,7 @@ import androidx.core.content.ContextCompat
 import org.autojs.autojs.theme.ThemeColorManager
 import org.autojs.autojs.util.DrawableUtils
 import com.simple.process.R
-import org.autojs.autojs6.databinding.ToolbarMenuItemBinding
+import com.simple.process.databinding.ToolbarMenuItemBinding
 
 /**
  * Created by Stardust on Jan 29, 2017.

@@ -9,7 +9,7 @@ import org.autojs.autojs.theme.ThemeColorManager
 import org.autojs.autojs.theme.app.ColorLibrariesActivity.Companion.PresetColorLibrary
 import org.autojs.autojs.util.ColorUtils
 import com.simple.process.R
-import org.autojs.autojs6.databinding.MtColorLibrariesRecyclerViewItemBinding
+import com.simple.process.databinding.MtColorLibrariesRecyclerViewItemBinding
 
 class ColorLibraryViewHolder(itemViewBinding: MtColorLibrariesRecyclerViewItemBinding) : RecyclerView.ViewHolder(itemViewBinding.root) {
 

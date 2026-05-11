@@ -18,7 +18,7 @@ import org.autojs.autojs.util.IntentUtils
 import org.autojs.autojs.util.ViewUtils
 import org.autojs.autojs.util.ViewUtils.colorFilterWithDesaturateOrNull
 import com.simple.process.R
-import org.autojs.autojs6.databinding.PluginCenterRecyclerViewItemBinding
+import com.simple.process.databinding.PluginCenterRecyclerViewItemBinding
 
 class PluginCenterItemViewHolder(
     private val itemViewBinding: PluginCenterRecyclerViewItemBinding,

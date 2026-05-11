@@ -16,7 +16,7 @@ import org.autojs.autojs.ui.explorer.ExplorerView;
 import org.autojs.autojs.util.ViewUtils;
 import org.autojs.autojs.util.WorkingDirectoryUtils;
 import com.simple.process.R;
-import org.autojs.autojs6.databinding.ActivityScriptWidgetSettingsBinding;
+import com.simple.process.databinding.ActivityScriptWidgetSettingsBinding;
 
 /**
  * Created by Stardust on Jul 11, 2017.

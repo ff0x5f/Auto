@@ -11,7 +11,7 @@ import org.autojs.autojs.core.ui.inflater.ViewCreator
 import org.autojs.autojs.core.ui.widget.JsActionMenuView
 import org.autojs.autojs.runtime.ScriptRuntime
 import com.simple.process.R
-import org.autojs.autojs6.databinding.JsToolbarBinding
+import com.simple.process.databinding.JsToolbarBinding
 
 class JsActionMenuViewInflater(scriptRuntime: ScriptRuntime, resourceParser: ResourceParser) : ActionMenuViewInflater<JsActionMenuView>(scriptRuntime, resourceParser) {
 

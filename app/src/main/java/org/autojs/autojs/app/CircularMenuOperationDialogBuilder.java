@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.simple.process.R;
-import org.autojs.autojs6.databinding.OperationDialogItemBinding;
+import com.simple.process.databinding.OperationDialogItemBinding;
 
 import java.util.ArrayList;
 import java.util.Map;

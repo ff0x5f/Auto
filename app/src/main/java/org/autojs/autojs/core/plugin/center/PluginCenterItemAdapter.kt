@@ -4,7 +4,7 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import org.autojs.autojs6.databinding.PluginCenterRecyclerViewItemBinding
+import com.simple.process.databinding.PluginCenterRecyclerViewItemBinding
 
 @SuppressLint("NotifyDataSetChanged")
 class PluginCenterItemAdapter(

@@ -102,7 +102,7 @@ import org.autojs.autojs.util.ViewUtils.showSnack
 import org.autojs.autojs.util.ViewUtils.showToast
 import com.simple.process.R
 import com.simple.process.R.string.text_unknown
-import org.autojs.autojs6.databinding.EditorViewBinding
+import com.simple.process.databinding.EditorViewBinding
 import java.io.BufferedInputStream
 import java.io.File
 import java.io.IOException

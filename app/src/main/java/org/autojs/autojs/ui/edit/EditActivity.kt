@@ -45,7 +45,7 @@ import org.autojs.autojs.util.ViewUtils.setMenuIconsColorByThemeColorLuminance
 import org.autojs.autojs.util.ViewUtils.setOnTitleViewClickListener
 import org.autojs.autojs.util.ViewUtils.titleView
 import com.simple.process.R
-import org.autojs.autojs6.databinding.ActivityEditBinding
+import com.simple.process.databinding.ActivityEditBinding
 import java.io.File
 
 /**

@@ -26,7 +26,7 @@ import org.autojs.autojs.util.IntentUtils.startSafely
 import org.autojs.autojs.util.ViewUtils
 import org.autojs.autojs.util.ViewUtils.excludePaddingClippableViewFromBottomNavigationBar
 import com.simple.process.R
-import org.autojs.autojs6.databinding.FragmentPluginCenterBinding
+import com.simple.process.databinding.FragmentPluginCenterBinding
 
 class PluginCenterFragment : Fragment(R.layout.fragment_plugin_center) {
 

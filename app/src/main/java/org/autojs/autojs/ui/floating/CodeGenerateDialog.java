@@ -28,8 +28,8 @@ import org.autojs.autojs.core.ui.widget.JsCheckBox;
 import org.autojs.autojs.util.ClipboardUtils;
 import org.autojs.autojs.util.ViewUtils;
 import com.simple.process.R;
-import org.autojs.autojs6.databinding.DialogListViewBinding;
-import org.autojs.autojs6.databinding.DialogCodeGenerateOptionBinding;
+import com.simple.process.databinding.DialogListViewBinding;
+import com.simple.process.databinding.DialogCodeGenerateOptionBinding;
 
 import java.util.ArrayList;
 import java.util.List;

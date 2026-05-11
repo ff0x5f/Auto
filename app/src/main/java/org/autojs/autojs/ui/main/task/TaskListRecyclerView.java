@@ -34,8 +34,8 @@ import org.autojs.autojs.util.ColorUtils;
 import org.autojs.autojs.util.FileUtils;
 import org.autojs.autojs.util.IntentUtils;
 import com.simple.process.R;
-import org.autojs.autojs6.databinding.ExplorerFirstCharIconBinding;
-import org.autojs.autojs6.databinding.TaskListRecyclerViewItemBinding;
+import com.simple.process.databinding.ExplorerFirstCharIconBinding;
+import com.simple.process.databinding.TaskListRecyclerViewItemBinding;
 
 import java.util.ArrayList;
 import java.util.ConcurrentModificationException;

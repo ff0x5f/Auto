@@ -10,7 +10,7 @@ import org.autojs.autojs.inrt.launch.GlobalProjectLauncher
 import org.autojs.autojs.ui.BaseActivity
 import org.autojs.autojs.util.ViewUtils
 import com.simple.process.R
-import org.autojs.autojs6.databinding.ActivityMainInrtBinding
+import com.simple.process.databinding.ActivityMainInrtBinding
 
 class LogActivity : BaseActivity() {
 

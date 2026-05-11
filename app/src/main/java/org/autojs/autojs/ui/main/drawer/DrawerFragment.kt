@@ -67,7 +67,7 @@ import org.autojs.autojs.util.ViewUtils
 import org.autojs.autojs.util.ViewUtils.MODE
 import com.simple.process.BuildConfig
 import com.simple.process.R
-import org.autojs.autojs6.databinding.FragmentDrawerBinding
+import com.simple.process.databinding.FragmentDrawerBinding
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import rikka.shizuku.Shizuku

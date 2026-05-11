@@ -7,7 +7,7 @@ import org.autojs.autojs.ui.widget.CommonMarkdownView
 import org.autojs.autojs.util.ViewUtils
 import org.autojs.autojs.util.WebViewUtils
 import com.simple.process.R
-import org.autojs.autojs6.databinding.ActivityColorSearchHelpBinding
+import com.simple.process.databinding.ActivityColorSearchHelpBinding
 
 class ColorSearchHelpActivity : BaseActivity() {
 

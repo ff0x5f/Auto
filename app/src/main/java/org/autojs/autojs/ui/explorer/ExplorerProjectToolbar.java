@@ -23,7 +23,7 @@ import org.autojs.autojs.ui.project.BuildActivity;
 import org.autojs.autojs.ui.project.ProjectConfigActivity;
 import org.autojs.autojs.util.IntentUtils;
 import com.simple.process.R;
-import org.autojs.autojs6.databinding.ExplorerProjectToolbarBinding;
+import com.simple.process.databinding.ExplorerProjectToolbarBinding;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.util.List;

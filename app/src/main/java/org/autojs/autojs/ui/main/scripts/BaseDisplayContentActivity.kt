@@ -26,7 +26,7 @@ import org.autojs.autojs.util.ViewUtils
 import org.autojs.autojs.util.ViewUtils.excludeFloatingActionButtonFromBottomNavigationBar
 import org.autojs.autojs.util.ViewUtils.excludePaddingClippableViewFromBottomNavigationBar
 import com.simple.process.R
-import org.autojs.autojs6.databinding.ActivityDisplayScrollableContentBinding
+import com.simple.process.databinding.ActivityDisplayScrollableContentBinding
 
 abstract class BaseDisplayContentActivity : BaseActivity() {
 

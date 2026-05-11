@@ -22,8 +22,8 @@ import org.autojs.autojs.util.IntentUtils.startSafely
 import org.autojs.autojs.util.ViewUtils
 import com.simple.process.BuildConfig
 import com.simple.process.R
-import org.autojs.autojs6.databinding.ActivityAboutBinding
-import org.autojs.autojs6.databinding.ActivityAboutFunctionButtonsBinding
+import com.simple.process.databinding.ActivityAboutBinding
+import com.simple.process.databinding.ActivityAboutFunctionButtonsBinding
 
 /**
  * Created by Stardust on Feb 2, 2017.

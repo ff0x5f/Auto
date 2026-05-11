@@ -14,7 +14,7 @@ import androidx.fragment.app.DialogFragment
 import org.autojs.autojs.apkbuilder.keystore.AESUtils
 import org.autojs.autojs.apkbuilder.keystore.KeyStore
 import com.simple.process.R
-import org.autojs.autojs6.databinding.DialogVerifyKeyStoreBinding
+import com.simple.process.databinding.DialogVerifyKeyStoreBinding
 
 open class VerifyKeyStoreDialog(
     private val callback: Callback,

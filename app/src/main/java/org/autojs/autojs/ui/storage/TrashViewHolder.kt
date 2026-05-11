@@ -7,7 +7,7 @@ import org.autojs.autojs.pio.PFiles
 import org.autojs.autojs.storage.history.TrashEntities
 import org.autojs.autojs.util.StringUtils.normalizeTrailingSlash
 import com.simple.process.R
-import org.autojs.autojs6.databinding.ItemTrashBinding
+import com.simple.process.databinding.ItemTrashBinding
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.Date

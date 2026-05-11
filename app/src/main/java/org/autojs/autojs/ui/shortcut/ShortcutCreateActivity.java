@@ -33,7 +33,7 @@ import org.autojs.autojs.util.ColorUtils;
 import org.autojs.autojs.util.ShortcutUtils;
 import org.autojs.autojs.util.ViewUtils;
 import com.simple.process.R;
-import org.autojs.autojs6.databinding.ShortcutCreateDialogBinding;
+import com.simple.process.databinding.ShortcutCreateDialogBinding;
 
 /**
  * Created by Stardust on Oct 25, 2017.

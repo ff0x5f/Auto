@@ -15,7 +15,7 @@ import androidx.fragment.app.DialogFragment
 import org.autojs.autojs.theme.ThemeColorHelper
 import org.autojs.autojs.theme.ThemeColorManager
 import com.simple.process.R
-import org.autojs.autojs6.databinding.DialogNewKeyStoreBinding
+import com.simple.process.databinding.DialogNewKeyStoreBinding
 
 open class NewKeyStoreDialog(
     private val callback: Callback,

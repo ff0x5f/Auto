@@ -18,7 +18,7 @@ import org.autojs.autojs.storage.history.HistoryRepository
 import org.autojs.autojs.storage.history.VersionHistoryController
 import org.autojs.autojs.util.ViewUtils
 import com.simple.process.R
-import org.autojs.autojs6.databinding.ActivityVersionHistoryBinding
+import com.simple.process.databinding.ActivityVersionHistoryBinding
 import java.io.File
 import java.util.Locale
 import java.util.concurrent.ConcurrentHashMap

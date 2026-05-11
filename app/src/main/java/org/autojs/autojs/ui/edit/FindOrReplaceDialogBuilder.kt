@@ -12,7 +12,7 @@ import androidx.preference.PreferenceManager
 import com.afollestad.materialdialogs.MaterialDialog
 import org.autojs.autojs.ui.edit.editor.CodeEditor.CheckedPatternSyntaxException
 import com.simple.process.R
-import org.autojs.autojs6.databinding.DialogFindOrReplaceBinding
+import com.simple.process.databinding.DialogFindOrReplaceBinding
 
 /**
  * Created by Stardust on Sep 28, 2017.

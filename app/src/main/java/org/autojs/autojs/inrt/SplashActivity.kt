@@ -22,7 +22,7 @@ import org.autojs.autojs.inrt.launch.GlobalProjectLauncher
 import org.autojs.autojs.project.ProjectConfig
 import org.autojs.autojs.ui.splash.SplashActivity.Companion.INIT_TIMEOUT
 import com.simple.process.R
-import org.autojs.autojs6.databinding.ActivitySplashInrtBinding
+import com.simple.process.databinding.ActivitySplashInrtBinding
 
 /**
  * Created by Stardust on Feb 2, 2018.

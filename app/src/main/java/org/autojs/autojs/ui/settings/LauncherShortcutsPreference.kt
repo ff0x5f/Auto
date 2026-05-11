@@ -11,7 +11,7 @@ import org.autojs.autojs.ui.doc.DocumentationActivity
 import org.autojs.autojs.ui.log.LogActivity
 import org.autojs.autojs.util.ShortcutUtils
 import com.simple.process.R
-import org.autojs.autojs6.databinding.SelectLauncherShortcutBinding
+import com.simple.process.databinding.SelectLauncherShortcutBinding
 
 /**
  * Created by SuperMonster003 on Sep 25, 2022.

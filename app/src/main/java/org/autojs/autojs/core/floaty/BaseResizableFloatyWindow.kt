@@ -19,7 +19,7 @@ import org.autojs.autojs.ui.enhancedfloaty.WindowBridge.DefaultImpl
 import org.autojs.autojs.ui.enhancedfloaty.gesture.DragGesture
 import org.autojs.autojs.ui.enhancedfloaty.gesture.ResizeGesture
 import com.simple.process.R
-import org.autojs.autojs6.databinding.FloatyWindowBinding
+import com.simple.process.databinding.FloatyWindowBinding
 
 /**
  * Created by Stardust on Dec 5, 2017.

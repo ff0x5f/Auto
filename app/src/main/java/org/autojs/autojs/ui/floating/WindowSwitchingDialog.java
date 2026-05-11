@@ -15,7 +15,7 @@ import org.autojs.autojs.app.AppLevelThemeDialogBuilder;
 import org.autojs.autojs.core.accessibility.WindowInfo.Companion.WindowInfoDataItem;
 import org.autojs.autojs.core.accessibility.WindowInfo.Companion.WindowInfoDataSummary;
 import com.simple.process.R;
-import org.autojs.autojs6.databinding.DialogListViewBinding;
+import com.simple.process.databinding.DialogListViewBinding;
 
 import java.util.Comparator;
 import java.util.List;

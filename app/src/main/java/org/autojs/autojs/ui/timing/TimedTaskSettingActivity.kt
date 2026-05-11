@@ -49,7 +49,7 @@ import org.autojs.autojs.util.ViewUtils.excludePaddingClippableViewFromBottomNav
 import org.autojs.autojs.util.ViewUtils.setMenuIconsColorByThemeColorLuminance
 import org.autojs.autojs.util.ViewUtils.showToast
 import com.simple.process.R
-import org.autojs.autojs6.databinding.ActivityTimedTaskSettingBinding
+import com.simple.process.databinding.ActivityTimedTaskSettingBinding
 import org.joda.time.LocalDate
 import org.joda.time.LocalDateTime
 import org.joda.time.LocalTime

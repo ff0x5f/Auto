@@ -18,7 +18,7 @@ import org.autojs.autojs.storage.history.TrashRepository
 import org.autojs.autojs.storage.history.TrashRestoreController
 import org.autojs.autojs.util.ViewUtils
 import com.simple.process.R
-import org.autojs.autojs6.databinding.ActivityTrashBinding
+import com.simple.process.databinding.ActivityTrashBinding
 import java.io.File
 import java.util.Locale
 

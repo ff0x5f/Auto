@@ -16,8 +16,8 @@ import org.autojs.autojs.rhino.extension.NumberExtensions.jsString
 import org.autojs.autojs.util.ClipboardUtils
 import org.autojs.autojs.util.ViewUtils
 import com.simple.process.R
-import org.autojs.autojs6.databinding.NodeInfoViewHeaderBinding
-import org.autojs.autojs6.databinding.NodeInfoViewItemBinding
+import com.simple.process.databinding.NodeInfoViewHeaderBinding
+import com.simple.process.databinding.NodeInfoViewItemBinding
 import org.opencv.core.Point
 import java.lang.reflect.Field
 import kotlin.math.ceil

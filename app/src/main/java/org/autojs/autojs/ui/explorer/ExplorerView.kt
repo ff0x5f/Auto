@@ -74,11 +74,11 @@ import org.autojs.autojs.util.ViewUtils.showSnack
 import org.autojs.autojs.util.WorkingDirectoryUtils
 import org.autojs.autojs.util.WorkingDirectoryUtils.path
 import com.simple.process.R
-import org.autojs.autojs6.databinding.ExplorerCategoryBinding
-import org.autojs.autojs6.databinding.ExplorerDirectoryBinding
-import org.autojs.autojs6.databinding.ExplorerFileBinding
-import org.autojs.autojs6.databinding.ExplorerFirstCharIconBinding
-import org.autojs.autojs6.databinding.ExplorerViewBinding
+import com.simple.process.databinding.ExplorerCategoryBinding
+import com.simple.process.databinding.ExplorerDirectoryBinding
+import com.simple.process.databinding.ExplorerFileBinding
+import com.simple.process.databinding.ExplorerFirstCharIconBinding
+import com.simple.process.databinding.ExplorerViewBinding
 import org.greenrobot.eventbus.Subscribe
 import java.io.File
 import java.util.LinkedList

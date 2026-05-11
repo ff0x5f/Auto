@@ -8,7 +8,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.simple.process.R;
-import org.autojs.autojs6.databinding.DialogTextSizeSettingsBinding;
+import com.simple.process.databinding.DialogTextSizeSettingsBinding;
 
 /**
  * Created by Stardust on Feb 24, 2018.

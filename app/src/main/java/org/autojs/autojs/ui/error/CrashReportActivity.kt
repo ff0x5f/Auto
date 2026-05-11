@@ -12,7 +12,7 @@ import org.autojs.autojs.util.IntentUtils.startSafely
 import org.autojs.autojs.util.ViewUtils
 import com.simple.process.BuildConfig
 import com.simple.process.R
-import org.autojs.autojs6.databinding.ActivityErrorReportBinding
+import com.simple.process.databinding.ActivityErrorReportBinding
 
 /**
  * Created by Stardust on Feb 2, 2017.

@@ -35,7 +35,7 @@ import org.autojs.autojs.util.IntentUtils.ToastExceptionHolder
 import org.autojs.autojs.util.IntentUtils.startSafely
 import org.autojs.autojs.util.ViewUtils.excludePaddingClippableViewFromBottomNavigationBar
 import com.simple.process.R
-import org.autojs.autojs6.databinding.FragmentExplorerBinding
+import com.simple.process.databinding.FragmentExplorerBinding
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 

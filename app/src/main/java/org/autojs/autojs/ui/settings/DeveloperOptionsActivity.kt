@@ -5,7 +5,7 @@ import org.autojs.autojs.theme.ThemeColorManager
 import org.autojs.autojs.ui.BaseActivity
 import org.autojs.autojs.util.ViewUtils.setToolbarAsBack
 import com.simple.process.R
-import org.autojs.autojs6.databinding.ActivityDeveloperOptionsBinding
+import com.simple.process.databinding.ActivityDeveloperOptionsBinding
 
 /**
  * Created by SuperMonster003 on Jun 2, 2022.

@@ -37,7 +37,7 @@ import org.autojs.autojs.util.ViewUtils.setMenuIconsColorByColorLuminance
 import org.autojs.autojs.util.ViewUtils.setOnSubtitleViewClickListener
 import org.autojs.autojs.util.ViewUtils.setOnTitleViewClickListener
 import com.simple.process.R
-import org.autojs.autojs6.databinding.MtActivityColorItemsBinding
+import com.simple.process.databinding.MtActivityColorItemsBinding
 import kotlin.properties.Delegates
 import androidx.core.graphics.ColorUtils as AndroidColorUtils
 

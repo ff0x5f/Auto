@@ -19,7 +19,7 @@ import org.autojs.autojs.util.DocsUtils.getUrl
 import org.autojs.autojs.util.ViewUtils
 import org.autojs.autojs.util.WebViewUtils
 import com.simple.process.R
-import org.autojs.autojs6.databinding.FragmentOnlineDocsBinding
+import com.simple.process.databinding.FragmentOnlineDocsBinding
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 

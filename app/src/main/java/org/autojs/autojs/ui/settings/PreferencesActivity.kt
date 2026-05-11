@@ -8,7 +8,7 @@ import org.autojs.autojs.theme.ThemeColorManager
 import org.autojs.autojs.ui.BaseActivity
 import org.autojs.autojs.util.IntentUtils.startSafely
 import com.simple.process.R
-import org.autojs.autojs6.databinding.ActivityPreferencesBinding
+import com.simple.process.databinding.ActivityPreferencesBinding
 
 /**
  * Created by Stardust on Feb 2, 2017.

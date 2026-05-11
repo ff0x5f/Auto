@@ -14,7 +14,7 @@ import org.autojs.autojs.theme.app.ColorSelectBaseActivity.Companion.saveDatabas
 import org.autojs.autojs.theme.app.ColorSelectBaseActivity.Companion.savePrefsForLegacy
 import org.autojs.autojs.theme.app.ColorSelectBaseActivity.Companion.savePrefsForLibraries
 import com.simple.process.R
-import org.autojs.autojs6.databinding.MtColorLibraryRecyclerViewItemBinding
+import com.simple.process.databinding.MtColorLibraryRecyclerViewItemBinding
 
 @SuppressLint("NotifyDataSetChanged")
 class ColorItemAdapter(

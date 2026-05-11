@@ -5,7 +5,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import com.simple.process.R;
-import org.autojs.autojs6.databinding.FragmentNormalToolbarBinding;
+import com.simple.process.databinding.FragmentNormalToolbarBinding;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;

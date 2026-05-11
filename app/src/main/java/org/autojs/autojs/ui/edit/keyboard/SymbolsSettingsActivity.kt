@@ -33,8 +33,8 @@ import org.autojs.autojs.util.ViewUtils
 import org.autojs.autojs.util.ViewUtils.excludePaddingClippableViewFromBottomNavigationBar
 import org.autojs.autojs.util.ViewUtils.setMenuIconsColorByThemeColorLuminance
 import com.simple.process.R
-import org.autojs.autojs6.databinding.ActivitySymbolsSettingsBinding
-import org.autojs.autojs6.databinding.FragmentSymbolsToolbarBinding
+import com.simple.process.databinding.ActivitySymbolsSettingsBinding
+import com.simple.process.databinding.FragmentSymbolsToolbarBinding
 import org.json.JSONObject
 import java.nio.charset.StandardCharsets
 

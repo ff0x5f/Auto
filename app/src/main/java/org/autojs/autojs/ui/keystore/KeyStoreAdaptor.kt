@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import org.autojs.autojs.apkbuilder.keystore.KeyStore
 import com.simple.process.R
-import org.autojs.autojs6.databinding.ItemKeyStoreBinding
+import com.simple.process.databinding.ItemKeyStoreBinding
 
 class KeyStoreAdaptor(
     private val keyStoreAdapterCallback: KeyStoreAdapterCallback,

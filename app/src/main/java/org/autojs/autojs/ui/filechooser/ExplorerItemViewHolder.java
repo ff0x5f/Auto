@@ -12,8 +12,8 @@ import org.autojs.autojs.ui.explorer.ExplorerViewHelper;
 import org.autojs.autojs.ui.widget.BindableViewHolder;
 import org.autojs.autojs.util.ColorUtils;
 import com.simple.process.R;
-import org.autojs.autojs6.databinding.ExplorerFirstCharIconBinding;
-import org.autojs.autojs6.databinding.FileChooseListFileBinding;
+import com.simple.process.databinding.ExplorerFirstCharIconBinding;
+import com.simple.process.databinding.FileChooseListFileBinding;
 
 class ExplorerItemViewHolder extends BindableViewHolder<Object> {
 

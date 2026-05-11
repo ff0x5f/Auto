@@ -24,7 +24,7 @@ import org.autojs.autojs.util.IntentUtils.SnackExceptionHolder
 import org.autojs.autojs.util.StringUtils
 import org.autojs.autojs.util.StringUtils.dropBom
 import com.simple.process.R
-import org.autojs.autojs6.databinding.EditableFileInfoDialogItemsBinding
+import com.simple.process.databinding.EditableFileInfoDialogItemsBinding
 import java.io.File
 import java.nio.charset.Charset
 import java.nio.file.Files

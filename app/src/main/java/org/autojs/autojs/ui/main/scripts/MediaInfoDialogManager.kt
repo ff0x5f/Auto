@@ -23,7 +23,7 @@ import org.autojs.autojs.util.DialogUtils.setCopyableText
 import org.autojs.autojs.model.explorer.ExplorerItem
 import org.autojs.autojs.util.ViewUtils
 import com.simple.process.R
-import org.autojs.autojs6.databinding.MediaFileInfoDialogItemsBinding
+import com.simple.process.databinding.MediaFileInfoDialogItemsBinding
 import org.mediainfo.android.MediaInfo
 import org.mediainfo.android.MediaInfo.StreamKind.AUDIO
 import org.mediainfo.android.MediaInfo.StreamKind.GENERAL

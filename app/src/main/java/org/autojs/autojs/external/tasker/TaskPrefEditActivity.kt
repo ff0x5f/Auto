@@ -19,7 +19,7 @@ import org.autojs.autojs.util.ViewUtils
 import org.autojs.autojs.util.ViewUtils.excludeContentViewFromHorizontalNavigationBar
 import org.autojs.autojs.util.ViewUtils.excludePaddingClippableViewFromBottomNavigationBar
 import com.simple.process.R
-import org.autojs.autojs6.databinding.ActivityTaskerEditBinding
+import com.simple.process.databinding.ActivityTaskerEditBinding
 import org.json.JSONException
 import org.json.JSONObject
 

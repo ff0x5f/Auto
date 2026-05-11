@@ -41,7 +41,7 @@ import org.autojs.autojs.util.ViewUtils.excludePaddingClippableViewFromBottomNav
 import org.autojs.autojs.util.ViewUtils.setMenuIconsColorByThemeColorLuminance
 import org.autojs.autojs.util.ViewUtils.setNavigationIconColorByThemeColorLuminance
 import com.simple.process.R
-import org.autojs.autojs6.databinding.ActivityDisplayReleaseHistoryBinding
+import com.simple.process.databinding.ActivityDisplayReleaseHistoryBinding
 
 class DisplayReleaseHistoryActivity : BaseActivity() {
 

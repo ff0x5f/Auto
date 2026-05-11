@@ -25,7 +25,7 @@ import org.autojs.autojs.model.indices.Modules;
 import org.autojs.autojs.model.indices.Property;
 import org.autojs.autojs.ui.widget.GridDividerDecoration;
 import com.simple.process.R;
-import org.autojs.autojs6.databinding.FunctionsKeyboardViewBinding;
+import com.simple.process.databinding.FunctionsKeyboardViewBinding;
 
 import java.util.ArrayList;
 import java.util.HashMap;

@@ -44,7 +44,7 @@ import org.autojs.autojs.util.RootUtils;
 import org.autojs.autojs.util.ViewUtils;
 import org.autojs.autojs.util.WorkingDirectoryUtils;
 import com.simple.process.R;
-import org.autojs.autojs6.databinding.CircularActionMenuBinding;
+import com.simple.process.databinding.CircularActionMenuBinding;
 import org.greenrobot.eventbus.EventBus;
 import org.jdeferred.Deferred;
 import org.jdeferred.impl.DeferredObject;
