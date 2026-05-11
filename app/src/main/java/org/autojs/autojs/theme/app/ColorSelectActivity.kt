@@ -5,7 +5,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import org.autojs.autojs.util.ViewUtils.excludePaddingClippableViewFromBottomNavigationBar
-import org.autojs.autojs6.R
+import com.simple.process.R
 import org.autojs.autojs6.databinding.MtActivityColorSelectBinding
 
 /**

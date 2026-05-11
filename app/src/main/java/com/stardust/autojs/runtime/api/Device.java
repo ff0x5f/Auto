@@ -19,7 +19,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import android.telephony.TelephonyManager;
 
-import org.autojs.autojs6.R;
+import com.simple.process.R;
 import com.stardust.autojs.runtime.exception.ScriptException;
 import com.stardust.pio.PFiles;
 import com.stardust.pio.UncheckedIOException;

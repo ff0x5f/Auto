@@ -4,7 +4,7 @@ import android.os.Bundle
 import org.autojs.autojs.theme.ThemeColorManager
 import org.autojs.autojs.ui.BaseActivity
 import org.autojs.autojs.util.ViewUtils.setToolbarAsBack
-import org.autojs.autojs6.R
+import com.simple.process.R
 import org.autojs.autojs6.databinding.ActivityDeveloperOptionsBinding
 
 /**

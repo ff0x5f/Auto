@@ -73,7 +73,7 @@ import org.autojs.autojs.util.ViewUtils.setForceShowIconCompat
 import org.autojs.autojs.util.ViewUtils.showSnack
 import org.autojs.autojs.util.WorkingDirectoryUtils
 import org.autojs.autojs.util.WorkingDirectoryUtils.path
-import org.autojs.autojs6.R
+import com.simple.process.R
 import org.autojs.autojs6.databinding.ExplorerCategoryBinding
 import org.autojs.autojs6.databinding.ExplorerDirectoryBinding
 import org.autojs.autojs6.databinding.ExplorerFileBinding

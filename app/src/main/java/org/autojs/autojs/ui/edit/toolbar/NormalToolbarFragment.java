@@ -4,7 +4,7 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import org.autojs.autojs6.R;
+import com.simple.process.R;
 import org.autojs.autojs6.databinding.FragmentNormalToolbarBinding;
 import org.jetbrains.annotations.NotNull;
 

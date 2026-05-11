@@ -18,7 +18,7 @@ import org.autojs.autojs.util.DialogUtils.makeTextCopyable
 import org.autojs.autojs.util.DialogUtils.setCopyableText
 import org.autojs.autojs.runtime.api.augment.colors.Colors
 import org.autojs.autojs.util.ColorUtils
-import org.autojs.autojs6.R
+import com.simple.process.R
 import org.autojs.autojs6.databinding.ColorInfoDialogItemsBinding
 
 object ColorInfoDialogManager {

@@ -19,7 +19,7 @@ import org.autojs.autojs.theme.ThemeColorManager
 import org.autojs.autojs.util.ViewUtils
 import org.autojs.autojs.util.ViewUtils.excludePaddingClippableViewFromBottomNavigationBar
 import org.autojs.autojs.util.ViewUtils.setMenuIconsColorByColorLuminance
-import org.autojs.autojs6.R
+import com.simple.process.R
 import org.autojs.autojs6.databinding.MtActivityColorLibrariesBinding
 
 @SuppressLint("NotifyDataSetChanged")

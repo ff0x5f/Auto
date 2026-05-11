@@ -20,7 +20,7 @@ import org.autojs.autojs.util.ViewUtils.onceGlobalLayout
 import org.autojs.autojs.util.ViewUtils.setMenuIconsColorByThemeColorLuminance
 import org.autojs.autojs.util.ViewUtils.setNavigationIconColorByThemeColorLuminance
 import org.autojs.autojs.util.ViewUtils.setTitlesTextColorByThemeColorLuminance
-import org.autojs.autojs6.R
+import com.simple.process.R
 import org.autojs.autojs6.databinding.ActivityPluginCenterBinding
 
 @SuppressLint("NotifyDataSetChanged")

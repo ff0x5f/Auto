@@ -65,8 +65,8 @@ import org.autojs.autojs.util.NotificationUtils
 import org.autojs.autojs.util.RomUtils
 import org.autojs.autojs.util.ViewUtils
 import org.autojs.autojs.util.ViewUtils.MODE
-import org.autojs.autojs6.BuildConfig
-import org.autojs.autojs6.R
+import com.simple.process.BuildConfig
+import com.simple.process.R
 import org.autojs.autojs6.databinding.FragmentDrawerBinding
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe

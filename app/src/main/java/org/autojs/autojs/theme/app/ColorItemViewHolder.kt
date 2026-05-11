@@ -11,7 +11,7 @@ import org.autojs.autojs.theme.ThemeColorManager
 import org.autojs.autojs.theme.app.ColorLibrariesActivity.Companion.PresetColorItem
 import org.autojs.autojs.theme.app.ColorLibrariesActivity.Companion.presetColorLibraries
 import org.autojs.autojs.util.ViewUtils
-import org.autojs.autojs6.R
+import com.simple.process.R
 import org.autojs.autojs6.databinding.MtColorLibraryRecyclerViewItemBinding
 
 class ColorItemViewHolder(itemViewBinding: MtColorLibraryRecyclerViewItemBinding) : RecyclerView.ViewHolder(itemViewBinding.root) {

@@ -18,7 +18,7 @@ import org.autojs.autojs.ui.explorer.ExplorerView
 import org.autojs.autojs.util.ViewUtils
 import org.autojs.autojs.util.ViewUtils.excludeContentViewFromHorizontalNavigationBar
 import org.autojs.autojs.util.ViewUtils.excludePaddingClippableViewFromBottomNavigationBar
-import org.autojs.autojs6.R
+import com.simple.process.R
 import org.autojs.autojs6.databinding.ActivityTaskerEditBinding
 import org.json.JSONException
 import org.json.JSONObject

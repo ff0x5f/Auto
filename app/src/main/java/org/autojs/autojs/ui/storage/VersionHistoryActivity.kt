@@ -17,7 +17,7 @@ import org.autojs.autojs.storage.history.HistoryPrefs
 import org.autojs.autojs.storage.history.HistoryRepository
 import org.autojs.autojs.storage.history.VersionHistoryController
 import org.autojs.autojs.util.ViewUtils
-import org.autojs.autojs6.R
+import com.simple.process.R
 import org.autojs.autojs6.databinding.ActivityVersionHistoryBinding
 import java.io.File
 import java.util.Locale

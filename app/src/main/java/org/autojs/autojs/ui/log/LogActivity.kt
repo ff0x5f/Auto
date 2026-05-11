@@ -13,7 +13,7 @@ import org.autojs.autojs.ui.BaseActivity
 import org.autojs.autojs.util.IntentUtils.startSafelyWithOptions
 import org.autojs.autojs.util.ViewUtils.excludeFloatingActionButtonFromBottomNavigationBar
 import org.autojs.autojs.util.ViewUtils.showToast
-import org.autojs.autojs6.R
+import com.simple.process.R
 import org.autojs.autojs6.databinding.ActivityLogBinding
 
 class LogActivity : BaseActivity() {

@@ -22,7 +22,7 @@ import org.autojs.autojs.tool.MapBuilder;
 import org.autojs.autojs.ui.log.LogActivity;
 import org.autojs.autojs.util.DisplayUtils;
 import org.autojs.autojs.util.ViewUtils;
-import org.autojs.autojs6.R;
+import com.simple.process.R;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;

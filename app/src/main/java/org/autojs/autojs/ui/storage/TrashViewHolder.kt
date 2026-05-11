@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import org.autojs.autojs.pio.PFiles
 import org.autojs.autojs.storage.history.TrashEntities
 import org.autojs.autojs.util.StringUtils.normalizeTrailingSlash
-import org.autojs.autojs6.R
+import com.simple.process.R
 import org.autojs.autojs6.databinding.ItemTrashBinding
 import java.io.File
 import java.text.SimpleDateFormat

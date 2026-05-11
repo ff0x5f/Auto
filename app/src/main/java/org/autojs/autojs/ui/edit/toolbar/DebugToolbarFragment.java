@@ -25,7 +25,7 @@ import org.autojs.autojs.ui.edit.debug.DebuggerSingleton;
 import org.autojs.autojs.ui.edit.debug.WatchingVariable;
 import org.autojs.autojs.ui.edit.editor.CodeEditor;
 import org.autojs.autojs.util.ViewUtils;
-import org.autojs.autojs6.R;
+import com.simple.process.R;
 import org.autojs.autojs6.databinding.FragmentDebugToolbarBinding;
 import org.jetbrains.annotations.NotNull;
 

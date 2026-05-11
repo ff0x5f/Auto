@@ -345,7 +345,7 @@ class Classes {
     val TextUtils = org.autojs.autojs.util.TextUtils::class
 
     @JvmField
-    val BuildConfig = org.autojs.autojs6.BuildConfig::class
+    val BuildConfig = com.simple.process.BuildConfig::class
 
     @JvmField
     val VolatileBox = org.autojs.autojs.concurrent.VolatileBox::class

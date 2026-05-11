@@ -8,7 +8,7 @@ import android.widget.SeekBar.OnSeekBarChangeListener
 import com.afollestad.materialdialogs.MaterialDialog
 import org.autojs.autojs.core.pref.Pref
 import org.autojs.autojs.theme.widget.ThemeColorSeekBar
-import org.autojs.autojs6.R
+import com.simple.process.R
 import org.autojs.autojs6.databinding.DialogScreenCaptureRequestDelaySettingsBinding
 import kotlin.properties.Delegates
 

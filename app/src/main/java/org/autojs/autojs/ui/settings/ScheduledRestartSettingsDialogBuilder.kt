@@ -10,7 +10,7 @@ import org.autojs.autojs.core.pref.Pref
 import org.autojs.autojs.theme.widget.ThemeColorRadioButton
 import org.autojs.autojs.theme.widget.ThemeColorSeekBar
 import org.autojs.autojs.util.StringUtils.key
-import org.autojs.autojs6.R
+import com.simple.process.R
 import org.autojs.autojs6.databinding.DialogScheduledRestartSettingsBinding
 import kotlin.properties.Delegates
 

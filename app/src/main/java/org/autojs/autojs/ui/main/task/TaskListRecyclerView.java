@@ -33,7 +33,7 @@ import org.autojs.autojs.ui.timing.TimedTaskSettingActivity;
 import org.autojs.autojs.util.ColorUtils;
 import org.autojs.autojs.util.FileUtils;
 import org.autojs.autojs.util.IntentUtils;
-import org.autojs.autojs6.R;
+import com.simple.process.R;
 import org.autojs.autojs6.databinding.ExplorerFirstCharIconBinding;
 import org.autojs.autojs6.databinding.TaskListRecyclerViewItemBinding;
 

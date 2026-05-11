@@ -16,7 +16,7 @@ import org.autojs.autojs.ui.settings.ReleaseHistoryRepository.Companion.Category
 import org.autojs.autojs.ui.settings.ReleaseHistoryRepository.Companion.DEFAULT_FILTER
 import org.autojs.autojs.ui.settings.ReleaseHistoryRepository.Companion.compareVersion
 import org.autojs.autojs.util.ProcessLogger
-import org.autojs.autojs6.R
+import com.simple.process.R
 import org.autojs.autojs6.databinding.ItemReleaseHistoryBinding
 
 @SuppressLint("NotifyDataSetChanged")

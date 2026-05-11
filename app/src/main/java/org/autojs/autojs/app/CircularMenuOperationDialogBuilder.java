@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import org.autojs.autojs6.R;
+import com.simple.process.R;
 import org.autojs.autojs6.databinding.OperationDialogItemBinding;
 
 import java.util.ArrayList;

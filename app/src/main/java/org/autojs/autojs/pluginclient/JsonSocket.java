@@ -22,8 +22,8 @@ import io.reactivex.subjects.Subject;
 import okio.ByteString;
 import org.autojs.autojs.runtime.api.Device;
 import org.autojs.autojs.tool.MapBuilder;
-import org.autojs.autojs6.BuildConfig;
-import org.autojs.autojs6.R;
+import com.simple.process.BuildConfig;
+import com.simple.process.R;
 import org.mozilla.javascript.NativeObject;
 
 import java.io.BufferedInputStream;

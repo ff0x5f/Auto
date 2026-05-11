@@ -27,7 +27,7 @@ import org.autojs.autojs.theme.util.ListBuilder;
 import org.autojs.autojs.core.ui.widget.JsCheckBox;
 import org.autojs.autojs.util.ClipboardUtils;
 import org.autojs.autojs.util.ViewUtils;
-import org.autojs.autojs6.R;
+import com.simple.process.R;
 import org.autojs.autojs6.databinding.DialogListViewBinding;
 import org.autojs.autojs6.databinding.DialogCodeGenerateOptionBinding;
 

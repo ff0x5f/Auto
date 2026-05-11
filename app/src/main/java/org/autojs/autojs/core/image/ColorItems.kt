@@ -1,6 +1,6 @@
 package org.autojs.autojs.core.image
 
-import org.autojs.autojs6.R
+import com.simple.process.R
 
 /**
  * Created by SuperMonster003 on Mar 25, 2025.

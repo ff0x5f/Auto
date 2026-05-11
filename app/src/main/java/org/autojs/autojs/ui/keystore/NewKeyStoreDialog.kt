@@ -14,7 +14,7 @@ import android.widget.LinearLayout
 import androidx.fragment.app.DialogFragment
 import org.autojs.autojs.theme.ThemeColorHelper
 import org.autojs.autojs.theme.ThemeColorManager
-import org.autojs.autojs6.R
+import com.simple.process.R
 import org.autojs.autojs6.databinding.DialogNewKeyStoreBinding
 
 open class NewKeyStoreDialog(

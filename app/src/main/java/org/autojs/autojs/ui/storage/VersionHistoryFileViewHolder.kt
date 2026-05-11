@@ -10,7 +10,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import org.autojs.autojs.pio.PFiles
 import org.autojs.autojs.storage.history.HistoryEntities
-import org.autojs.autojs6.R
+import com.simple.process.R
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.Date

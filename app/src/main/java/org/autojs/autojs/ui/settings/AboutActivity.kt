@@ -20,8 +20,8 @@ import org.autojs.autojs.util.ClipboardUtils
 import org.autojs.autojs.util.DeviceUtils
 import org.autojs.autojs.util.IntentUtils.startSafely
 import org.autojs.autojs.util.ViewUtils
-import org.autojs.autojs6.BuildConfig
-import org.autojs.autojs6.R
+import com.simple.process.BuildConfig
+import com.simple.process.R
 import org.autojs.autojs6.databinding.ActivityAboutBinding
 import org.autojs.autojs6.databinding.ActivityAboutFunctionButtonsBinding
 

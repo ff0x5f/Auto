@@ -18,7 +18,7 @@ import org.autojs.autojs.ui.enhancedfloaty.WindowBridge
 import org.autojs.autojs.ui.enhancedfloaty.WindowBridge.DefaultImpl
 import org.autojs.autojs.ui.enhancedfloaty.gesture.DragGesture
 import org.autojs.autojs.ui.enhancedfloaty.gesture.ResizeGesture
-import org.autojs.autojs6.R
+import com.simple.process.R
 import org.autojs.autojs6.databinding.FloatyWindowBinding
 
 /**

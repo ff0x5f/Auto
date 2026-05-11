@@ -13,7 +13,7 @@ import org.autojs.autojs.theme.app.ColorSelectBaseActivity.Companion.SELECT_NONE
 import org.autojs.autojs.theme.app.ColorSelectBaseActivity.Companion.saveDatabaseForColorHistory
 import org.autojs.autojs.theme.app.ColorSelectBaseActivity.Companion.savePrefsForLegacy
 import org.autojs.autojs.theme.app.ColorSelectBaseActivity.Companion.savePrefsForLibraries
-import org.autojs.autojs6.R
+import com.simple.process.R
 import org.autojs.autojs6.databinding.MtColorLibraryRecyclerViewItemBinding
 
 @SuppressLint("NotifyDataSetChanged")

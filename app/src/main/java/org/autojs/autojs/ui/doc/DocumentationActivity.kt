@@ -8,7 +8,7 @@ import org.autojs.autojs.ui.BaseActivity
 import org.autojs.autojs.util.DocsUtils.getUrl
 import org.autojs.autojs.util.ViewUtils
 import org.autojs.autojs.util.WebViewUtils
-import org.autojs.autojs6.R
+import com.simple.process.R
 import org.autojs.autojs6.databinding.ActivityDocumentationBinding
 import org.intellij.lang.annotations.Language
 

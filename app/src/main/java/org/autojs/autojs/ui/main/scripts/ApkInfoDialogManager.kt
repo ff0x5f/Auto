@@ -34,7 +34,7 @@ import org.autojs.autojs.pio.PFiles
 import org.autojs.autojs.runtime.api.AppUtils
 import org.autojs.autojs.util.IntentUtils
 import org.autojs.autojs.util.IntentUtils.ToastExceptionHolder
-import org.autojs.autojs6.R
+import com.simple.process.R
 import org.autojs.autojs6.databinding.ApkFileInfoDialogItemsBinding
 import java.io.File
 

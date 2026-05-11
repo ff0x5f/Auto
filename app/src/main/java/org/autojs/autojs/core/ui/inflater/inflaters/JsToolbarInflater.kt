@@ -7,7 +7,7 @@ import org.autojs.autojs.core.ui.inflater.ResourceParser
 import org.autojs.autojs.core.ui.inflater.ViewCreator
 import org.autojs.autojs.core.ui.widget.JsToolbar
 import org.autojs.autojs.runtime.ScriptRuntime
-import org.autojs.autojs6.R
+import com.simple.process.R
 
 /**
  * Created by Stardust on Nov 5, 2017.

@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import org.autojs.autojs.runtime.api.Permissions
 import org.autojs.autojs.theme.preference.Syncable
 import org.autojs.autojs.util.ViewUtils.excludePaddingClippableViewFromBottomNavigationBar
-import org.autojs.autojs6.R
+import com.simple.process.R
 import org.autojs.autojs6.databinding.ActivitySettingsInrtBinding
 
 /**

@@ -16,8 +16,8 @@ import org.autojs.autojs.core.pref.Pref.getBoolean
 import org.autojs.autojs.core.pref.Pref.putBoolean
 import org.autojs.autojs.util.StringUtils.key
 import org.autojs.autojs.util.ViewUtils
-import org.autojs.autojs6.BuildConfig
-import org.autojs.autojs6.R
+import com.simple.process.BuildConfig
+import com.simple.process.R
 import java.io.IOException
 import java.net.InetSocketAddress
 import java.net.Socket

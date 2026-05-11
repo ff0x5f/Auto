@@ -76,7 +76,7 @@ import org.autojs.autojs.util.IntentUtils.ToastExceptionHolder;
 import org.autojs.autojs.util.StringUtils;
 import org.autojs.autojs.util.ViewUtils;
 import org.autojs.autojs.util.WorkingDirectoryUtils;
-import org.autojs.autojs6.R;
+import com.simple.process.R;
 import org.autojs.autojs6.databinding.ActivityBuildBinding;
 import org.autojs.autojs6.databinding.DialogBuildProgressBinding;
 import org.autojs.autojs6.databinding.FragmentSymbolsToolbarBinding;

@@ -10,7 +10,7 @@ import org.autojs.autojs.core.ui.inflater.ResourceParser
 import org.autojs.autojs.core.ui.inflater.ViewCreator
 import org.autojs.autojs.core.ui.widget.JsActionMenuView
 import org.autojs.autojs.runtime.ScriptRuntime
-import org.autojs.autojs6.R
+import com.simple.process.R
 import org.autojs.autojs6.databinding.JsToolbarBinding
 
 class JsActionMenuViewInflater(scriptRuntime: ScriptRuntime, resourceParser: ResourceParser) : ActionMenuViewInflater<JsActionMenuView>(scriptRuntime, resourceParser) {

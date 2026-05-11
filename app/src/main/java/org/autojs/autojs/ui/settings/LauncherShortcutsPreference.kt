@@ -10,7 +10,7 @@ import org.autojs.autojs.theme.preference.MaterialPreference
 import org.autojs.autojs.ui.doc.DocumentationActivity
 import org.autojs.autojs.ui.log.LogActivity
 import org.autojs.autojs.util.ShortcutUtils
-import org.autojs.autojs6.R
+import com.simple.process.R
 import org.autojs.autojs6.databinding.SelectLauncherShortcutBinding
 
 /**

@@ -10,7 +10,7 @@ import org.autojs.autojs.util.DialogUtils;
 import org.autojs.autojs.model.script.ScriptFile;
 import org.autojs.autojs.model.script.Scripts;
 import org.autojs.autojs.util.ViewUtils;
-import org.autojs.autojs6.R;
+import com.simple.process.R;
 import org.autojs.autojs6.databinding.DialogScriptLoopBinding;
 
 /**

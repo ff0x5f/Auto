@@ -22,7 +22,7 @@ import org.autojs.autojs.project.ProjectLauncher;
 import org.autojs.autojs.ui.project.BuildActivity;
 import org.autojs.autojs.ui.project.ProjectConfigActivity;
 import org.autojs.autojs.util.IntentUtils;
-import org.autojs.autojs6.R;
+import com.simple.process.R;
 import org.autojs.autojs6.databinding.ExplorerProjectToolbarBinding;
 import org.greenrobot.eventbus.Subscribe;
 

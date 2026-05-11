@@ -1,7 +1,7 @@
 package org.autojs.autojs.util
 
 import android.content.Context
-import org.autojs.autojs6.R
+import com.simple.process.R
 
 object UrlUtils {
 

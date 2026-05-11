@@ -5,8 +5,8 @@ import android.util.Log
 import androidx.core.content.edit
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import org.autojs.autojs6.BuildConfig
-import org.autojs.autojs6.R
+import com.simple.process.BuildConfig
+import com.simple.process.R
 import org.json.JSONArray
 import org.json.JSONObject
 import java.io.File

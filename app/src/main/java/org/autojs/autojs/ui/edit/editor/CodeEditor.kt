@@ -27,7 +27,7 @@ import org.autojs.autojs.util.StringUtils.indexOf
 import org.autojs.autojs.util.StringUtils.key
 import org.autojs.autojs.util.ViewUtils.showSnack
 import org.autojs.autojs.util.ViewUtils.showToast
-import org.autojs.autojs6.R
+import com.simple.process.R
 import org.autojs.autojs6.databinding.CodeEditorBinding
 import java.util.regex.Matcher
 import java.util.regex.Pattern
