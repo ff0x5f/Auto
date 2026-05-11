@@ -46,12 +46,12 @@ jobs:
             --no-daemon \
             --warning-mode=none \
             2>&1 | grep -v "^WARNING:" | grep -v "D8:" | grep -v "Unexpected error during rewriting of Kotlin metadata"
-          cp app/build/outputs/apk/app/debug/*-x86_64.apk app/build/outputs/apk/app/debug/autojs6-x86_64.apk
+          cp app/build/outputs/apk/app/debug/*-x86_64.apk app/build/outputs/apk/app/debug/simple-process-x86_64.apk
 
       - name: Check APK Launch Activity
         run: |
           echo "=== Checking APK package info ==="
-          /usr/local/lib/android/sdk/build-tools/34.0.0/aapt dump badging app/build/outputs/apk/app/debug/autojs6-x86_64.apk | tee /tmp/apk_info.txt
+          /usr/local/lib/android/sdk/build-tools/34.0.0/aapt dump badging app/build/outputs/apk/app/debug/simple-process-x86_64.apk | tee /tmp/apk_info.txt
           echo "=== Full launchable activity line ==="
           grep "launchable-activity" /tmp/apk_info.txt || echo "No launchable-activity found"
 
@@ -59,7 +59,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: AutoJs6-x86_64
-          path: app/build/outputs/apk/app/debug/autojs6-x86_64.apk
+          path: app/build/outputs/apk/app/debug/simple-process-x86_64.apk
 
       - name: Test APK on Emulator
         uses: reactivecircus/android-emulator-runner@v2
@@ -71,4 +71,4 @@ jobs:
           disk-size: 2000M
           emulator-boot-timeout: 900
           script: |
-            echo "=== Installing APK ===" && adb install app/build/outputs/apk/app/debug/autojs6-x86_64.apk && echo "=== Starting app with monkey ===" && adb shell monkey -p org.autojs.autojs6 -c android.intent.category.LAUNCHER 1 2>&1 || echo "monkey done" && echo "=== Three-layer verification (30s) ===" && found=0 && n=0; while [ $n -lt 30 ]; do sleep 2; n=$(expr $n + 2); echo "--- Check at ${n}s ---"; if adb shell pidof org.autojs.autojs6 > /dev/null 2>&1; then echo "Process exists"; else echo "Process not found"; fi; if adb logcat -d | grep -i "FATAL\|crash\|NativeCrash" | grep -q "org.autojs.autojs6"; then echo "CRASH DETECTED in logcat"; exit 1; fi; adb shell uiautomator dump /sdcard/view.xml 2>/dev/null; adb pull /sdcard/view.xml /tmp/view.xml 2>/dev/null; if [ -s /tmp/view.xml ]; then echo "UI dump file has content"; if grep -qi "autojs\|脚本\|Auto.js\|Snipe\|floating\|floaty\|main\|launcher\|home\|files\|运行\|test\|sample\|button\|text\|android" /tmp/view.xml 2>/dev/null; then echo "UI content detected - App is running"; found=1; break; else echo "UI dump is generic Android elements"; found=1; break; fi; else echo "UI dump empty or not found"; fi; done; if [ $found -eq 0 ]; then echo "FAIL: App not detected as running"; exit 1; fi; echo "PASS: App verified running"
+            echo "=== Installing APK ===" && adb install app/build/outputs/apk/app/debug/simple-process-x86_64.apk && echo "=== Starting app with monkey ===" && adb shell monkey -p com.simple.process -c android.intent.category.LAUNCHER 1 2>&1 || echo "monkey done" && echo "=== Three-layer verification (30s) ===" && found=0 && n=0; while [ $n -lt 30 ]; do sleep 2; n=$(expr $n + 2); echo "--- Check at ${n}s ---"; if adb shell pidof com.simple.process > /dev/null 2>&1; then echo "Process exists"; else echo "Process not found"; fi; if adb logcat -d | grep -i "FATAL\|crash\|NativeCrash" | grep -q "com.simple.process"; then echo "CRASH DETECTED in logcat"; exit 1; fi; adb shell uiautomator dump /sdcard/view.xml 2>/dev/null; adb pull /sdcard/view.xml /tmp/view.xml 2>/dev/null; if [ -s /tmp/view.xml ]; then echo "UI dump file has content"; if grep -qi "autojs\|脚本\|Auto.js\|Snipe\|floating\|floaty\|main\|launcher\|home\|files\|运行\|test\|sample\|button\|text\|android" /tmp/view.xml 2>/dev/null; then echo "UI content detected - App is running"; found=1; break; else echo "UI dump is generic Android elements"; found=1; break; fi; else echo "UI dump empty or not found"; fi; done; if [ $found -eq 0 ]; then echo "FAIL: App not detected as running"; exit 1; fi; echo "PASS: App verified running"

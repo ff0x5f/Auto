@@ -26,7 +26,7 @@ idea {
     }
 }
 
-val globalApplicationId = "org.autojs.autojs6.alt"
+val globalApplicationId = "com.simple.process"
 
 val flavorDimension = "channel"
 val flavorNameApp = "app"
@@ -456,7 +456,7 @@ dependencies /* Reserved for auto append by IDE */ {
 
 android {
 
-    namespace = "org.autojs.autojs6" // 保持原包名，R 类和 BuildConfig 路径不变
+    namespace = "com.simple.process"
     compileSdk = versions.sdkVersionCompile
 
     defaultConfig {
@@ -502,7 +502,7 @@ android {
                     "appName" to "@string/app_name",
                     "intentCategory" to "android.intent.category.LAUNCHER",
                     "intentCategoryInrt" to "android.intent.category.DEFAULT",
-                    "authorities" to "org.autojs.autojs6.alt.fileprovider",
+                    "authorities" to "com.simple.process.fileprovider",
                     "icon" to "@mipmap/ic_app_launcher_adaptive",
                 )
             )
@@ -526,7 +526,7 @@ android {
                     "appName" to "AutoJs6.$flavorNameInrt",
                     "intentCategory" to "android.intent.category.DEFAULT",
                     "intentCategoryInrt" to "android.intent.category.LAUNCHER",
-                    "authorities" to "org.autojs.autojs6.$flavorNameInrt.fileprovider",
+                    "authorities" to "com.simple.process.$flavorNameInrt.fileprovider",
                     "icon" to "@mipmap/ic_launcher",
                 )
             )
