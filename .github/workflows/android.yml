@@ -73,12 +73,10 @@ jobs:
           script: |
             echo "=== Installing APK ==="
             adb install app/build/outputs/apk/app/debug/autojs6-x86_64.apk
-            sleep 2
             echo "=== Starting app with monkey ==="
-            adb shell monkey -p org.autojs.autojs6 -c android.intent.category.LAUNCHER 1 2>&1 | head -5 || echo "monkey done"
-            echo "=== Waiting 20 seconds for app to initialize ==="
-            sleep 20
-            echo "=== Checking if app is running ==="
-            n=0; while [ $n -lt 15 ]; do sleep 1; n=$(expr $n + 1); if adb shell pidof org.autojs.autojs6 > /dev/null 2>&1; then echo "App stable at ${n}s"; else echo "App crashed at ${n}s"; exit 1; fi; done
-            echo "App stable for 15s"
+            adb shell monkey -p org.autojs.autojs6 -c android.intent.category.LAUNCHER 1 2>&1 || echo "monkey done"
+            echo "=== Immediately checking app stability for 30s ==="
+            # 立即开始检测，不等待
+            n=0; while [ $n -lt 30 ]; do sleep 1; n=$(expr $n + 1); if adb shell pidof org.autojs.autojs6 > /dev/null 2>&1; then echo "App running at ${n}s"; else echo "App crashed at ${n}s"; exit 1; fi; done
+            echo "App stable for 30s"
             exit 0
