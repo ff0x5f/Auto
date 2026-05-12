@@ -233,6 +233,11 @@
                 android:resource="@xml/app_shortcuts" />
         </activity>
 
+        <activity
+            android:name="org.autojs.autojs.ui.main.MainActivity"
+            android:exported="false"
+            android:theme="@style/AppTheme" />
+
         <activity-alias
             android:name="org.autojs.autojs.launcher.AdaptiveIconAlias"
             android:enabled="true"
