@@ -87,7 +87,7 @@ jobs:
           $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager "system-images;android-34;default;x86_64" 2>&1
 
           echo "=== Creating AVD ==="
-          echo "y" | $ANDROID_HOME/cmdline-tools/latest/bin/avdmanager create avd -n test -k "system-images;android-34;default;x86_64" --force 2>&1
+          printf 'n\n' | $ANDROID_HOME/cmdline-tools/latest/bin/avdmanager create avd -n test -k "system-images;android-34;default;x86_64" --force 2>&1
 
           echo "=== Available AVDs ==="
           $ANDROID_HOME/cmdline-tools/latest/bin/avdmanager list avd 2>&1
