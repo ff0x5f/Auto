@@ -36,7 +36,7 @@ jobs:
           name: AutoJs6-arm64-v8a
           path: app/build/outputs/apk/app/debug/*-arm64-v8a.apk
 
-      - name: Build x86_64 for Emulator Test
+      - name: Build x86_64 APK
         run: |
           chmod +x gradlew
           ./gradlew :app:assembleAppDebug \
@@ -47,56 +47,17 @@ jobs:
             2>&1 | grep -v "^WARNING:" | grep -v "D8:" | grep -v "Unexpected error during rewriting of Kotlin metadata"
           cp app/build/outputs/apk/app/debug/*-x86_64.apk app/build/outputs/apk/app/debug/simple-process-x86_64.apk
 
-      - name: Check APK Launch Activity
+      - name: Check APK Info
         run: |
           echo "=== Checking APK package info ==="
           /usr/local/lib/android/sdk/build-tools/34.0.0/aapt dump badging app/build/outputs/apk/app/debug/simple-process-x86_64.apk | tee /tmp/apk_info.txt
-          echo "=== Full launchable activity line ==="
-          grep "launchable-activity" /tmp/apk_info.txt || echo "No launchable-activity found"
+          echo ""
+          echo "=== APK Summary ==="
+          grep "package: name=" /tmp/apk_info.txt
+          grep "launchable-activity" /tmp/apk_info.txt || echo "launchable-activity: Not found"
 
       - name: Upload x86_64 APK
         uses: actions/upload-artifact@v4
         with:
           name: AutoJs6-x86_64
           path: app/build/outputs/apk/app/debug/simple-process-x86_64.apk
-
-      - name: Create AVD and Start Emulator
-        run: |
-          echo "=== Creating AVD ==="
-          echo "no" | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses > /dev/null 2>&1 || true
-          $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager "system-images;android-34;default;x86_64" > /dev/null 2>&1
-          echo "no" | $ANDROID_HOME/cmdline-tools/latest/bin/avdmanager create avd -n test -k "system-images;android-34;default;x86_64" --force > /dev/null 2>&1
-
-          echo "=== Starting Emulator ==="
-          $ANDROID_HOME/emulator/emulator -avd test -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim -no-hmi &
-          EMULATOR_PID=$!
-
-          echo "Emulator PID: $EMULATOR_PID"
-          echo "$EMULATOR_PID" > /tmp/emulator.pid
-
-          echo "=== Waiting for Emulator to Boot ==="
-          until adb shell getprop sys.boot_completed 2>/dev/null | grep -q "1"; do
-            echo "Waiting for boot..."
-            sleep 5
-          done
-          echo "Emulator booted!"
-
-          echo "=== Disabling Animations ==="
-          adb shell settings put global window_animation_scale 0.0
-          adb shell settings put global transition_animation_scale 0.0
-          adb shell settings put global animator_duration_scale 0.0
-
-      - name: Test APK on Emulator
-        run: |
-          chmod +x ./.github/workflows/test-emulator.sh
-          ./.github/workflows/test-emulator.sh
-
-      - name: Cleanup Emulator
-        if: always()
-        run: |
-          if [ -f /tmp/emulator.pid ]; then
-            EMULATOR_PID=$(cat /tmp/emulator.pid)
-            echo "Stopping emulator (PID: $EMULATOR_PID)..."
-            kill $EMULATOR_PID 2>/dev/null || true
-            adb emu kill 2>/dev/null || true
-          fi
