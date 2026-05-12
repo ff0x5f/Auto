@@ -92,9 +92,9 @@ jobs:
           echo "=== Available AVDs ==="
           $ANDROID_HOME/cmdline-tools/latest/bin/avdmanager list avd 2>&1
 
-          # Start emulator in background
+          # Start emulator in background with alternative options
           echo "=== Starting Emulator ==="
-          $ANDROID_HOME/emulator/emulator -avd test -no-window -no-snapshot -no-audio -no-boot-anim 2>&1 &
+          $ANDROID_HOME/emulator/emulator -avd test -no-window -no-snapshot -no-audio -no-boot-anim -no-hvf -gpu swiftshader_indirect 2>&1 &
           EMULATOR_PID=$!
           echo "Emulator PID: $EMULATOR_PID"
 
