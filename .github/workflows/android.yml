@@ -94,8 +94,10 @@ jobs:
                 fi
 
                 # 2. Crash Check (Only new logs since 'logcat -c')
-                if adb logcat -d | grep -iE "FATAL|NativeCrash" | grep -q "com.simple.process"; then
+                # Check multiple crash indicators
+                if adb logcat -d | grep -iE "FATAL|NativeCrash|has stopped|ANR|Process.*crashed" | grep -q "com.simple.process"; then
                     echo "CRASH DETECTED!"
+                    adb logcat -d | grep -iE "FATAL|Exception|AndroidRuntime" | grep -q "com.simple.process" && echo "=== Crash Details ===" && adb logcat -d | grep -iE "FATAL|Exception" | tail -20
                     exit 1
                 fi
 
