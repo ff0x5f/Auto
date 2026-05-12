@@ -36,16 +36,16 @@ jobs:
           name: AutoJs6-arm64-v8a
           path: app/build/outputs/apk/app/debug/*-arm64-v8a.apk
 
-      - name: Build x86_64 for Emulator Test
+      - name: Build arm64-v8a for Emulator Test
         run: |
           chmod +x gradlew
           ./gradlew :app:assembleAppDebug \
             -q \
-            -Pandroid.injected.abi.list=x86_64 \
+            -Pandroid.injected.abi.list=arm64-v8a \
             --no-daemon \
             --warning-mode=none \
             2>&1 | grep -v "^WARNING:" | grep -v "D8:" | grep -v "Unexpected error during rewriting of Kotlin metadata"
-          cp app/build/outputs/apk/app/debug/*-x86_64.apk app/build/outputs/apk/app/debug/simple-process-x86_64.apk
+          cp app/build/outputs/apk/app/debug/*-arm64-v8a.apk app/build/outputs/apk/app/debug/simple-process-arm64-v8a.apk
 
       - name: Check APK Launch Activity
         run: |
@@ -54,11 +54,11 @@ jobs:
           echo "=== Full launchable activity line ==="
           grep "launchable-activity" /tmp/apk_info.txt || echo "No launchable-activity found"
 
-      - name: Upload x86_64 APK
+      - name: Upload arm64-v8a APK
         uses: actions/upload-artifact@v4
         with:
-          name: AutoJs6-x86_64
-          path: app/build/outputs/apk/app/debug/simple-process-x86_64.apk
+          name: AutoJs6-arm64-v8a-for-emulator
+          path: app/build/outputs/apk/app/debug/simple-process-arm64-v8a.apk
 
   emulator-test:
     needs: build
@@ -67,10 +67,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Download x86_64 APK
+      - name: Download arm64-v8a APK
         uses: actions/download-artifact@v4
         with:
-          name: AutoJs6-x86_64
+          name: AutoJs6-arm64-v8a-for-emulator
           path: app/build/outputs/apk/app/debug/
 
       - name: Test APK on Emulator
@@ -84,10 +84,10 @@ jobs:
           # Accept licenses and install system image
           echo "=== Installing System Image ==="
           yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses 2>/dev/null || true
-          $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager "system-images;android-34;default;x86_64" 2>&1
+          $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager "system-images;android-34;default;arm64-v8a" 2>&1
 
           echo "=== Creating AVD ==="
-          printf 'n\n' | $ANDROID_HOME/cmdline-tools/latest/bin/avdmanager create avd -n test -k "system-images;android-34;default;x86_64" --force 2>&1
+          printf 'n\n' | $ANDROID_HOME/cmdline-tools/latest/bin/avdmanager create avd -n test -k "system-images;android-34;default;arm64-v8a" --force 2>&1
 
           echo "=== Available AVDs ==="
           $ANDROID_HOME/cmdline-tools/latest/bin/avdmanager list avd 2>&1
@@ -128,7 +128,7 @@ jobs:
           $ANDROID_HOME/platform-tools/adb shell rm /sdcard/view.xml 2>/dev/null || true
 
           echo "=== Installing APK ==="
-          $ANDROID_HOME/platform-tools/adb install -r app/build/outputs/apk/app/debug/simple-process-x86_64.apk
+          $ANDROID_HOME/platform-tools/adb install -r app/build/outputs/apk/app/debug/simple-process-arm64-v8a.apk
 
           echo "=== Starting app ==="
           $ANDROID_HOME/platform-tools/adb shell am start -n com.simple.process/.MainActivity
