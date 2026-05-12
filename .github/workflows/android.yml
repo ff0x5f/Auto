@@ -78,22 +78,30 @@ jobs:
           ANDROID_HOME: /Users/runner/Library/Android/sdk
           ANDROID_SDK_ROOT: /Users/runner/Library/Android/sdk
         run: |
+          set -x  # Enable debug output
           echo "=== Starting Emulator ==="
           echo "ANDROID_HOME: $ANDROID_HOME"
-          ls -la $ANDROID_HOME 2>/dev/null || echo "SDK not found at $ANDROID_HOME"
+
+          # Check if system image exists
+          echo "=== Checking System Image ==="
+          ls -la $ANDROID_HOME/system-images/ 2>/dev/null || echo "No system images"
+          ls -la $ANDROID_HOME/system-images/android-34/ 2>/dev/null || echo "No android-34 images"
 
           # Create AVD
-          echo "y" | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses > /dev/null 2>&1 || true
-          $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager "system-images;android-34;default;x86_64" > /dev/null 2>&1
-          echo "y" | $ANDROID_HOME/cmdline-tools/latest/bin/avdmanager create avd -n test -k "system-images;android-34;default;x86_64" --force > /dev/null 2>&1
+          echo "=== Creating AVD ==="
+          echo "y" | $ANDROID_HOME/cmdline-tools/latest/bin/avdmanager create avd -n test -k "system-images;android-34;default;x86_64" --force 2>&1
+
+          echo "=== Available AVDs ==="
+          $ANDROID_HOME/cmdline-tools/latest/bin/avdmanager list avd 2>&1
 
           # Start emulator in background
-          $ANDROID_HOME/emulator/emulator -avd test -no-window -no-snapshot -no-audio -no-boot-anim &
+          echo "=== Starting Emulator ==="
+          $ANDROID_HOME/emulator/emulator -avd test -no-window -no-snapshot -no-audio -no-boot-anim -verbose 2>&1 &
           EMULATOR_PID=$!
           echo "Emulator PID: $EMULATOR_PID"
 
           echo "=== Waiting for Emulator to Boot ==="
-          BOOT_TIMEOUT=300
+          BOOT_TIMEOUT=180
           ELAPSED=0
           while [ $ELAPSED -lt $BOOT_TIMEOUT ]; do
             if ($ANDROID_HOME/platform-tools/adb shell getprop sys.boot_completed 2>/dev/null | grep -q "1"); then
@@ -107,6 +115,7 @@ jobs:
 
           if [ $ELAPSED -ge $BOOT_TIMEOUT ]; then
             echo "ERROR: Emulator failed to boot within $BOOT_TIMEOUT seconds"
+            ps aux | grep emulator
             kill $EMULATOR_PID 2>/dev/null || true
             exit 1
           fi
