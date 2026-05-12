@@ -23,7 +23,6 @@ jobs:
       - name: Build Arm64 Only
         run: |
           chmod +x gradlew
-          # 使用 Debug 构建以获得自动签名，可直接安装
           ./gradlew :app:assembleAppDebug \
             -q \
             -Pandroid.injected.abi.list=arm64-v8a \
@@ -61,62 +60,43 @@ jobs:
           name: AutoJs6-x86_64
           path: app/build/outputs/apk/app/debug/simple-process-x86_64.apk
 
-      - name: Start Emulator
-        uses: reactivecircus/android-emulator-runner@v2
-        with:
-          api-level: 34
-          target: default
-          arch: x86_64
-          profile: Nexus 6
-          disk-size: 2000M
-          emulator-boot-timeout: 900
+      - name: Create AVD and Start Emulator
+        run: |
+          echo "=== Creating AVD ==="
+          echo "no" | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses > /dev/null 2>&1 || true
+          $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager "system-images;android-34;default;x86_64" > /dev/null 2>&1
+          echo "no" | $ANDROID_HOME/cmdline-tools/latest/bin/avdmanager create avd -n test -k "system-images;android-34;default;x86_64" --force > /dev/null 2>&1
+
+          echo "=== Starting Emulator ==="
+          $ANDROID_HOME/emulator/emulator -avd test -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim -no-hmi &
+          EMULATOR_PID=$!
+
+          echo "Emulator PID: $EMULATOR_PID"
+          echo "$EMULATOR_PID" > /tmp/emulator.pid
+
+          echo "=== Waiting for Emulator to Boot ==="
+          until adb shell getprop sys.boot_completed 2>/dev/null | grep -q "1"; do
+            echo "Waiting for boot..."
+            sleep 5
+          done
+          echo "Emulator booted!"
+
+          echo "=== Disabling Animations ==="
+          adb shell settings put global window_animation_scale 0.0
+          adb shell settings put global transition_animation_scale 0.0
+          adb shell settings put global animator_duration_scale 0.0
 
       - name: Test APK on Emulator
         run: |
-          echo "=== Cleaning Environment ==="
-          adb logcat -c
-          adb shell rm /sdcard/view.xml 2>/dev/null || true
+          chmod +x ./.github/workflows/test-emulator.sh
+          ./.github/workflows/test-emulator.sh
 
-          echo "=== Installing APK ==="
-          adb install -r app/build/outputs/apk/app/debug/simple-process-x86_64.apk
-
-          echo "=== Starting app ==="
-          adb shell monkey -p com.simple.process -c android.intent.category.LAUNCHER 1
-
-          echo "=== Verification Loop (60s) ==="
-          n=0
-          while [ $n -lt 60 ]; do
-            sleep 2
-            n=$((n + 2))
-            echo "--- Check at ${n}s ---"
-
-            # 1. Process Check
-            if ! adb shell pidof com.simple.process > /dev/null; then
-              echo "Process not found"
-            fi
-
-            # 2. Crash Check
-            if adb logcat -d | grep -iE "FATAL|NativeCrash|has stopped|ANR|Process.*crashed" | grep -q "com.simple.process"; then
-              echo "CRASH DETECTED!"
-              adb logcat -d | grep -iE "FATAL|Exception|AndroidRuntime" | grep -q "com.simple.process" && echo "=== Crash Details ===" && adb logcat -d | grep -iE "FATAL|Exception" | tail -20
-              exit 1
-            fi
-
-            # 3. UI Content Check
-            adb shell uiautomator dump /sdcard/view.xml > /dev/null
-            adb pull /sdcard/view.xml /tmp/view.xml 2>/dev/null || true
-
-            if [ -s /tmp/view.xml ]; then
-              if grep -qiE "drawer_layout|viewpager|tab_layout|explorer|plugin|task_manager|snipe" /tmp/view.xml; then
-                echo "SUCCESS: App main UI detected."
-                exit 0
-              fi
-              if grep -qiE "文件|文档|插件|任务|sample|explorer" /tmp/view.xml; then
-                echo "SUCCESS: App content detected."
-                exit 0
-              fi
-            fi
-          done
-
-          echo "Timeout: UI elements not found within 60s."
-          exit 1
+      - name: Cleanup Emulator
+        if: always()
+        run: |
+          if [ -f /tmp/emulator.pid ]; then
+            EMULATOR_PID=$(cat /tmp/emulator.pid)
+            echo "Stopping emulator (PID: $EMULATOR_PID)..."
+            kill $EMULATOR_PID 2>/dev/null || true
+            adb emu kill 2>/dev/null || true
+          fi
