@@ -99,12 +99,12 @@ jobs:
 
           # Start emulator in background with alternative options
           echo "=== Starting Emulator ==="
-          $ANDROID_HOME/emulator/emulator -avd test -no-window -no-snapshot -no-audio -no-boot-anim -no-hvf -gpu swiftshader_indirect -verbose 2>&1 | head -100 &
+          $ANDROID_HOME/emulator/emulator -avd test -no-window -no-snapshot -no-audio -no-boot-anim -gpu swiftshader_indirect -engine auto 2>&1 &
           EMULATOR_PID=$!
           echo "Emulator PID: $EMULATOR_PID"
 
           # Give emulator a moment to start
-          sleep 10
+          sleep 30
 
           # Check if emulator process is still running
           if ! ps -p $EMULATOR_PID > /dev/null 2>&1; then
