@@ -1,10 +1,10 @@
 package org.autojs.autojs
 
+import android.app.Instrumentation
 import android.content.Intent
 import android.os.SystemClock
 import androidx.test.core.app.ActivityScenario
 import androidx.test.core.app.ApplicationProvider
-import androidx.test.platform.app.InstrumentationRegistry
 import org.autojs.autojs.ui.main.MainActivity
 import org.autojs.autojs.ui.splash.SplashActivity
 import org.junit.Test
@@ -17,12 +17,9 @@ import org.junit.Test
  * 2. Force wait 10 seconds (covers 2s crash + initialization)
  * 3. Check survival indicators:
  *    - No crash (ActivityScenario still valid)
- *    - No RuntimeException in logs
  *    - Either on MainActivity or SplashActivity still showing
  */
 class AppStartupTest {
-
-    private val instrumentation = InstrumentationRegistry.getInstrumentation()
 
     /**
      * Core startup survival test.
@@ -30,22 +27,17 @@ class AppStartupTest {
      */
     @Test
     fun testAppStartupSurvival() {
-        val intent = Intent(
-            ApplicationProvider.getApplicationContext(),
-            SplashActivity::class.java
-        ).apply {
+        val context = ApplicationProvider.getApplicationContext<android.app.Application>()
+        val intent = Intent(context, SplashActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
         }
 
-        // Launch and expect no crash
-        @Suppress("UNCHECKED_CAST")
-        val scenario = ActivityScenario.launch(SplashActivity::class.java, intent)
+        val instrumentation: Instrumentation = androidx.test.platform.app.InstrumentationRegistry.getInstrumentation()
+        val activity = instrumentation.startActivitySync(intent)
 
         // Verify SplashActivity started
-        scenario.onActivity { activity ->
-            assert(activity is SplashActivity) {
-                "Expected SplashActivity, got ${activity.javaClass.name}"
-            }
+        assert(activity is SplashActivity) {
+            "Expected SplashActivity, got ${activity?.javaClass?.name}"
         }
 
         // Force wait 10 seconds
@@ -65,7 +57,7 @@ class AppStartupTest {
         // - Activity finished (navigation completed)
         val isAlive = currentActivity is MainActivity ||
                 currentActivity is SplashActivity ||
-                currentActivity == null // Activity finished, app didn't crash
+                currentActivity == null
 
         assert(isAlive) {
             val name = currentActivity?.javaClass?.name ?: "null"
@@ -79,24 +71,18 @@ class AppStartupTest {
      */
     @Test
     fun testMainActivityDirectLaunch() {
-        val intent = Intent(
-            ApplicationProvider.getApplicationContext(),
-            MainActivity::class.java
-        ).apply {
+        val context = ApplicationProvider.getApplicationContext<android.app.Application>()
+        val intent = Intent(context, MainActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
         }
 
-        val scenario = ActivityScenario.launch(MainActivity::class.java, intent)
+        val instrumentation: Instrumentation = androidx.test.platform.app.InstrumentationRegistry.getInstrumentation()
+        val activity = instrumentation.startActivitySync(intent)
 
-        scenario.onActivity { activity ->
-            assert(activity is MainActivity) {
-                "Expected MainActivity, got ${activity.javaClass.name}"
-            }
+        assert(activity is MainActivity) {
+            "Expected MainActivity, got ${activity?.javaClass?.name}"
         }
 
-        // Wait to ensure no delayed crash
         SystemClock.sleep(3_000)
-
-        scenario.close()
     }
 }
