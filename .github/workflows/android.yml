@@ -80,6 +80,7 @@ jobs:
         run: |
           echo "=== Starting Emulator ==="
           echo "ANDROID_HOME: $ANDROID_HOME"
+          uname -m
 
           # Accept licenses and install system image
           echo "=== Installing System Image ==="
@@ -92,11 +93,24 @@ jobs:
           echo "=== Available AVDs ==="
           $ANDROID_HOME/cmdline-tools/latest/bin/avdmanager list avd 2>&1
 
+          # List installed system images
+          echo "=== System Images ==="
+          ls -la $ANDROID_HOME/system-images/android-34/default/
+
           # Start emulator in background with alternative options
           echo "=== Starting Emulator ==="
-          $ANDROID_HOME/emulator/emulator -avd test -no-window -no-snapshot -no-audio -no-boot-anim -no-hvf -gpu swiftshader_indirect 2>&1 &
+          $ANDROID_HOME/emulator/emulator -avd test -no-window -no-snapshot -no-audio -no-boot-anim -no-hvf -gpu swiftshader_indirect -verbose 2>&1 | head -100 &
           EMULATOR_PID=$!
           echo "Emulator PID: $EMULATOR_PID"
+
+          # Give emulator a moment to start
+          sleep 10
+
+          # Check if emulator process is still running
+          if ! ps -p $EMULATOR_PID > /dev/null 2>&1; then
+            echo "ERROR: Emulator process died immediately"
+            exit 1
+          fi
 
           echo "=== Waiting for Emulator to Boot ==="
           BOOT_TIMEOUT=300
@@ -113,7 +127,8 @@ jobs:
 
           if [ $ELAPSED -ge $BOOT_TIMEOUT ]; then
             echo "ERROR: Emulator failed to boot within $BOOT_TIMEOUT seconds"
-            ps aux | grep emulator || true
+            ps aux | grep -E "emulator|qemu" || true
+            $ANDROID_HOME/platform-tools/adb devices || true
             kill $EMULATOR_PID 2>/dev/null || true
             exit 1
           fi
