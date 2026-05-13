@@ -26,7 +26,12 @@ import com.simple.process.R
  */
 class AccessibilityTool(private val context: Context? = null) {
 
-    private val mApplicationContext = GlobalAppContext.get()
+    // @Fixed by Claude on May 13, 2026
+    // Lazy initialization to avoid crash when GlobalAppContext is not yet initialized
+    // during app startup or in multi-process environments.
+    private val mApplicationContext: Context by lazy {
+        context ?: GlobalAppContext.get()
+    }
     private val mContext: Context
         get() = context ?: mApplicationContext
     private val mServiceNamePrefix = mApplicationContext.packageName
