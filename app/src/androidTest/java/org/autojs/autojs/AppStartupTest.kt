@@ -5,13 +5,9 @@ import android.os.SystemClock
 import androidx.test.core.app.ActivityScenario
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.platform.app.InstrumentationRegistry
-import androidx.test.rule.TimeoutRule
-import com.simple.process.BuildConfig
 import org.autojs.autojs.ui.main.MainActivity
 import org.autojs.autojs.ui.splash.SplashActivity
-import org.junit.Rule
 import org.junit.Test
-import org.junit.rules.TestRule
 
 /**
  * App startup survival test.
@@ -28,11 +24,6 @@ class AppStartupTest {
 
     private val instrumentation = InstrumentationRegistry.getInstrumentation()
 
-    @get:Rule
-    val timeoutRule: TestRule = TimeoutRule.builder()
-        .withTimeout(30, java.util.concurrent.TimeUnit.SECONDS)
-        .build()
-
     /**
      * Core startup survival test.
      * Launch -> Wait 10s -> Check survival.
@@ -47,11 +38,12 @@ class AppStartupTest {
         }
 
         // Launch and expect no crash
-        val scenario = ActivityScenario.launch<SplashActivity>(intent)
+        @Suppress("UNCHECKED_CAST")
+        val scenario = ActivityScenario.launch(SplashActivity::class.java, intent)
 
         // Verify SplashActivity started
         scenario.onActivity { activity ->
-            check(activity is SplashActivity) {
+            assert(activity is SplashActivity) {
                 "Expected SplashActivity, got ${activity.javaClass.name}"
             }
         }
@@ -75,7 +67,7 @@ class AppStartupTest {
                 currentActivity is SplashActivity ||
                 currentActivity == null // Activity finished, app didn't crash
 
-        check(isAlive) {
+        assert(isAlive) {
             val name = currentActivity?.javaClass?.name ?: "null"
             "App crashed during startup. Current activity: $name"
         }
@@ -94,10 +86,10 @@ class AppStartupTest {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
         }
 
-        val scenario = ActivityScenario.launch<MainActivity>(intent)
+        val scenario = ActivityScenario.launch(MainActivity::class.java, intent)
 
         scenario.onActivity { activity ->
-            check(activity is MainActivity) {
+            assert(activity is MainActivity) {
                 "Expected MainActivity, got ${activity.javaClass.name}"
             }
         }
