@@ -129,22 +129,33 @@ jobs:
             --warning-mode=none \
             2>&1 | grep -v "^WARNING:" | grep -v "D8:" | grep -v "Unexpected error during rewriting of Kotlin metadata"
 
-      - name: Resolve APK path
-        id: apk
-        run: echo "path=$(ls app/build/outputs/apk/app/debug/*-x86_64.apk | head -1)" >> "$GITHUB_OUTPUT"
-
       - name: Launch app on emulator and capture crash stack
         uses: reactivecircus/android-emulator-runner@v2
+        env:
+          APK_GLOB: app/build/outputs/apk/app/debug/*-x86_64.apk
         with:
           api-level: 34
           arch: x86_64
           profile: pixel_5
           script: |
             set +e
-            APK="${{ steps.apk.outputs.path }}"
+            # emulator-runner may run in a different cwd; resolve the APK by
+            # globbing against the workspace root so the path is always valid.
+            cd "$GITHUB_WORKSPACE"
+            APK="$(ls ${{ env.APK_GLOB }} 2>/dev/null | head -1)"
+            echo "Resolved APK => [$APK]"
+            if [ -z "$APK" ] || [ ! -f "$APK" ]; then
+              echo "::error::No x86_64 APK found at ${{ env.APK_GLOB }}"
+              ls -la app/build/outputs/apk/app/debug/ 2>/dev/null || true
+              exit 0
+            fi
+
             echo "::group::Install APK"
             adb install -r "$APK"
+            INSTALL_RC=$?
+            echo "adb install rc=$INSTALL_RC"
             echo "::endgroup::"
+            # Continue even if install failed, to still capture logcat context.
 
             echo "::group::Clear logcat"
             adb logcat -c
@@ -155,8 +166,8 @@ jobs:
               -a android.intent.action.MAIN -c android.intent.category.LAUNCHER
             echo "::endgroup::"
 
-            echo "Waiting 10s for app to pass splash into MainActivity..."
-            sleep 10
+            echo "Waiting 12s for app to pass splash (1s) into MainActivity..."
+            sleep 12
 
             echo "::group::Process alive check"
             PID="$(adb shell pidof com.simple.process | tr -d '\r')"
