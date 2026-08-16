@@ -86,11 +86,21 @@ HTTPS_PROXY=http://127.0.0.1:7897 ./scripts/watch-ci.sh <run-id>
 脚本保证：run 标记 completed **且**每个 job 都 terminal 之后才退出；中间网络抖动不会误判完成；超时 60 分钟（`WATCH_CI_MAX_MINS` 可调）。
 退出码：0 完成（成功或闪退都需人看输出）/ 1 配置错 / 2 超时 / 3 没 startup-diagnosis job。
 
+### 执行方式必须前台阻塞
+
+**watch-ci.sh 必须前台运行并阻塞到它自行退出**，是指 Claude Code 在 push 后用 Bash 工具（前台，`run_in_background: false`）执行该脚本并等其返回，**不允许后台执行**（不 `run_in_background`、不 `&`）。
+
+> 注意：Claude Code 的 Bash 工具单次调用默认 10 分钟超时。`startup-diagnosis` 单 job 约 15 分钟，前台调用必然超时被系统转后台——这是预期内的回退，不违反此规则（脚本本就会坚持到 run 真正结束）。可设较长 `timeout`（如 `3600000`ms=60min）尽量保持前台；即便被转后台，命令仍在运行、完成时通知，读其 output 文件即为同等的"脚本输出"。
+>
+> 重试规则：若前台调用被硬超时截断（未拿到脚本自身的结束输出），**立即再前台发起一次 `watch-ci.sh`**，最多连续 3 次。脚本幂等——同一 run 再跑只是重新轮询到 completed 后重新 dump 日志，不会重复触发 CI，所以重试安全。
+>
+> 关键语义：不主动发起新的后台 `watch-ci.sh`、不提前 `TaskStop` 它、更不用 `gh run view` 手动反复轮询来替代脚本。
+
 ### workflow 说明
 
 `.github/workflows/android.yml`：调试期仅保留 `startup-diagnosis` job（`test` / `instrumented-test` / `build` 暂注释，定位完成后再恢复）。
 
-`startup-diagnosis` job：构建 x86_64 debug APK → 复制到 `/tmp/app-debug-x86_64.apk`（绝对路径避开 cwd/glob 问题）→ emulator 启动 `com.simple.process/org.autojs.autojs.ui.splash.SplashActivity` → 抓 `adb logcat` 的 `FATAL EXCEPTION` 堆栈 → `pidof` 判断进程存活 → 日志上传 artifact。`continue-on-error: true`，崩溃也让 run 绿，目的是拿堆栈而非卡 CI。
+`startup-diagnosis` job：构建 x86_64 debug APK → 复制到工作区 `built-apk/app-debug-x86_64.apk`（`$GITHUB_WORKSPACE` 路径，避开 emulator script 的 cwd/glob 与 `/tmp` 不共享问题）→ emulator 启动 `com.simple.process/org.autojs.autojs.ui.splash.SplashActivity` → 抓 `adb logcat` 的 `FATAL EXCEPTION` 堆栈 → `pidof` 判断进程存活 → 日志写入工作区并上传 artifact。`continue-on-error: true`，崩溃也让 run 绿，目的是拿堆栈而非卡 CI。emulator-runner 用 POSIX sh 执行 `script`，脚本内禁用嵌套 `$(ls ... || echo)` 等易破坏引号的结构。
 
 ### 输出判读
 

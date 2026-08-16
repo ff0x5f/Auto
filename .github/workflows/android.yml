@@ -137,56 +137,11 @@ jobs:
           api-level: 34
           arch: x86_64
           profile: pixel_5
-          script: |
-            set +e
-            APK="$GITHUB_WORKSPACE/built-apk/app-debug-x86_64.apk"
-            if [ -f "$APK" ]; then
-                echo "Resolved APK => OK $APK"
-            else
-                echo "::error::APK not found at $APK"
-                echo "workspace contents:"
-                ls -la "$GITHUB_WORKSPACE/built-apk" 2>/dev/null || true
-                exit 0
-            fi
-
-            echo "::group::Install APK"
-            adb install -r "$APK"
-            echo "adb install rc=$?"
-            echo "::endgroup::"
-
-            echo "::group::Clear logcat"
-            adb logcat -c
-            echo "::endgroup::"
-
-            echo "::group::Launch app (com.simple.process)"
-            adb shell am start -n com.simple.process/org.autojs.autojs.ui.splash.SplashActivity -a android.intent.action.MAIN -c android.intent.category.LAUNCHER
-            echo "::endgroup::"
-
-            echo "Waiting 12s for app to pass splash (1s) into MainActivity..."
-            sleep 12
-
-            echo "::group::Process alive check"
-            PID="$(adb shell pidof com.simple.process | tr -d '\r')"
-            echo "pidof com.simple.process => [$PID]"
-            if [ -n "$PID" ]; then
-                echo "::notice::App process is ALIVE (no startup crash)"
-            else
-                echo "::warning::App process is GONE (startup crash suspected)"
-            fi
-            echo "::endgroup::"
-
-            echo "::group::logcat ERROR+FATAL (the crash stack)"
-            adb logcat -d *:E AndroidRuntime:E | grep -iE 'AndroidRuntime|FATAL|Exception|Caused by|at org.autojs|at com.simple' || echo "(no AndroidRuntime FATAL lines found)"
-            echo "::endgroup::"
-
-            echo "::group::logcat full (last 200 lines)"
-            adb logcat -d -v time | tail -200
-            echo "::endgroup::"
-
-            # Persist full logcat to the workspace so the artifact step can
-            # upload it regardless of the emulator script cwd.
-            adb logcat -d -v time > "$GITHUB_WORKSPACE/full-logcat.txt"
-            adb logcat -d *:E AndroidRuntime:E > "$GITHUB_WORKSPACE/crash.log"
+          # android-emulator-runner@v2 feeds `script` lines to `sh -c` line by
+          # line, which breaks any multi-line if/then/fi structure. So the
+          # emulator script is a single line that runs the whole logic under one
+          # bash process via scripts/diagnose-startup.sh.
+          script: bash "$GITHUB_WORKSPACE/scripts/diagnose-startup.sh"
 
       - name: Upload emulator logs
         if: always()
