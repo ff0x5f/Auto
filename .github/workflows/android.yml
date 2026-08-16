@@ -124,11 +124,12 @@ jobs:
             --no-daemon \
             --warning-mode=none \
             2>&1 | grep -v "^WARNING:" | grep -v "D8:" | grep -v "Unexpected error during rewriting of Kotlin metadata"
-          # Copy the built APK to a stable absolute path so the emulator script
-          # (which runs in a different cwd) can find it without globbing.
-          SRC="$(ls app/build/outputs/apk/app/debug/*-x86_64.apk | head -1)"
-          cp "$SRC" /tmp/app-debug-x86_64.apk
-          echo "Installed APK to $(/usr/local/lib/android/sdk/build-tools/34.0.0/aapt dump badging /tmp/app-debug-x86_64.apk 2>/dev/null | grep -E 'package: name=|launchable-activity')" || true
+          # Copy the built APK to a fixed name under the workspace so the
+          # emulator script can reach it via $GITHUB_WORKSPACE (injected by
+          # the runner, not subject to shell quoting/glob pitfalls).
+          mkdir -p built-apk
+          cp app/build/outputs/apk/app/debug/*-x86_64.apk built-apk/app-debug-x86_64.apk
+          /usr/local/lib/android/sdk/build-tools/34.0.0/aapt dump badging built-apk/app-debug-x86_64.apk | grep -E 'package: name=|launchable-activity' || true
 
       - name: Launch app on emulator and capture crash stack
         uses: reactivecircus/android-emulator-runner@v2
@@ -138,29 +139,27 @@ jobs:
           profile: pixel_5
           script: |
             set +e
-            # /tmp is shared across the job, so the absolute path built in the
-            # previous step is reachable regardless of the emulator script cwd.
-            APK=/tmp/app-debug-x86_64.apk
-            echo "Resolved APK => [$APK] ($(ls -l "$APK" 2>/dev/null || echo MISSING))"
-            if [ ! -f "$APK" ]; then
-              echo "::error::APK not found at $APK"
-              exit 0
+            APK="$GITHUB_WORKSPACE/built-apk/app-debug-x86_64.apk"
+            if [ -f "$APK" ]; then
+                echo "Resolved APK => OK $APK"
+            else
+                echo "::error::APK not found at $APK"
+                echo "workspace contents:"
+                ls -la "$GITHUB_WORKSPACE/built-apk" 2>/dev/null || true
+                exit 0
             fi
 
             echo "::group::Install APK"
             adb install -r "$APK"
-            INSTALL_RC=$?
-            echo "adb install rc=$INSTALL_RC"
+            echo "adb install rc=$?"
             echo "::endgroup::"
-            # Continue even if install failed, to still capture logcat context.
 
             echo "::group::Clear logcat"
             adb logcat -c
             echo "::endgroup::"
 
             echo "::group::Launch app (com.simple.process)"
-            adb shell am start -n com.simple.process/org.autojs.autojs.ui.splash.SplashActivity \
-              -a android.intent.action.MAIN -c android.intent.category.LAUNCHER
+            adb shell am start -n com.simple.process/org.autojs.autojs.ui.splash.SplashActivity -a android.intent.action.MAIN -c android.intent.category.LAUNCHER
             echo "::endgroup::"
 
             echo "Waiting 12s for app to pass splash (1s) into MainActivity..."
@@ -168,27 +167,26 @@ jobs:
 
             echo "::group::Process alive check"
             PID="$(adb shell pidof com.simple.process | tr -d '\r')"
-            echo "pidof com.simple.process => [${PID}]"
+            echo "pidof com.simple.process => [$PID]"
             if [ -n "$PID" ]; then
-              echo "::notice::App process is ALIVE (no startup crash)"
+                echo "::notice::App process is ALIVE (no startup crash)"
             else
-              echo "::warning::App process is GONE (startup crash suspected)"
+                echo "::warning::App process is GONE (startup crash suspected)"
             fi
             echo "::endgroup::"
 
-            # Capture the crash stack BEFORE the process may be auto-restarted.
-            echo "::group::logcat (full, with timestamps)"
-            adb logcat -d -v time
-            echo "::endgroup::"
-
             echo "::group::logcat ERROR+FATAL (the crash stack)"
-            adb logcat -d *:E AndroidRuntime:E | grep -iE "AndroidRuntime|FATAL|Exception|Caused by|at org.autojs|at com.simple" || echo "(no AndroidRuntime FATAL lines found)"
+            adb logcat -d *:E AndroidRuntime:E | grep -iE 'AndroidRuntime|FATAL|Exception|Caused by|at org.autojs|at com.simple' || echo "(no AndroidRuntime FATAL lines found)"
             echo "::endgroup::"
 
-            # Save logs for artifact upload (absolute path: emulator script cwd
-            # differs from the artifact step's cwd).
-            adb logcat -d -v time > /tmp/full-logcat.txt
-            adb logcat -d *:E AndroidRuntime:E > /tmp/crash.log
+            echo "::group::logcat full (last 200 lines)"
+            adb logcat -d -v time | tail -200
+            echo "::endgroup::"
+
+            # Persist full logcat to the workspace so the artifact step can
+            # upload it regardless of the emulator script cwd.
+            adb logcat -d -v time > "$GITHUB_WORKSPACE/full-logcat.txt"
+            adb logcat -d *:E AndroidRuntime:E > "$GITHUB_WORKSPACE/crash.log"
 
       - name: Upload emulator logs
         if: always()
@@ -196,7 +194,7 @@ jobs:
         with:
           name: startup-diagnosis-logs
           path: |
-            /tmp/full-logcat.txt
-            /tmp/crash.log
+            ${{ github.workspace }}/full-logcat.txt
+            ${{ github.workspace }}/crash.log
           if-no-files-found: warn
 
