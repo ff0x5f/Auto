@@ -274,6 +274,7 @@ class MainActivity : BaseActivity(), DelegateHost, HostActivity {
     private fun setUpTabViewPager(binding: ActivityMainBinding) {
         mPagerAdapter = FragmentPagerAdapterBuilder(this)
             .add(ExplorerFragment(), R.string.text_file)
+            .add(SnipeFragment(), R.string.text_snipe)
             .add(DocumentationFragment(), R.string.text_documentation)
             .add(PluginFragment(), R.string.text_plugins)
             .add(TaskManagerFragment(), R.string.text_task)

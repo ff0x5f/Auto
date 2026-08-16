@@ -52,12 +52,12 @@
 
 ### 启动流程
 
-用户打开 App → SplashActivity（1秒启动页） → 自动跳转 SnipeActivity（抢购页） → 用户点击"Go to Main" → MainActivity
+用户打开 App → SplashActivity（1秒启动页） → 自动跳转 MainActivity → 默认显示"文件"Tab，用户可在 Tab 栏切换到"抢购"页。
 
 | 阶段 | 代码文件 | 布局文件 |
 |------|---------|---------|
 | 启动页 | `app/src/main/java/org/autojs/autojs/ui/splash/SplashActivity.kt` | `app/src/main/res/layout/activity_splash.xml` |
-| 抢购页 | `app/src/main/java/org/autojs/autojs/ui/snipe/SnipeActivity.kt` | `app/src/main/res/layout/activity_snipe.xml` |
+| 抢购页（Tab） | `app/src/main/java/org/autojs/autojs/ui/snipe/SnipeFragment.kt` | `app/src/main/res/layout/fragment_snipe.xml` |
 | 主界面 | `app/src/main/java/org/autojs/autojs/ui/main/MainActivity.kt` | `app/src/main/res/layout/activity_main.xml` |
 
 ### 主界面布局
@@ -68,7 +68,7 @@
 ├────────────────────────────────────┤
 │ ☰  AutoJs6           🔍  📋       │  ← Toolbar
 ├────────────────────────────────────┤
-│  文件  │  文档  │  插件  │  任务   │  ← TabLayout
+│  文件  │  抢购  │  文档  │  插件  │  任务   │  ← TabLayout
 ├────────────────────────────────────┤
 │                                    │
 │        ViewPager 内容区             │  ← 默认显示"文件"Tab
@@ -93,6 +93,7 @@
 | Tab | Fragment | 代码文件 |
 |-----|----------|---------|
 | 文件 | ExplorerFragment | `app/src/main/java/org/autojs/autojs/ui/main/scripts/ExplorerFragment.kt` |
+| 抢购 | SnipeFragment | `app/src/main/java/org/autojs/autojs/ui/snipe/SnipeFragment.kt` |
 | 文档 | DocumentationFragment | `app/src/main/java/org/autojs/autojs/ui/doc/DocumentationFragment.kt` |
 | 插件 | PluginFragment | `app/src/main/java/org/autojs/autojs/ui/main/plugin/PluginFragment.kt` |
 | 任务 | TaskManagerFragment | `app/src/main/java/org/autojs/autojs/ui/main/task/TaskManagerFragment.kt` |
