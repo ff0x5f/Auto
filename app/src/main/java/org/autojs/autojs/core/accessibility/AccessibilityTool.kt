@@ -34,9 +34,16 @@ class AccessibilityTool(private val context: Context? = null) {
     }
     private val mContext: Context
         get() = context ?: mApplicationContext
-    private val mServiceNamePrefix = mApplicationContext.packageName
-    private val mServiceNameSuffix = AccessibilityServiceUsher::class.java.name
-    private val mServiceName = "$mServiceNamePrefix/$mServiceNameSuffix"
+
+    // @Fixed by Claude on Aug 16, 2026
+    // The service-name fields used to be eager `val`s initialized in <init>,
+    // which forced the mApplicationContext lazy during the Activity
+    // constructor — before the framework attaches the real ContextWrapper,
+    // getPackageName() NPEs. Keeping them lazy defers the first access until
+    // after attachBaseContext, when context.getPackageName() is valid.
+    private val mServiceNamePrefix: String by lazy { mApplicationContext.packageName }
+    private val mServiceNameSuffix: String by lazy { AccessibilityServiceUsher::class.java.name }
+    private val mServiceName: String by lazy { "$mServiceNamePrefix/$mServiceNameSuffix" }
 
     @ScriptInterface
     fun clearCache(): Boolean = when {
