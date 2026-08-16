@@ -53,6 +53,37 @@ else
 fi
 echo "::endgroup::"
 
+# UI verification: only meaningful if the process survived. Dump the on-screen
+# view hierarchy and confirm the "Flash Sale" (抢购) Tab — added by wiring
+# SnipeFragment into MainActivity's ViewPager — actually renders. TabLayout
+# renders every Tab title regardless of selection, so no simulated tap needed.
+if [ -n "$PID" ]; then
+    echo "::group::UI hierarchy — verify 'Flash Sale' (抢购) Tab"
+    adb shell uiautomator dump /sdcard/ui_dump.xml >/dev/null 2>&1
+    adb pull /sdcard/ui_dump.xml "$GITHUB_WORKSPACE/ui_dump.xml" >/dev/null 2>&1
+    if [ -s "$GITHUB_WORKSPACE/ui_dump.xml" ]; then
+        if grep -qE 'Flash Sale|抢购' "$GITHUB_WORKSPACE/ui_dump.xml"; then
+            echo "::notice::Tab 'Flash Sale' (抢购) IS visible in UI hierarchy"
+        else
+            echo "::warning::Tab 'Flash Sale' (抢购) NOT found in UI hierarchy"
+            echo "--- dump snippet (text attributes only) ---"
+            grep -oE 'text="[^"]*"' "$GITHUB_WORKSPACE/ui_dump.xml" | head -60 || true
+        fi
+    else
+        echo "::warning::uiautomator dump failed (no ui_dump.xml produced)"
+    fi
+    echo "::endgroup::"
+
+    echo "::group::Screenshot"
+    adb exec-out screencap -p > "$GITHUB_WORKSPACE/screenshot.png" 2>/dev/null
+    if [ -s "$GITHUB_WORKSPACE/screenshot.png" ]; then
+        echo "::notice::Screenshot captured => $GITHUB_WORKSPACE/screenshot.png"
+    else
+        echo "::warning::screencap produced no image"
+    fi
+    echo "::endgroup::"
+fi
+
 echo "::group::logcat ERROR+FATAL (the crash stack)"
 adb logcat -d *:E AndroidRuntime:E | grep -iE 'AndroidRuntime|FATAL|Exception|Caused by|at org\.autojs|at com\.simple|Process: com\.simple' || echo "(no AndroidRuntime FATAL lines found)"
 echo "::endgroup::"

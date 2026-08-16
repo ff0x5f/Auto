@@ -151,5 +151,7 @@ jobs:
           path: |
             ${{ github.workspace }}/full-logcat.txt
             ${{ github.workspace }}/crash.log
+            ${{ github.workspace }}/ui_dump.xml
+            ${{ github.workspace }}/screenshot.png
           if-no-files-found: warn
 
