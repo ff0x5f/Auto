@@ -35,13 +35,31 @@ echo "::group::Clear logcat"
 adb logcat -c
 echo "::endgroup::"
 
-echo "::group::Launch app (com.simple.process)"
+# Warm-start: the first launch pays a ~17s ART cold-start cost (dex load,
+# native loader config) that on a weak CI emulator drags system processes
+# (phone/bluetooth/systemui) into an "isn't responding" ANR dialog that
+# covers our main interface and breaks the UI dump. Start once, let ART
+# finish, force-stop, clear logcat — the second launch's dex is already
+# cached so MainActivity reaches the foreground before any system ANR.
+echo "::group::Warm-start app (prime ART/dex cache)"
+adb shell am start -n com.simple.process/org.autojs.autojs.ui.splash.SplashActivity -a android.intent.action.MAIN -c android.intent.category.LAUNCHER >/dev/null 2>&1
+echo "warm-start am start sent, waiting 45s for ART to finish dex/native load..."
+sleep 45
+adb shell am force-stop com.simple.process >/dev/null 2>&1
+echo "warm-start force-stop sent"
+echo "::endgroup::"
+
+echo "::group::Clear logcat"
+adb logcat -c
+echo "::endgroup::"
+
+echo "::group::Launch app (com.simple.process) — real run"
 adb shell am start -n com.simple.process/org.autojs.autojs.ui.splash.SplashActivity -a android.intent.action.MAIN -c android.intent.category.LAUNCHER
 echo "am start rc=$?"
 echo "::endgroup::"
 
-echo "Waiting 40s for app to pass splash and finish Application.onCreate init chain..."
-sleep 40
+echo "Waiting 20s for app to pass splash and finish Application.onCreate init chain..."
+sleep 20
 
 echo "::group::Process alive check"
 PID="$(adb shell pidof com.simple.process | tr -d '\r')"
@@ -98,58 +116,81 @@ if [ -n "$PID" ]; then
     echo "::endgroup::"
 fi
 
-# UI verification: only meaningful if the process survived. Dump the on-screen
-# view hierarchy and confirm the "Flash Sale" (抢购) Tab — added by wiring
-# SnipeFragment into MainActivity's ViewPager — actually renders. TabLayout
-# renders every Tab title regardless of selection, so no simulated tap needed.
+# UI verification — this is now a gating check, not just observation. The CI
+# job is green only if MainActivity's ViewPager is visible with the "抢购"
+# (Flash Sale) Tab — the Tab added by wiring SnipeFragment in. TabLayout
+# renders every Tab title regardless of selection, so we don't tap to select.
 #
-# If the init chain stalled the main thread enough to trip a systemui ANR,
-# the emulator draws a "System UI isn't responding" dialog over our main
-# interface and the dump comes back as just that dialog. Try to dismiss it
-# first, then re-dump, so we don't report a false negative.
+# Strategy: dump up to 6 rounds. Each round, if a system "... isn't responding"
+# ANR dialog is covering our UI, locate the "Wait" / "Close app" button by
+# parsing the dump (not hardcoded coords — robust to resolution) and tap it
+# to dismiss, then re-dump. The 6 rounds span the post-warm-start window; if
+# none of them show the Tab, the verify FAILS the job (exit 2).
+SNIPE_HIT=0
+SNIPE_VERDICT_REASON=""
 if [ -n "$PID" ]; then
     echo "::group::UI hierarchy — verify 'Flash Sale' (抢购) Tab"
-    adb shell uiautomator dump /sdcard/ui_dump.xml >/dev/null 2>&1
-    adb pull /sdcard/ui_dump.xml "$GITHUB_WORKSPACE/ui_dump.xml" >/dev/null 2>&1
 
-    SNIPE_HIT=0
-    [ -s "$GITHUB_WORKSPACE/ui_dump.xml" ] && grep -qE 'Flash Sale|抢购' "$GITHUB_WORKSPACE/ui_dump.xml" && SNIPE_HIT=1
-
-    if [ "$SNIPE_HIT" = "0" ] && [ "$DUMP_BLOCKED" = "1" ]; then
-        echo "Snipe Tab not visible AND systemui ANR fired — dismissing ANR dialog and re-dumping..."
-        ANR_WAIT_Y=80   # near bottom of screen where the 'Wait' button sits
-        adb exec-out uiautomator dump /dev/tty >/dev/null 2>&1
-        # 'Wait' is typically the negative button, lower-left on the dialog.
-        adb shell input tap 540 1640 >/dev/null 2>&1
-        sleep 5
+    for attempt in 1 2 3 4 5 6; do
         adb shell uiautomator dump /sdcard/ui_dump.xml >/dev/null 2>&1
         adb pull /sdcard/ui_dump.xml "$GITHUB_WORKSPACE/ui_dump.xml" >/dev/null 2>&1
-        [ -s "$GITHUB_WORKSPACE/ui_dump.xml" ] && grep -qE 'Flash Sale|抢购' "$GITHUB_WORKSPACE/ui_dump.xml" && SNIPE_HIT=1
-    fi
-
-    if [ -s "$GITHUB_WORKSPACE/ui_dump.xml" ]; then
-        if [ "$SNIPE_HIT" = "1" ]; then
-            echo "::notice::Tab 'Flash Sale' (抢购) IS visible in UI hierarchy"
-        elif [ "$DUMP_BLOCKED" = "1" ]; then
-            echo "::warning::Tab 'Flash Sale' (抢购) NOT found — main interface blocked by systemui ANR (onCreate init chain stalled main thread)"
-        else
-            echo "::warning::Tab 'Flash Sale' (抢购) NOT found in UI hierarchy (no ANR detected — UI may not have reached MainActivity)"
+        if [ ! -s "$GITHUB_WORKSPACE/ui_dump.xml" ]; then
+            echo "attempt $attempt: dump produced nothing, retrying..."
+            sleep 5
+            continue
         fi
-        echo "--- dump snippet (text attributes only) ---"
-        grep -oE 'text="[^"]*"' "$GITHUB_WORKSPACE/ui_dump.xml" | head -60 || true
+        if grep -qE 'Flash Sale|抢购' "$GITHUB_WORKSPACE/ui_dump.xml"; then
+            SNIPE_HIT=1
+            echo "::notice::attempt $attempt: Tab 'Flash Sale' (抢购) IS visible"
+            break
+        fi
+
+        # Not visible — maybe an ANR dialog is on top. Find the dismiss button
+        # coords from the dump itself (bounds="[x1,y1][x2,y2]") so we're not
+        # tied to a specific emulator resolution.
+        BTN_XML=$(awk -F'"' '/text="Wait"|text="Close app"/{found=1} found && /bounds=/{print; exit}' "$GITHUB_WORKSPACE/ui_dump.xml")
+        if [ -n "$BTN_XML" ]; then
+            BOUNDS=$(echo "$BTN_XML" | grep -oE 'bounds="\[[0-9]+,[0-9]+\]\[[0-9]+,[0-9]+\]"' | grep -oE '[0-9]+,[0-9]+ [0-9]+,[0-9]+')
+            X1=$(echo "$BOUNDS" | awk '{print $1}' | cut -d, -f1)
+            Y1=$(echo "$BOUNDS" | awk '{print $1}' | cut -d, -f2)
+            X2=$(echo "$BOUNDS" | awk '{print $2}' | cut -d, -f1)
+            Y2=$(echo "$BOUNDS" | awk '{print $2}' | cut -d, -f2)
+            CX=$(( (X1 + X2) / 2 ))
+            CY=$(( (Y1 + Y2) / 2 ))
+            BTN_TXT=$(echo "$BTN_XML" | grep -oE 'text="[^"]*"' | head -1)
+            echo "attempt $attempt: no snipe Tab; ANR dialog $BTN_TXT at ($CX,$CY) — tapping to dismiss..."
+            adb shell input tap $CX $CY >/dev/null 2>&1
+            sleep 8
+            continue
+        fi
+        # No snipe Tab, no ANR button — main interface may simply not be there yet.
+        echo "attempt $attempt: no snipe Tab, no ANR dialog — main interface not yet visible, retrying..."
+        # Take a fresh screenshot on each attempt so failures include evidence.
+        adb exec-out screencap -p > "$GITHUB_WORKSPACE/screenshot_attempt${attempt}.png" 2>/dev/null
+        sleep 6
+    done
+
+    if [ "$SNIPE_HIT" = "1" ]; then
+        echo "::notice::Tab 'Flash Sale' (抢购) IS visible in UI hierarchy"
     else
-        echo "::warning::uiautomator dump failed (no ui_dump.xml produced)"
+        echo "::error::Tab 'Flash Sale' (抢购) NOT visible after 6 dump attempts — verification FAILED"
+        SNIPE_VERDICT_REASON="snipe-tab-not-visible"
     fi
+    echo "--- final dump snippet (text attributes only) ---"
+    [ -s "$GITHUB_WORKSPACE/ui_dump.xml" ] && grep -oE 'text="[^"]*"' "$GITHUB_WORKSPACE/ui_dump.xml" | head -60 || echo "(no ui_dump.xml)"
     echo "::endgroup::"
 
-    echo "::group::Screenshot"
+    echo "::group::Final screenshot"
     adb exec-out screencap -p > "$GITHUB_WORKSPACE/screenshot.png" 2>/dev/null
     if [ -s "$GITHUB_WORKSPACE/screenshot.png" ]; then
-        echo "::notice::Screenshot captured => $GITHUB_WORKSPACE/screenshot.png"
+        echo "::notice::Final screenshot captured => $GITHUB_WORKSPACE/screenshot.png"
     else
         echo "::warning::screencap produced no image"
     fi
     echo "::endgroup::"
+else
+    echo "::error::App process not alive — cannot verify UI (startup crash)"
+    SNIPE_VERDICT_REASON="app-not-alive"
 fi
 
 echo "::group::logcat ERROR+FATAL (the crash stack)"
@@ -163,4 +204,14 @@ echo "::endgroup::"
 # Persist logs to the workspace so the artifact step can upload them.
 adb logcat -d -v time > "$GITHUB_WORKSPACE/full-logcat.txt"
 adb logcat -d *:E AndroidRuntime:E > "$GITHUB_WORKSPACE/crash.log"
+
+# Hard gate: UI verification failed (no snipe Tab visible after warm-start +
+# 6 dump rounds, OR app process died). Surface this as a job failure so the
+# workflow run goes red and PR merge is blocked. Diagnostic-only signals
+# (ANR counts, onCreate duration, resource-id warnings) are advisory and do
+# not affect the exit code.
+if [ -n "$SNIPE_VERDICT_REASON" ]; then
+    echo "::error::UI verification FAILED (reason: $SNIPE_VERDICT_REASON) — failing the job"
+    exit 2
+fi
 exit 0

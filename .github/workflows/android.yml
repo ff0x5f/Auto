@@ -96,15 +96,16 @@ jobs:
   #         name: AutoJs6-x86_64
   #         path: app/build/outputs/apk/app/debug/simple-process-x86_64.apk
 
-  # Diagnoses app startup crashes by launching the APK on an emulator and
-  # dumping `adb logcat` so the FATAL EXCEPTION stack trace lands in the
-  # workflow log. Independent of test/instrumented-test/build so it never
-  # blocks them; continue-on-error keeps the run green even if the app
-  # crashes (the whole point is to capture that crash).
+  # Gates the build: launches the APK on an emulator, warm-starts once to
+  # prime ART/dex cache (so the second launch isn't dominated by 17s of
+  # cold-start that drags system processes into ANR), then verifies that
+  # MainActivity reaches the foreground with the "Flash Sale" (抢购) Tab
+  # visible. Failure (Java crash, no process, or Tab missing) fails the
+  # job — this is the gating check that protects the snipe feature.
+  # Independent of test/instrumented-test/build so it never blocks them.
   startup-diagnosis:
     runs-on: ubuntu-latest
     timeout-minutes: 40
-    continue-on-error: true
     steps:
       - uses: actions/checkout@v4
 
