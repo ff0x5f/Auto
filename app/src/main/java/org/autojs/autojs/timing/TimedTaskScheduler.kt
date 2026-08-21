@@ -28,6 +28,15 @@ object TimedTaskScheduler {
     private const val MAX_ALARM_SLOTS = 450
 
     fun init(context: Context) {
+        // Heavy work (backend init + Room-backed checkTasks) is kicked off
+        // on a background thread so Application.onCreate can return to the
+        // Looper promptly. Previously this blocked the main thread for
+        // seconds on cold start, dragging the UI into an ANR dialog on
+        // slow CI emulators before MainActivity could draw.
+        Thread({ initInBackground(context) }, "TimedTaskScheduler-init").start()
+    }
+
+    private fun initInBackground(context: Context) {
         val backend = run initBackend@{
             val keyRes = R.string.key_timed_task_backend
             val defRes = R.string.default_key_timed_task_backend

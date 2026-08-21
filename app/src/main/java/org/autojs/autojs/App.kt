@@ -126,6 +126,9 @@ class App : MultiDexApplication() {
         val localActions = ArrayList<String>()
         val systemActions = ArrayList<String>()
         TimedTaskManager.allIntentTasks
+            // Force the upstream Room/SharedFlow emission off the main
+            // thread so Application.onCreate doesn't stall waiting for it.
+            .subscribeOn(io.reactivex.schedulers.Schedulers.io())
             .filter { task -> task.action != null }
             .doOnComplete {
                 if (localActions.isNotEmpty()) {
