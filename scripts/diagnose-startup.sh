@@ -83,6 +83,9 @@ if [ -n "$PID" ]; then
     echo "--- app onCreate bookends (PID $PID) ---"
     grep -E "\(\s*${PID}\):.*(App onCreate|attachBaseContext|TimedTaskScheduler|AutoJs isInitialized|WrappingShizuku.*onCreate|AbstractAutoJs|ScriptRuntime)" "$LOG" | head -40 || echo "(none)"
 
+    echo "--- per-step timing (AppInit tag) ---"
+    grep -E "AppInit" "$LOG" | head -30 || echo "(no AppInit timing lines — App.onCreate never reached its first log call)"
+
     # Stalled-input symptom: systemui ANR dialog drawn over our main interface.
     DUMP_BLOCKED=0
     if grep -qiE "ANR in com\.(simple|android\.systemui|android\.bluetooth)" "$LOG"; then

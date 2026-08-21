@@ -37,6 +37,8 @@ object TimedTaskScheduler {
     }
 
     private fun initInBackground(context: Context) {
+        val startedBg = System.nanoTime()
+        android.util.Log.d("AppInit", "[bg 0ms] TimedTaskScheduler backend init start")
         val backend = run initBackend@{
             val keyRes = R.string.key_timed_task_backend
             val defRes = R.string.default_key_timed_task_backend
@@ -53,6 +55,7 @@ object TimedTaskScheduler {
         backend.schedulePeriodicCheck(context, SCHEDULE_PERIODIC_CHECK_TIME)
 
         checkTasks(context, true)
+        android.util.Log.d("AppInit", "[bg ${(System.nanoTime() - startedBg) / 1_000_000L}ms] TimedTaskScheduler backend init done")
     }
 
     @JvmStatic

@@ -54,6 +54,7 @@ class App : MultiDexApplication() {
 
     override fun onCreate() {
         super.onCreate()
+        onCreateStartNanos = System.nanoTime()
 
         GlobalAppContext.set(this)
         instance = WeakReference(this)
@@ -64,30 +65,51 @@ class App : MultiDexApplication() {
                 setUpDefaultNightMode()
             }
             else /* Main process. */ -> {
+                Log.d("AppInit", "[0ms] onCreate entered (PID ${android.os.Process.myPid()})")
                 if (AbstractAutoJs.isInrt) {
                     InrtPref.syncLaunchConfigWithBuild()
                     InrtShortcuts.syncToExplicitIntents()
                 }
+                Log.d("AppInit", "[${now()}] setUpDebugEnvironment…")
                 setUpDebugEnvironment()
+                Log.d("AppInit", "[${now()}] setUpLeakCanary…")
                 setUpLeakCanary()
-
+                Log.d("AppInit", "[${now()}] AutoJs.initInstance…")
                 AutoJs.initInstance(this)
+                Log.d("AppInit", "[${now()}] GlobalKeyObserver.initIfNeeded…")
                 GlobalKeyObserver.initIfNeeded(applicationContext)
+                Log.d("AppInit", "[${now()}] setupDrawableImageLoader…")
                 setupDrawableImageLoader()
+                Log.d("AppInit", "[${now()}] TimedTaskScheduler.init (off-main-thread)…")
                 TimedTaskScheduler.init(this)
+                Log.d("AppInit", "[${now()}] initDynamicBroadcastReceivers (subscribeOn io)…")
                 initDynamicBroadcastReceivers()
+                Log.d("AppInit", "[${now()}] initMlKitContext…")
                 initMlKitContext()
+                Log.d("AppInit", "[${now()}] Toaster.init…")
                 Toaster.init(this)
 
+                Log.d("AppInit", "[${now()}] ThemeColorManager.init…")
                 ThemeColorManager.init()
+                Log.d("AppInit", "[${now()}] setUpDefaultNightMode…")
                 setUpDefaultNightMode()
 
+                Log.d("AppInit", "[${now()}] HistoryCleanupScheduler (startup)…")
                 HistoryCleanupScheduler.scheduleStartupCleanup(this)
+                Log.d("AppInit", "[${now()}] HistoryCleanupScheduler (periodic)…")
                 HistoryCleanupScheduler.schedulePeriodicCleanup(this)
+                Log.d("AppInit", "[${now()}] TmpScriptFilesCleanupScheduler (startup)…")
                 TmpScriptFilesCleanupScheduler.scheduleStartupCleanup(this)
+                Log.d("AppInit", "[${now()}] TmpScriptFilesCleanupScheduler (periodic)…")
                 TmpScriptFilesCleanupScheduler.schedulePeriodicCleanup(this)
+                Log.d("AppInit", "[${now()}] onCreate FINISHED")
             }
         }
+    }
+
+    private var onCreateStartNanos = 0L
+    private fun now(): Long {
+        return (System.nanoTime() - onCreateStartNanos) / 1_000_000L
     }
 
     override fun attachBaseContext(base: Context) {
