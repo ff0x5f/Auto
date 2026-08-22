@@ -1,0 +1,34 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Debug-only manifest overlay for the appDebug variant (used by CI).
+
+         The LeakCanary AppWatcherInstallerMain removal and the ShizukuProvider
+         removal below apply ONLY to debug builds; release/main builds keep both.
+         The motivation is to stop a slow CI emulator's main thread from being
+         stalled by these ContentProviders' setup during application attach —
+         they can push the main thread past the 5s ANR threshold and cause an
+         "<appname> isn't responding" dialog before MainActivity draws. -->
+
+    <application
+        android:name="org.autojs.autojs.App"
+        tools:node="merge">
+
+        <!-- LeakCanary auto-installs AppWatcherInstallerMain ContentProvider,
+             whose object-graph scan runs on the main thread during attach.
+             Remove it for debug-only; release variant does not include
+             leakcanary so this is a no-op for release. -->
+        <provider
+            android:name="leakcanary.internal.AppWatcherInstallerMain"
+            tools:node="remove" />
+
+        <!-- ShizukuProvider is required by Shizuku on real devices; remove it
+             for debug-only because the CI emulator has no Shizuku/Sui installed
+             and the provider's instance-time setup is non-trivial. -->
+        <provider
+            android:name="rikka.shizuku.ShizukuProvider"
+            tools:node="remove" />
+
+    </application>
+
+</manifest>
