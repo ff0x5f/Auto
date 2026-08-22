@@ -182,11 +182,24 @@ open class AutoJs(appContext: Application) : AbstractAutoJs(appContext) {
         fun initInstance(application: Application) {
             Log.d(TAG, "AutoJs isInitialized: $isInitialized")
             if (!isInitialized) {
-                instance = when (isInrt) {
-                    true -> AutoJsInrt(application)
-                    else -> AutoJs(application)
-                }
-                isInitialized = true
+                // AutoJs(application) constructs the AbstractAutoJs graph including
+                // Rhino's Interpreter + ScriptRuntime.augment — both ship with
+                // multi-hundred-ms class verification on first load. Doing it on
+                // the main thread here pushed Application.onCreate past the 5s ANR
+                // threshold on slow devices, so the system showed "<appname> isn't
+                // responding" before MainActivity could draw. Move the construction
+                // off the main thread; the first AutoJs.instance access that needs
+                // the engine happens from Fragment.onViewCreated, which only runs
+                // after Activity.onCreate finishes — by then this background thread
+                // is done. SplashActivity / MainActivity never touch the field.
+                Thread({
+                    Log.d(TAG, "AutoJs isInitialized: $isInitialized (bg init)")
+                    val new = if (isInrt) AutoJsInrt(application) else AutoJs(application)
+                    synchronized(this@Companion) {
+                        instance = new
+                        isInitialized = true
+                    }
+                }, "AutoJs-init").start()
             }
         }
     }
