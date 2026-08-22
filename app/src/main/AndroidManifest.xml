@@ -212,6 +212,16 @@
         android:theme="@style/AppTheme"
         android:localeConfig="@xml/locales_config"
         android:usesCleartextTraffic="true"
+        tools:node="merge">
+        <!-- LeakCanary auto-installs an AppWatcherInstallerMain ContentProvider that runs
+             its object-graph scan on the main thread during application attach. On slow CI
+             emulators this stalls Application.onCreate for 2+ seconds and the system throws
+             an "AutoJs6 Alt isn't responding" ANR dialog before MainActivity can draw. Remove
+             the auto-installer here; the LeakCanarySetup object still calls into LeakCanary
+             from Application.onCreate so users can opt in manually if needed. -->
+        <provider
+            android:name="leakcanary.internal.AppWatcherInstallerMain"
+            tools:node="remove" />
         tools:ignore="DataExtractionRules"
         tools:targetApi="tiramisu">
 
