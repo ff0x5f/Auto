@@ -132,6 +132,18 @@ jobs:
           cp app/build/outputs/apk/app/debug/*-x86_64.apk built-apk/app-debug-x86_64.apk
           /usr/local/lib/android/sdk/build-tools/34.0.0/aapt dump badging built-apk/app-debug-x86_64.apk | grep -E 'package: name=|launchable-activity' || true
 
+      - name: Build arm64-v8a debug APK (for real-device install)
+        run: |
+          chmod +x gradlew
+          ./gradlew :app:assembleAppDebug \
+            -q \
+            -Pandroid.injected.abi.list=arm64-v8a \
+            --no-daemon \
+            --warning-mode=none \
+            2>&1 | grep -v "^WARNING:" | grep -v "D8:" | grep -v "Unexpected error during rewriting of Kotlin metadata"
+          cp app/build/outputs/apk/app/debug/*-arm64-v8a.apk built-apk/app-debug-arm64-v8a.apk
+          /usr/local/lib/android/sdk/build-tools/34.0.0/aapt dump badging built-apk/app-debug-arm64-v8a.apk | grep -E 'package: name=|launchable-activity' || true
+
       - name: Launch app on emulator and capture crash stack
         uses: reactivecircus/android-emulator-runner@v2
         with:
@@ -155,5 +167,7 @@ jobs:
             ${{ github.workspace }}/init-log.txt
             ${{ github.workspace }}/ui_dump.xml
             ${{ github.workspace }}/screenshot.png
+            ${{ github.workspace }}/built-apk/app-debug-x86_64.apk
+            ${{ github.workspace }}/built-apk/app-debug-arm64-v8a.apk
           if-no-files-found: warn
 
